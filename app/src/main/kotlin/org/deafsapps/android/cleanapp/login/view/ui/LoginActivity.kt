@@ -1,10 +1,10 @@
-package org.deafsapps.android.cleanapp
+package org.deafsapps.android.cleanapp.login.view.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import org.deafsapps.android.cleanapp.R
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
