@@ -45,6 +45,8 @@ dokka {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$androidxappcompat_version"
+    // other modules
+    implementation project(':data')
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:$androidxtestrunner_version"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"

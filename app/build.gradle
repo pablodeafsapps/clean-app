@@ -47,6 +47,8 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidxappcompat_version"
     implementation "androidx.core:core-ktx:$androidxcore_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidxconstraintlayout_version"
+    // other modules
+    implementation project(':domain')
     // Room
     implementation "android.arch.persistence.room:runtime:$room_version"
     // 3rd party libraries
