@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">clean-app</string>
     <!-- activity_login -->
     <string name="tv_activity_login_place_holder_text">activity_login</string>
     <string name="btn_login_text">Login</string>

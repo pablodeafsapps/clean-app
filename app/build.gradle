@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jetbrains.dokka'
+//Add overlaid launcher icons feature
+apply plugin: 'com.github.gfx.ribbonizer'
 
 android {
     compileSdkVersion compilesdk_version
@@ -25,12 +25,7 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        test.java.srcDirs += 'src/test/kotlin'
     }
-}
-
-androidExtensions {
-    experimental = true
 }
 
 dokka {
@@ -43,18 +38,11 @@ dokka {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.anko:anko:$anko_version"
-    implementation "androidx.appcompat:appcompat:$androidxappcompat_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     // other modules
     implementation project(':presentation-layer')
     implementation project(':domain-layer')
     implementation project(':data-layer')
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
-    // testing dependencies
-    testImplementation "junit:junit:$junit_version"
-    // koin testing tools
-    testImplementation "org.koin:koin-test:$koin_version"
-    testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
 }

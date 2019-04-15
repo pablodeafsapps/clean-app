@@ -8,4 +8,6 @@ class LoginUserApiUc : DomainLayerContract.UseCase, KoinComponent {
 
     private val repository: DomainLayerContract.Repository by inject()
 
+    override suspend fun enqueue() = repository.loginUser()
+
 }

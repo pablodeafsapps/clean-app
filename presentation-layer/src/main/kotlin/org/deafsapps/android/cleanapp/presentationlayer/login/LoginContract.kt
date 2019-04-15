@@ -1,7 +1,7 @@
 package org.deafsapps.android.cleanapp.presentationlayer.login
 
-import org.deafsapps.android.cleanapp.presentationlayer.login.base.MvpPresenter
-import org.deafsapps.android.cleanapp.presentationlayer.login.base.MvpView
+import org.deafsapps.android.cleanapp.presentationlayer.base.MvpPresenter
+import org.deafsapps.android.cleanapp.presentationlayer.base.MvpView
 
 interface LoginContract {
 

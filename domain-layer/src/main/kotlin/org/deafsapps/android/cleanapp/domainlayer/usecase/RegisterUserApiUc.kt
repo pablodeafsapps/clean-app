@@ -8,4 +8,8 @@ class RegisterUserApiUc : DomainLayerContract.UseCase, KoinComponent {
 
     private val repository: DomainLayerContract.Repository by inject()
 
+    override suspend fun enqueue() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

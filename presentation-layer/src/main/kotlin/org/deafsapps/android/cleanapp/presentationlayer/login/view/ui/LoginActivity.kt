@@ -84,4 +84,10 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         etPassword?.setText("")
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        loginPresenter.onDetach()
+    }
+
 }
