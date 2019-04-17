@@ -14,7 +14,7 @@ buildscript {
         coroutines_version = '1.1.1'
         lifecycle_version = '1.1.1'
         room_version = '1.1.1'
-        googleservices_version = '3.1.0'
+        googleservices_version = '4.0.1'
         firebasecore_version = '16.0.8'
         firebaseauth_version = '16.2.1'
         koin_version = '1.0.2'
@@ -33,6 +33,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.gms:google-services:$googleservices_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:$ribbonizer_version"
     }

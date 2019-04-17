@@ -7,14 +7,15 @@ interface DomainLayerContract {
 
     interface UseCase {
 
-        suspend fun enqueue(): Either<Failure, Boolean>
+        fun <Params> invoke(params: Params? = null, onResult: (Either<Failure, Boolean>) -> Unit)
+        suspend fun <Params> run(params: Params): Either<Failure, Boolean>
 
     }
 
     interface Domain
 
     interface Repository {
-        fun loginUser(): Either<Failure, Boolean>
+        fun <Params> loginUser(params: Params? = null): Either<Failure, Boolean>
     }
 
 }

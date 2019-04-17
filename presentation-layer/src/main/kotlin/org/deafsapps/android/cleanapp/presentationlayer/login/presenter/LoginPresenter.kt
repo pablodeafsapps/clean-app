@@ -1,9 +1,11 @@
 package org.deafsapps.android.cleanapp.presentationlayer.login.presenter
 
+import android.util.Log
 import org.deafsapps.android.cleanapp.domainlayer.feature.LoginDomainLayerBridge
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
+import timber.log.Timber
 
 class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Presenter, KoinComponent {
 
@@ -15,13 +17,19 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
 
     override fun onButtonClicked(action: LoginContract.Action, email: String?, password: String?) {
         when (action) {
-            LoginContract.Action.LOGIN -> loginUserWithData()
+            LoginContract.Action.LOGIN -> loginUserWithData(email, password)
             LoginContract.Action.REGISTER -> TODO()
         }
     }
 
-    private fun loginUserWithData() {
-        loginDomainLayerBridge.loginUser()
+    private fun loginUserWithData(email: String?, password: String?) {
+        loginDomainLayerBridge.loginUser { result ->
+            if (result.isRight) {
+                view?.showInfoMessage("OK")
+            } else {
+                view?.showInfoMessage("ERROR")
+            }
+        }
     }
 
     override fun onToggleModeTapped(isLoginMode: Boolean) {

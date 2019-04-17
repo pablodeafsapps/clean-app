@@ -44,5 +44,8 @@ dependencies {
     implementation project(':domain-layer')
     implementation project(':data-layer')
     // 3rd party libraries
+    implementation "com.google.firebase:firebase-core:$firebasecore_version"
     implementation "org.koin:koin-android:$koin_version"
 }
+
+apply plugin: 'com.google.gms.google-services'

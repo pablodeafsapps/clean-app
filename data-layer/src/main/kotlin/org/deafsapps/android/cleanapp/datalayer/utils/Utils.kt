@@ -1,4 +1,4 @@
-package org.deafsapps.android.cleanapp.utils
+package org.deafsapps.android.cleanapp.datalayer.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

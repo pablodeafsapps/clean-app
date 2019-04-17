@@ -11,11 +11,12 @@ class Repository : DomainLayerContract.Repository, KoinComponent {
 
     private val firebaseDataSource: DataLayerContract.DataSource by inject("firebaseDataSource")
 
-    override fun loginUser(): Either<Failure, Boolean> {
-        return firebaseDataSource.request("", "")?.let {
-            Either.Right(it)
+    override fun <Params> loginUser(params: Params?): Either<Failure, Boolean> {
+        return firebaseDataSource.request("pablo@mytest.com" , "pablomytest")?.let {
+//        return firebaseDataSource.request("pablo@mytest.com" , "wrongpass")?.let {
+            if (it) Either.Right(it) else Either.Left(Failure.FirebaseLoginError)
         } ?: run {
-            Either.Left(Failure.FirebaseLoginError)
+            Either.Left(Failure.Unknown )
         }
     }
 

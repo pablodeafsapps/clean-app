@@ -45,7 +45,6 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidxappcompat_version"
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
-    implementation "com.google.firebase:firebase-core:$firebasecore_version"
     implementation "com.google.firebase:firebase-auth:$firebaseauth_version"
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
