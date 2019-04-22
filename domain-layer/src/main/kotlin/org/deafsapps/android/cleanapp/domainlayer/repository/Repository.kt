@@ -7,7 +7,7 @@ import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class Repository : DomainLayerContract.Repository, KoinComponent {
+object Repository : DomainLayerContract.Repository, KoinComponent {
 
     private val firebaseDataSource: DataLayerContract.DataSource by inject("firebaseDataSource")
 

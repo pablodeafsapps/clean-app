@@ -1,11 +1,9 @@
 package org.deafsapps.android.cleanapp.presentationlayer.login.presenter
 
-import android.util.Log
 import org.deafsapps.android.cleanapp.domainlayer.feature.LoginDomainLayerBridge
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
-import timber.log.Timber
 
 class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Presenter, KoinComponent {
 

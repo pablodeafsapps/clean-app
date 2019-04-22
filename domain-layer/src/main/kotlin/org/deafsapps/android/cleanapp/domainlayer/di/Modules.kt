@@ -14,5 +14,5 @@ val domainLayerModule = module(override = true) {
     factory<DomainLayerContract.UseCase>("loginUserApiUc") { LoginUserApiUc() }
     factory<DomainLayerContract.UseCase>("registerUserApiUc") { RegisterUserApiUc() }
 
-    single<DomainLayerContract.Repository> { Repository() }
+    single<DomainLayerContract.Repository> { Repository }
 }

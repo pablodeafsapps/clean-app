@@ -21,6 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
@@ -48,7 +49,7 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:$firebaseauth_version"
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
-    // koin testing tools
+    // Koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
 }
