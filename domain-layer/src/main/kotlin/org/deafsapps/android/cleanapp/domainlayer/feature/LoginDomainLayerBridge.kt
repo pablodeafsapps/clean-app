@@ -6,8 +6,8 @@ import org.deafsapps.android.cleanapp.domainlayer.base.Either
 
 interface LoginDomainLayerBridge : DomainLayerBridge {
 
-    fun loginUser(onResult: (Either<Failure, Boolean>) -> Unit)
+    fun <T>loginUser(params: List<T>, onResult: (Either<Failure, Boolean>) -> Unit)
 
-    fun registerUser(onResult: (Either<Failure, Boolean>) -> Unit)
+    fun <T>registerUser(params: List<T>, onResult: (Either<Failure, Boolean>) -> Unit)
 
 }

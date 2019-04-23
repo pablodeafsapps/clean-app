@@ -11,7 +11,7 @@ object Repository : DomainLayerContract.Repository, KoinComponent {
 
     private val firebaseDataSource: DataLayerContract.DataSource by inject("firebaseDataSource")
 
-    override fun <Params> loginUser(params: Params?): Either<Failure, Boolean> {
+    override fun <T> loginUser(params: List<T?>?): Either<Failure, Boolean> {
         return firebaseDataSource.request("pablo@mytest.com" , "pablomytest")?.let {
 //        return firebaseDataSource.request("pablo@mytest.com" , "wrongpass")?.let {
             if (it) Either.Right(it) else Either.Left(Failure.FirebaseLoginError)

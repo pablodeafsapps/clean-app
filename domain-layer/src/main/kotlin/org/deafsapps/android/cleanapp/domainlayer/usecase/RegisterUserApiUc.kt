@@ -10,11 +10,11 @@ class RegisterUserApiUc : DomainLayerContract.UseCase, KoinComponent {
 
     private val repository: DomainLayerContract.Repository by inject()
 
-    override fun <Params> invoke(params: Params?, onResult: (Either<Failure, Boolean>) -> Unit) {
+    override fun <T> invoke(params: List<T?>?, onResult: (Either<Failure, Boolean>) -> Unit) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun <Params> run(params: Params): Either<Failure, Boolean> {
+    override suspend fun <T> run(params: List<T?>?): Either<Failure, Boolean> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

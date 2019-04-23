@@ -14,7 +14,7 @@ class LoginUserApiUc : DomainLayerContract.UseCase, KoinComponent {
 
     private val repository: DomainLayerContract.Repository by inject()
 
-    override fun <Params> invoke(params: Params?, onResult: (Either<Failure, Boolean>) -> Unit) {
+    override fun <T> invoke(params: List<T?>?, onResult: (Either<Failure, Boolean>) -> Unit) {
 
         val scope = CoroutineScope(Dispatchers.IO)
         // task undertaken in a worker thread
@@ -24,6 +24,6 @@ class LoginUserApiUc : DomainLayerContract.UseCase, KoinComponent {
 
     }
 
-    override suspend fun <Params> run(params: Params): Either<Failure, Boolean> = repository.loginUser(params)
+    override suspend fun <T> run(params: List<T?>?): Either<Failure, Boolean> = repository.loginUser(params)
 
 }

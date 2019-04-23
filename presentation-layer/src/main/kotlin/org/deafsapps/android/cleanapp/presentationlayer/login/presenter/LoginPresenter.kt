@@ -16,16 +16,26 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     override fun onButtonClicked(action: LoginContract.Action, email: String?, password: String?) {
         when (action) {
             LoginContract.Action.LOGIN -> loginUserWithData(email, password)
-            LoginContract.Action.REGISTER -> TODO()
+            LoginContract.Action.REGISTER -> registerUserWithData(email, password)
         }
     }
 
     private fun loginUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.loginUser { result ->
+        loginDomainLayerBridge.loginUser(listOf(email, password)) { result ->
             if (result.isRight) {
-                view?.showInfoMessage("OK")
+                view?.showInfoMessage("LOGIN OK")
             } else {
-                view?.showInfoMessage("ERROR")
+                view?.showInfoMessage("LOGIN ERROR")
+            }
+        }
+    }
+
+    private fun registerUserWithData(email: String?, password: String?) {
+        loginDomainLayerBridge.registerUser(listOf(email, password)) { result ->
+            if (result.isRight) {
+                view?.showInfoMessage("REGISTER OK")
+            } else {
+                view?.showInfoMessage("REGISTER ERROR")
             }
         }
     }
