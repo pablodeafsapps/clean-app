@@ -6,16 +6,16 @@ import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class LoginDomainLayerBridgeImpl : LoginDomainLayerBridge, KoinComponent {
+class LoginDomainLayerBridgeImpl : LoginDomainLayerBridge<String?>, KoinComponent {
 
-    private val loginUserApiUc: DomainLayerContract.UseCase by inject("loginUserApiUc")
-    private val registerUserApiUc: DomainLayerContract.UseCase by inject("registerUserApiUc")
+    private val loginUserApiUc: DomainLayerContract.UseCase<String?> by inject("loginUserApiUc")
+    private val registerUserApiUc: DomainLayerContract.UseCase<String?> by inject("registerUserApiUc")
 
-    override fun <T> loginUser(params: List<T>, onResult: (Either<Failure, Boolean>) -> Unit) {
+    override fun loginUser(params: List<String?>, onResult: (Either<Failure, Boolean>) -> Unit) {
         loginUserApiUc.invoke(params = params, onResult = onResult)
     }
 
-    override fun <T> registerUser(params: List<T>, onResult: (Either<Failure, Boolean>) -> Unit) {
+    override fun registerUser(params: List<String?>, onResult: (Either<Failure, Boolean>) -> Unit) {
         registerUserApiUc.invoke(params = params, onResult = onResult)
     }
 

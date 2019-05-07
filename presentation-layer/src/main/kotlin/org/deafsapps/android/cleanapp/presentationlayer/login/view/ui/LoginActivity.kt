@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         setContentView(R.layout.activity_login)
 
         btnLogin?.setOnClickListener {
+            // correct login: pablo@mytest.com, pablomytest
             loginPresenter.onButtonClicked(
                 Action.LOGIN,
                 etEmail?.text?.toString(),

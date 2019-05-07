@@ -7,16 +7,15 @@ import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-object Repository : DomainLayerContract.Repository, KoinComponent {
+object Repository : DomainLayerContract.Repository<String>, KoinComponent {
 
     private val firebaseDataSource: DataLayerContract.DataSource by inject("firebaseDataSource")
 
-    override fun <T> loginUser(params: List<T?>?): Either<Failure, Boolean> {
-        return firebaseDataSource.request("pablo@mytest.com" , "pablomytest")?.let {
-//        return firebaseDataSource.request("pablo@mytest.com" , "wrongpass")?.let {
+    override fun loginUser(params: List<String>): Either<Failure, Boolean> {
+        return firebaseDataSource.request(email = params[0], password = params[1])?.let {
             if (it) Either.Right(it) else Either.Left(Failure.FirebaseLoginError)
         } ?: run {
-            Either.Left(Failure.Unknown )
+            Either.Left(Failure.Unknown)
         }
     }
 

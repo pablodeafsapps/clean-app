@@ -9,10 +9,10 @@ import org.deafsapps.android.cleanapp.domainlayer.usecase.RegisterUserApiUc
 import org.koin.dsl.module.module
 
 val domainLayerModule = module(override = true) {
-    factory<LoginDomainLayerBridge>("loginDomainLayerBridge") { LoginDomainLayerBridgeImpl() }
+    factory<LoginDomainLayerBridge<String?>>("loginDomainLayerBridge") { LoginDomainLayerBridgeImpl() }
 
-    factory<DomainLayerContract.UseCase>("loginUserApiUc") { LoginUserApiUc() }
-    factory<DomainLayerContract.UseCase>("registerUserApiUc") { RegisterUserApiUc() }
+    factory<DomainLayerContract.UseCase<String?>>("loginUserApiUc") { LoginUserApiUc() }
+    factory<DomainLayerContract.UseCase<String?>>("registerUserApiUc") { RegisterUserApiUc() }
 
-    single<DomainLayerContract.Repository> { Repository }
+    single<DomainLayerContract.Repository<String>> { Repository }
 }

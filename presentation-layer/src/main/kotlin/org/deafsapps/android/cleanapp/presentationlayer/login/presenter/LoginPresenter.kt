@@ -7,7 +7,7 @@ import org.koin.standalone.inject
 
 class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Presenter, KoinComponent {
 
-    private val loginDomainLayerBridge: LoginDomainLayerBridge by inject("loginDomainLayerBridge")
+    private val loginDomainLayerBridge: LoginDomainLayerBridge<String?> by inject("loginDomainLayerBridge")
 
     override fun onAttach(mvpView: LoginContract.View) {
         //No need to define it since 'view' is already injected through constructor

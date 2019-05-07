@@ -1,6 +1,9 @@
 package org.deafsapps.android.cleanapp.datalayer.datasource
 
 import android.content.Context
+import android.util.Log
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import org.deafsapps.android.cleanapp.datalayer.DataLayerContract
 import org.koin.standalone.KoinComponent
@@ -12,11 +15,14 @@ class FirebaseDataSource : DataLayerContract.DataSource, KoinComponent {
     private val fbAuth: FirebaseAuth? by lazy { FirebaseAuth.getInstance() }
 
     override fun request(email: String, password: String): Boolean? {
-        fbAuth?.signInWithEmailAndPassword(email, password)?.addOnCompleteListener {
-
+        return fbAuth?.run {
+            try {
+                Tasks.await<AuthResult>(signInWithEmailAndPassword(email, password)).user != null
+            } catch (e1: Exception) {
+                Log.w("FirebaseDataSource", e1.message)
+                null
+            }
         }
-
-        return false
     }
 
     /*

@@ -10,11 +10,12 @@ import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class LoginUserApiUc : DomainLayerContract.UseCase, KoinComponent {
+private const val REQUIRED_DATA = 2
 
-    private val repository: DomainLayerContract.Repository by inject()
+class LoginUserApiUc : DomainLayerContract.UseCase<String?>, KoinComponent {
+    private val repository: DomainLayerContract.Repository<String> by inject()
 
-    override fun <T> invoke(params: List<T?>?, onResult: (Either<Failure, Boolean>) -> Unit) {
+    override fun invoke(params: List<String?>?, onResult: (Either<Failure, Boolean>) -> Unit) {
 
         val scope = CoroutineScope(Dispatchers.IO)
         // task undertaken in a worker thread
@@ -24,6 +25,15 @@ class LoginUserApiUc : DomainLayerContract.UseCase, KoinComponent {
 
     }
 
-    override suspend fun <T> run(params: List<T?>?): Either<Failure, Boolean> = repository.loginUser(params)
+    override suspend fun run(params: List<String?>?): Either<Failure, Boolean> =
+        params?.filterNotNull()?.let {
+            if (it.size > REQUIRED_DATA) {
+                repository.loginUser(it)
+            } else {
+                Either.Left(Failure.Unknown)
+            }
+        } ?: run {
+            Either.Left(Failure.Unknown)
+        }
 
 }
