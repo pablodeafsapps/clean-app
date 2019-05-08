@@ -65,4 +65,5 @@ dependencies {
     // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }

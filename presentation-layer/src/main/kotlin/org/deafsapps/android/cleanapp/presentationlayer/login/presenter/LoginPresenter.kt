@@ -20,26 +20,6 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
         }
     }
 
-    private fun loginUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.loginUser(listOf(email, password)) { result ->
-            if (result.isRight) {
-                view?.showInfoMessage("LOGIN OK")
-            } else {
-                view?.showInfoMessage("LOGIN ERROR")
-            }
-        }
-    }
-
-    private fun registerUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.registerUser(listOf(email, password)) { result ->
-            if (result.isRight) {
-                view?.showInfoMessage("REGISTER OK")
-            } else {
-                view?.showInfoMessage("REGISTER ERROR")
-            }
-        }
-    }
-
     override fun onToggleModeTapped(isLoginMode: Boolean) {
         if (isLoginMode) {
             view?.showRegisterUi()
@@ -50,6 +30,30 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
 
     override fun onDetach() {
         view = null
+    }
+
+    private fun loginUserWithData(email: String?, password: String?) {
+        loginDomainLayerBridge.loginUser(listOf(email, password)) { result ->
+            if (result.isRight) {
+                navigateToMainActivity()
+            } else {
+                view?.showInfoMessage("LOGIN ERROR")
+            }
+        }
+    }
+
+    private fun registerUserWithData(email: String?, password: String?) {
+        loginDomainLayerBridge.registerUser(listOf(email, password)) { result ->
+            if (result.isRight) {
+                navigateToMainActivity()
+            } else {
+                view?.showInfoMessage("REGISTER ERROR")
+            }
+        }
+    }
+
+    private fun navigateToMainActivity() {
+        view?.navigateToMainActivity()
     }
 
 }

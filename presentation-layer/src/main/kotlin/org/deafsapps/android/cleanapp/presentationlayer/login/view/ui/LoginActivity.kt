@@ -5,12 +5,16 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import org.deafsapps.android.cleanapp.presentationlayer.MainActivity
 import org.deafsapps.android.cleanapp.presentationlayer.R
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract.Action
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+
+private const val EMPTY_STRING = ""
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
@@ -82,7 +86,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun clearTextFields() {
-        etPassword?.setText("")
+        etPassword?.setText(EMPTY_STRING)
+    }
+
+    override fun navigateToMainActivity() {
+        startActivity<MainActivity>()
     }
 
     override fun onDestroy() {

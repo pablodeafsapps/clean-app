@@ -14,6 +14,7 @@ interface DomainLayerContract {
 
     interface Repository<T> {
         fun loginUser(params: List<T>): Either<Failure, Boolean>
+        fun registerUser(params: List<T>): Either<Failure, Boolean>
     }
 
 }

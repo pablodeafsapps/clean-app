@@ -13,6 +13,7 @@ import org.koin.standalone.inject
 private const val REQUIRED_DATA = 2
 
 class LoginUserApiUc : DomainLayerContract.UseCase<String?>, KoinComponent {
+
     private val repository: DomainLayerContract.Repository<String> by inject()
 
     override fun invoke(params: List<String?>?, onResult: (Either<Failure, Boolean>) -> Unit) {

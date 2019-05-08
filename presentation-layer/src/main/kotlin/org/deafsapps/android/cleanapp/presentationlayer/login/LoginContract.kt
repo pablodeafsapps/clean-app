@@ -16,6 +16,7 @@ interface LoginContract {
         fun hideLoading()
         fun showInfoMessage(msg: String)
         fun clearTextFields()
+        fun navigateToMainActivity()
     }
 
     interface Presenter : MvpPresenter<View> {

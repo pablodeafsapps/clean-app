@@ -3,8 +3,10 @@
     <string name="tv_activity_login_place_holder_text">activity_login</string>
     <string name="btn_login_text">Login</string>
     <string name="btn_register_text">Register</string>
-    <string name="et_email_text">e-mail</string>
-    <string name="et_password_text">password</string>
+    <string name="et_email_hint">e-mail</string>
+    <string name="et_password_hint">password</string>
     <string name="tv_login_text">Login</string>
     <string name="tv_register_text">Register</string>
+    <!-- activity_main -->
+    <string name="tv_title_text">TODO - List</string>
 </resources>

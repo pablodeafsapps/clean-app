@@ -1,22 +1,34 @@
 package org.deafsapps.android.cleanapp.domainlayer.usecase
 
+import org.deafsapps.android.cleanapp.domainlayer.DomainLayerContract
+import org.deafsapps.android.cleanapp.domainlayer.di.domainLayerModule
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.standalone.StandAloneContext.stopKoin
+import org.koin.standalone.inject
+import org.koin.test.KoinTest
 
-class LoginUserApiUcTest {
+class LoginUserApiUcTest : KoinTest {
+
+    private val loginUserApiUc: DomainLayerContract.UseCase<String?> by inject("loginUserApiUc")
 
     @Before
     fun setUp() {
+        startKoin(listOf(domainLayerModule))
     }
 
     @After
     fun tearDown() {
-
+        stopKoin()
     }
 
     @Test
-    fun run() {
+    fun `check that if params List is null, Failure is returned`() {
+        loginUserApiUc.invoke(null, { result ->
+
+        })
     }
 
 
