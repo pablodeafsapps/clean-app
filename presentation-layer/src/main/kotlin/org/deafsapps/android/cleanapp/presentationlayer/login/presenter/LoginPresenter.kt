@@ -13,11 +13,16 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
         //No need to define it since 'view' is already injected through constructor
     }
 
+    override fun onViewResumed() {
+        view?.clearTextFields()
+    }
+
     override fun onButtonClicked(action: LoginContract.Action, email: String?, password: String?) {
         when (action) {
             LoginContract.Action.LOGIN -> loginUserWithData(email, password)
             LoginContract.Action.REGISTER -> registerUserWithData(email, password)
         }
+        view?.showLoading()
     }
 
     override fun onToggleModeTapped(isLoginMode: Boolean) {
@@ -39,6 +44,7 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
             } else {
                 view?.showInfoMessage("LOGIN ERROR")
             }
+            view?.hideLoading()
         }
     }
 
@@ -49,6 +55,7 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
             } else {
                 view?.showInfoMessage("REGISTER ERROR")
             }
+            view?.hideLoading()
         }
     }
 

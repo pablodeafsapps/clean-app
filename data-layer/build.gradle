@@ -42,14 +42,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$androidxappcompat_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
     implementation "com.google.firebase:firebase-auth:$firebaseauth_version"
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
-    // Koin testing tools
+    // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
 }

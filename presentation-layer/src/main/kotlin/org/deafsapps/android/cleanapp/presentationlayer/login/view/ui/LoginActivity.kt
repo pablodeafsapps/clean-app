@@ -18,7 +18,7 @@ private const val EMPTY_STRING = ""
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
-    private val loginPresenter: LoginContract.Presenter by inject { parametersOf(this) }
+    private val loginPresenter: LoginContract.Presenter? by inject { parametersOf(this) }
     private val pbLoading: ProgressBar? by lazy { activity_login__pb__loading }
     private val tvTitle: TextView? by lazy { activity_login_tv_title }
     private val etEmail: EditText? by lazy { activity_login__et__email }
@@ -33,22 +33,28 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
         btnLogin?.setOnClickListener {
             // correct login: pablo@mytest.com, pablomytest
-            loginPresenter.onButtonClicked(
+            loginPresenter?.onButtonClicked(
                 Action.LOGIN,
                 etEmail?.text?.toString(),
                 etPassword?.text?.toString()
             )
         }
         btnRegister?.setOnClickListener {
-            loginPresenter.onButtonClicked(
+            loginPresenter?.onButtonClicked(
                 Action.REGISTER,
                 etEmail?.text?.toString(),
                 etPassword?.text?.toString()
             )
         }
         tbAccessMode?.setOnClickListener {
-            loginPresenter.onToggleModeTapped(btnLogin?.visibility == View.VISIBLE)
+            loginPresenter?.onToggleModeTapped(btnLogin?.visibility == View.VISIBLE)
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loginPresenter?.onViewResumed()
     }
 
     override fun showLoginUi() {
@@ -95,8 +101,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-
-        loginPresenter.onDetach()
+        loginPresenter?.onDetach()
     }
 
 }

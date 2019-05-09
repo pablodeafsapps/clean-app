@@ -50,7 +50,7 @@ dependencies {
     implementation project(':data-layer')
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
-    // Koin testing tools
+    // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
 }

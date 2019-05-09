@@ -20,6 +20,7 @@ interface LoginContract {
     }
 
     interface Presenter : MvpPresenter<View> {
+        fun onViewResumed()
         fun onButtonClicked(action: Action, email: String?, password: String?)
         fun onToggleModeTapped(isLoginMode: Boolean)
     }

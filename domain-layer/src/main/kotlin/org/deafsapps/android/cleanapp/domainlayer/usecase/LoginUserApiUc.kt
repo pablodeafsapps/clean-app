@@ -28,7 +28,7 @@ class LoginUserApiUc : DomainLayerContract.UseCase<String?>, KoinComponent {
 
     override suspend fun run(params: List<String?>?): Either<Failure, Boolean> =
         params?.filterNotNull()?.let {
-            if (it.size > REQUIRED_DATA) {
+            if (it.size >= REQUIRED_DATA) {
                 repository.loginUser(it)
             } else {
                 Either.Left(Failure.Unknown)
