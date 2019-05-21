@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import org.deafsapps.android.cleanapp.presentationlayer.MainActivity
+import org.deafsapps.android.cleanapp.presentationlayer.main.view.ui.MainActivity
 import org.deafsapps.android.cleanapp.presentationlayer.R
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract.Action

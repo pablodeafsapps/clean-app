@@ -3,7 +3,7 @@ package org.deafsapps.android.cleanapp.domainlayer.base
 // Credits to Fernando Cejas -> https://fernandocejas.com/2018/05/07/architecting-android-reloaded/
 sealed class Either<out L, out R> {
 
-    /** * Represents the left side of [Either] class which by convention is a "Failure". */
+    /** * Represents the left side of [Either] class which by convention is a "FailureDto". */
     data class Left<out L>(val a: L) : Either<L, Nothing>()
 
     /** * Represents the right side of [Either] class which by convention is a "Success". */

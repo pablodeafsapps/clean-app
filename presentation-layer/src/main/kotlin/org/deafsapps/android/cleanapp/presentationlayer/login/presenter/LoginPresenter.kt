@@ -1,7 +1,9 @@
 package org.deafsapps.android.cleanapp.presentationlayer.login.presenter
 
+import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.feature.LoginDomainLayerBridge
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
+import org.deafsapps.android.cleanapp.presentationlayer.main.domain.boToVoFailure
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
@@ -38,29 +40,29 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     }
 
     private fun loginUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.loginUser(listOf(email, password)) { result ->
-            if (result.isRight) {
-                navigateToMainActivity()
-            } else {
-                view?.showInfoMessage("LOGIN ERROR")
-            }
-            view?.hideLoading()
-        }
+        loginDomainLayerBridge.loginUser(params = listOf(email, password),
+            onResult = {
+                it.either(::handleError, ::handleSuccess)
+                view?.hideLoading()
+            })
     }
 
     private fun registerUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.registerUser(listOf(email, password)) { result ->
-            if (result.isRight) {
-                navigateToMainActivity()
-            } else {
-                view?.showInfoMessage("REGISTER ERROR")
-            }
-            view?.hideLoading()
+        loginDomainLayerBridge.registerUser(params = listOf(email, password),
+            onResult = {
+                it.either(::handleError, ::handleSuccess)
+                view?.hideLoading()
+            })
+    }
+
+    private fun handleSuccess(isSuccessful: Boolean) {
+        if (isSuccessful) {
+            view?.navigateToMainActivity()
         }
     }
 
-    private fun navigateToMainActivity() {
-        view?.navigateToMainActivity()
+    private fun handleError(failureBo: FailureBo) {
+        view?.showInfoMessage(boToVoFailure(failureBo).getErrorMessage())
     }
 
 }

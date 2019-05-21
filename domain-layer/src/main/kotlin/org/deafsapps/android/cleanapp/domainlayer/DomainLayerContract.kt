@@ -1,20 +1,20 @@
 package org.deafsapps.android.cleanapp.domainlayer
 
-import org.deafsapps.android.cleanapp.datalayer.base.Failure
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
+import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 
 interface DomainLayerContract {
 
     interface UseCase<T> {
-        fun invoke(params: List<T?>? = null, onResult: (Either<Failure, Boolean>) -> Unit)
-        suspend fun run(params: List<T?>? = null): Either<Failure, Boolean>
+        fun invoke(params: List<T?>? = null, onResult: (Either<FailureBo, Boolean>) -> Unit)
+        suspend fun run(params: List<T?>? = null): Either<FailureBo, Boolean>
     }
 
     interface Domain
 
     interface Repository<T> {
-        fun loginUser(params: List<T>): Either<Failure, Boolean>
-        fun registerUser(params: List<T>): Either<Failure, Boolean>
+        fun loginUser(params: List<T>): Either<FailureBo, Boolean>
+        fun registerUser(params: List<T>): Either<FailureBo, Boolean>
     }
 
 }

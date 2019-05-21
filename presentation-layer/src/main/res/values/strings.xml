@@ -9,4 +9,6 @@
     <string name="tv_register_text">Register</string>
     <!-- activity_main -->
     <string name="tv_title_text">TODO - List</string>
+    <string name="tv_placeholder_text_one">joke type 1</string>
+    <string name="tv_placeholder_text_two">joke type 2</string>
 </resources>

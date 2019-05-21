@@ -4,9 +4,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import org.deafsapps.android.cleanapp.datalayer.base.Failure
 import org.deafsapps.android.cleanapp.domainlayer.DomainLayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
+import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
@@ -16,7 +16,7 @@ class RegisterUserApiUc : DomainLayerContract.UseCase<String?>, KoinComponent {
 
     private val repository: DomainLayerContract.Repository<String?> by inject()
 
-    override fun invoke(params: List<String?>?, onResult: (Either<Failure, Boolean>) -> Unit) {
+    override fun invoke(params: List<String?>?, onResult: (Either<FailureBo, Boolean>) -> Unit) {
 
         val scope = CoroutineScope(Dispatchers.IO)
         // task undertaken in a worker thread
@@ -26,15 +26,15 @@ class RegisterUserApiUc : DomainLayerContract.UseCase<String?>, KoinComponent {
 
     }
 
-    override suspend fun run(params: List<String?>?): Either<Failure, Boolean> =
+    override suspend fun run(params: List<String?>?): Either<FailureBo, Boolean> =
         params?.filterNotNull()?.let {
             if (it.size >= REQUIRED_DATA) {
                 repository.registerUser(it)
             } else {
-                Either.Left(Failure.Unknown)
+                Either.Left(FailureBo.Unknown)
             }
         } ?: run {
-            Either.Left(Failure.Unknown)
+            Either.Left(FailureBo.Unknown)
         }
 
 }
