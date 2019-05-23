@@ -1,8 +1,7 @@
 package org.deafsapps.android.cleanapp.domainlayer.usecase
 
 import com.nhaarman.mockito_kotlin.eq
-import org.deafsapps.android.cleanapp.datalayer.base.FailureDto
-import org.deafsapps.android.cleanapp.domainlayer.DomainLayerContract
+import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.di.domainLayerModule
@@ -18,13 +17,13 @@ import org.mockito.Mockito
 
 class LoginUserApiUcTest : KoinTest {
 
-    private val loginUserApiUc: DomainLayerContract.UseCase<String?> by inject("loginUserApiUc")
-    private val repository: DomainLayerContract.Repository<String> by inject()
+    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<String?> by inject("loginUserApiUc")
+    private val repository: DomainlayerContract.Datalayer.Repository<String> by inject()
 
     @Before
     fun setUp() {
         startKoin(listOf(domainLayerModule))
-        declareMock<DomainLayerContract.Repository<String>>()
+        declareMock<DomainlayerContract.Datalayer.Repository<String>>()
     }
 
     @After

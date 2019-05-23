@@ -46,8 +46,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
-    // other modules
-    implementation project(':data-layer')
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
     // koin testing tools

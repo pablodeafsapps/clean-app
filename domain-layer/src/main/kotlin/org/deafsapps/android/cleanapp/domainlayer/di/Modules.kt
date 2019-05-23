@@ -1,9 +1,9 @@
 package org.deafsapps.android.cleanapp.domainlayer.di
 
-import org.deafsapps.android.cleanapp.domainlayer.DomainLayerContract
+import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
+import org.deafsapps.android.cleanapp.domainlayer.base.DomainLayerBridge
 import org.deafsapps.android.cleanapp.domainlayer.feature.LoginDomainLayerBridge
 import org.deafsapps.android.cleanapp.domainlayer.feature.LoginDomainLayerBridgeImpl
-import org.deafsapps.android.cleanapp.domainlayer.repository.Repository
 import org.deafsapps.android.cleanapp.domainlayer.usecase.LoginUserApiUc
 import org.deafsapps.android.cleanapp.domainlayer.usecase.RegisterUserApiUc
 import org.koin.dsl.module.module
@@ -11,8 +11,6 @@ import org.koin.dsl.module.module
 val domainLayerModule = module(override = true) {
     factory<LoginDomainLayerBridge<String?>>("loginDomainLayerBridge") { LoginDomainLayerBridgeImpl() }
 
-    factory<DomainLayerContract.UseCase<String?>>("loginUserApiUc") { LoginUserApiUc() }
-    factory<DomainLayerContract.UseCase<String?>>("registerUserApiUc") { RegisterUserApiUc() }
-
-    single<DomainLayerContract.Repository<String>> { Repository }
+    factory<DomainlayerContract.Presentationlayer.UseCase<String?>>("loginUserApiUc") { LoginUserApiUc() }
+    factory<DomainlayerContract.Presentationlayer.UseCase<String?>>("registerUserApiUc") { RegisterUserApiUc() }
 }

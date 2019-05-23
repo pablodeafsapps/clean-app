@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import org.deafsapps.android.cleanapp.domainlayer.DomainLayerContract
+import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.koin.standalone.KoinComponent
@@ -12,9 +12,9 @@ import org.koin.standalone.inject
 
 private const val REQUIRED_DATA = 2
 
-class RegisterUserApiUc : DomainLayerContract.UseCase<String?>, KoinComponent {
+class RegisterUserApiUc : DomainlayerContract.Presentationlayer.UseCase<String?>, KoinComponent {
 
-    private val repository: DomainLayerContract.Repository<String?> by inject()
+    private val repository: DomainlayerContract.Datalayer.Repository<String?> by inject()
 
     override fun invoke(params: List<String?>?, onResult: (Either<FailureBo, Boolean>) -> Unit) {
 
