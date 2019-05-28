@@ -1,29 +1,26 @@
 package org.deafsapps.android.cleanapp.domainlayer.usecase
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import org.deafsapps.android.cleanapp.datalayer.base.Failure
-import org.deafsapps.android.cleanapp.domainlayer.DomainLayerContract
+import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
+import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class LoginUserApiUc : DomainLayerContract.UseCase, KoinComponent {
+private const val REQUIRED_DATA = 2
 
-    private val repository: DomainLayerContract.Repository by inject()
+class LoginUserApiUc : DomainlayerContract.Presentationlayer.UseCase<List<String?>?, Boolean>, KoinComponent {
 
-    override fun <Params> invoke(params: Params?, onResult: (Either<Failure, Boolean>) -> Unit) {
+    private val firebaseRepository: DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean> by inject()
 
-        val scope = CoroutineScope(Dispatchers.IO)
-        // task undertaken in a worker thread
-        val job = scope.async { run(params) }
-        // once completed, result sent in the Main thread
-        scope.launch(Dispatchers.Main) { onResult(job.await()) }
-
-    }
-
-    override suspend fun <Params> run(params: Params): Either<Failure, Boolean> = repository.loginUser(params)
+    override suspend fun run(params: List<String?>?): Either<FailureBo, Boolean> =
+        params?.filterNotNull()?.let {
+            if (it.size >= REQUIRED_DATA) {
+                firebaseRepository.loginUser(it)
+            } else {
+                Either.Left(FailureBo.Unknown)
+            }
+        } ?: run {
+            Either.Left(FailureBo.Unknown)
+        }
 
 }

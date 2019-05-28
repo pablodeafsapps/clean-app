@@ -1,21 +1,26 @@
 package org.deafsapps.android.cleanapp.domainlayer.usecase
 
-import org.deafsapps.android.cleanapp.datalayer.base.Failure
-import org.deafsapps.android.cleanapp.domainlayer.DomainLayerContract
+import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
+import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
-class RegisterUserApiUc : DomainLayerContract.UseCase, KoinComponent {
+private const val REQUIRED_DATA = 2
 
-    private val repository: DomainLayerContract.Repository by inject()
+class RegisterUserApiUc : DomainlayerContract.Presentationlayer.UseCase<List<String?>?, Boolean>, KoinComponent {
 
-    override fun <Params> invoke(params: Params?, onResult: (Either<Failure, Boolean>) -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    private val repository: DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean> by inject("firebaseRepository")
 
-    override suspend fun <Params> run(params: Params): Either<Failure, Boolean> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun run(params: List<String?>?): Either<FailureBo, Boolean> =
+        params?.filterNotNull()?.let {
+            if (it.size >= REQUIRED_DATA) {
+                repository.registerUser(it)
+            } else {
+                Either.Left(FailureBo.Unknown)
+            }
+        } ?: run {
+            Either.Left(FailureBo.Unknown)
+        }
 
 }

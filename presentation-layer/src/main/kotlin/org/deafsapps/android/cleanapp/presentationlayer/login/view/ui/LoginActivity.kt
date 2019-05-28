@@ -5,16 +5,20 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import org.deafsapps.android.cleanapp.presentationlayer.main.view.ui.MainActivity
 import org.deafsapps.android.cleanapp.presentationlayer.R
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract.Action
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
+private const val EMPTY_STRING = ""
+
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
-    private val loginPresenter: LoginContract.Presenter by inject { parametersOf(this) }
+    private val loginPresenter: LoginContract.Presenter? by inject { parametersOf(this) }
     private val pbLoading: ProgressBar? by lazy { activity_login__pb__loading }
     private val tvTitle: TextView? by lazy { activity_login_tv_title }
     private val etEmail: EditText? by lazy { activity_login__et__email }
@@ -28,22 +32,29 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         setContentView(R.layout.activity_login)
 
         btnLogin?.setOnClickListener {
-            loginPresenter.onButtonClicked(
+            // correct login: pablo@mytest.com, pablomytest
+            loginPresenter?.onButtonClicked(
                 Action.LOGIN,
                 etEmail?.text?.toString(),
                 etPassword?.text?.toString()
             )
         }
         btnRegister?.setOnClickListener {
-            loginPresenter.onButtonClicked(
+            loginPresenter?.onButtonClicked(
                 Action.REGISTER,
                 etEmail?.text?.toString(),
                 etPassword?.text?.toString()
             )
         }
         tbAccessMode?.setOnClickListener {
-            loginPresenter.onToggleModeTapped(btnLogin?.visibility == View.VISIBLE)
+            loginPresenter?.onToggleModeTapped(btnLogin?.visibility == View.VISIBLE)
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loginPresenter?.onViewResumed()
     }
 
     override fun showLoginUi() {
@@ -81,13 +92,16 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun clearTextFields() {
-        etPassword?.setText("")
+        etPassword?.setText(EMPTY_STRING)
+    }
+
+    override fun navigateToMainActivity() {
+        startActivity<MainActivity>()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
-        loginPresenter.onDetach()
+        loginPresenter?.onDetach()
     }
 
 }

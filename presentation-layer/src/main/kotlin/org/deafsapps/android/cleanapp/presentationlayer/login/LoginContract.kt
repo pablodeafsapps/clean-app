@@ -16,9 +16,11 @@ interface LoginContract {
         fun hideLoading()
         fun showInfoMessage(msg: String)
         fun clearTextFields()
+        fun navigateToMainActivity()
     }
 
     interface Presenter : MvpPresenter<View> {
+        fun onViewResumed()
         fun onButtonClicked(action: Action, email: String?, password: String?)
         fun onToggleModeTapped(isLoginMode: Boolean)
     }
