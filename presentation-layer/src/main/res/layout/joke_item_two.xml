@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/home__label__title"
+        android:id="@+id/joke_item_two__tv__joke"
         android:layout_width="@dimen/fully_stretchable"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/eight"

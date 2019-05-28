@@ -3,6 +3,9 @@ package org.deafsapps.android.cleanapp.presentationlayer.main.presenter
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBo
 import org.deafsapps.android.cleanapp.domainlayer.feature.main.MainDomainLayerBridge
+import org.deafsapps.android.cleanapp.presentationlayer.domain.JokeVo
+import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVo
+import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVoFailure
 import org.deafsapps.android.cleanapp.presentationlayer.main.MainContract
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
@@ -19,11 +22,11 @@ class MainPresenter(private var view: MainContract.View?) : MainContract.Present
         mainDomainLayerBridge?.fetchJokes(params = null,
             onResult = {
                 it.either(::handleError, ::handleSuccess)
-        })
+            })
     }
 
-    override fun onJokeItemClicked(jokeItem: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onJokeItemClicked(item: JokeVo) {
+        view?.navigateToDetailActivity(item)
     }
 
     override fun onDetach() {
@@ -31,11 +34,11 @@ class MainPresenter(private var view: MainContract.View?) : MainContract.Present
     }
 
     private fun handleSuccess(list: List<JokeBo>) {
-        val a = list
+        view?.loadJokesData(boToVo(list))
     }
 
     private fun handleError(failureBo: FailureBo) {
-        val b = failureBo
+        view?.showInfoMessage(boToVoFailure(failureBo).getErrorMessage())
     }
 
 }

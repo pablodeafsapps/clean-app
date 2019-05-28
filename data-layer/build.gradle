@@ -46,6 +46,7 @@ dependencies {
     // other modules
     implementation project(':domain-layer')
     // 3rd party libraries
+    implementation "com.jakewharton.timber:timber:$timber_version"
     implementation "org.koin:koin-android:$koin_version"
     implementation "com.google.firebase:firebase-auth:$firebaseauth_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

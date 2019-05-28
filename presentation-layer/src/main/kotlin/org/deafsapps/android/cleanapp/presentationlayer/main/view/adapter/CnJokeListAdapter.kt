@@ -7,9 +7,9 @@ import org.deafsapps.android.cleanapp.presentationlayer.R
 import org.deafsapps.android.cleanapp.presentationlayer.main.view.viewholder.CnJokeOneViewHolder
 import org.deafsapps.android.cleanapp.presentationlayer.main.view.viewholder.CnJokeTwoViewHolder
 
-class CnJokeListAdapter(itemListCnJokeViewType: MutableList<CnJokeViewType>?, callback: (CnJokeActionView) -> Unit) :
+class CnJokeListAdapter(itemList: MutableList<CnJokeViewType>?, callback: (CnJokeActionView) -> Unit) :
     BaseViewTypeAdapter<CnJokeViewType, BaseViewTypeHolder<CnJokeViewType, CnJokeActionView>, CnJokeActionView>(
-        itemList = itemListCnJokeViewType, callback = callback
+        itemList = itemList, callback = callback
     ) {
 
     override fun getHolder(viewType: Int, view: View): BaseViewTypeHolder<CnJokeViewType, CnJokeActionView> {

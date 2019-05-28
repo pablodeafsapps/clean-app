@@ -1,3 +1,5 @@
 package org.deafsapps.android.cleanapp.presentationlayer.domain
 
-data class JokeVo(private val id: Int, private val joke: String, private val categories: List<String>)
+import org.deafsapps.android.cleanapp.presentationlayer.main.view.adapter.CnJokeViewType
+
+data class JokeVo(val id: Int, val joke: String, val categories: List<String>) : CnJokeViewType.JokeTypeOne()

@@ -17,13 +17,13 @@ import org.mockito.Mockito
 
 class LoginUserApiUcTest : KoinTest {
 
-    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<String?> by inject("loginUserApiUc")
-    private val repository: DomainlayerContract.Datalayer.Repository<String> by inject()
+    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean> by inject("loginUserApiUc")
+    private val repository: DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean> by inject("firebaseRepository")
 
     @Before
     fun setUp() {
         startKoin(listOf(domainLayerModule))
-        declareMock<DomainlayerContract.Datalayer.Repository<String>>()
+        declareMock<DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean>>()
     }
 
     @After
