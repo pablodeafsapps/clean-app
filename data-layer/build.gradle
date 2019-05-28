@@ -41,12 +41,15 @@ dokka {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$androidxappcompat_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutinesadapter_version"
     // other modules
     implementation project(':domain-layer')
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
     implementation "com.google.firebase:firebase-auth:$firebaseauth_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
     // koin testing tools

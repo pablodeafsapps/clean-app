@@ -1,4 +1,4 @@
-package org.deafsapps.android.cleanapp.presentationlayer.main.domain
+package org.deafsapps.android.cleanapp.presentationlayer.domain
 
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.presentationlayer.base.FailureVo

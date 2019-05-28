@@ -7,11 +7,11 @@ import com.google.firebase.auth.FirebaseAuth
 import org.deafsapps.android.cleanapp.datalayer.DataLayerContract
 import org.koin.standalone.KoinComponent
 
-class FirebaseDataSource : DataLayerContract.DataSource, KoinComponent {
+class FirebaseDataSourceImpl : DataLayerContract.FirebaseDataSource, KoinComponent {
 
     private val fbAuth: FirebaseAuth? by lazy { FirebaseAuth.getInstance() }
 
-    override fun requestLogin(email: String, password: String): Boolean? {
+    override fun requestFirebaseLogin(email: String, password: String): Boolean? {
         return fbAuth?.run {
             try {
                 Tasks.await<AuthResult>(signInWithEmailAndPassword(email, password)).user != null
@@ -22,7 +22,7 @@ class FirebaseDataSource : DataLayerContract.DataSource, KoinComponent {
         }
     }
 
-    override fun requestRegister(email: String, password: String): Boolean? {
+    override fun requestFirebaseRegister(email: String, password: String): Boolean? {
         return fbAuth?.run {
             try {
                 Tasks.await<AuthResult>(createUserWithEmailAndPassword(email, password)).user != null

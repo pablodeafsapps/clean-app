@@ -47,6 +47,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$androidxcore_version"
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidxconstraintlayout_version"
+    implementation "androidx.recyclerview:recyclerview:$androidxrecyclerview_version"
     // other modules
     implementation project(':domain-layer')
     // 3rd party libraries
@@ -61,5 +62,4 @@ dependencies {
     // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }
