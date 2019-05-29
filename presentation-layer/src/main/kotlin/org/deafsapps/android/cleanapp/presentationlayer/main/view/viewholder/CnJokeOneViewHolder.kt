@@ -17,7 +17,7 @@ class CnJokeOneViewHolder(itemView: View) : BaseViewTypeHolder<CnJokeViewType, C
     override fun onBind(item: CnJokeViewType, callback: (CnJokeActionView) -> Unit) {
         (item as? JokeVo)?.let { jokeVo ->
             tvJoke?.text = jokeVo.joke
-            tvCategories?.text = jokeVo.categories.toString()
+            tvCategories?.text = jokeVo.categories.takeIf { it.isNotEmpty() }.toString()
             container.setOnClickListener {
                 callback(CnJokeActionView.JokeItemTapped(item))
             }

@@ -48,12 +48,11 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     implementation "androidx.constraintlayout:constraintlayout:$androidxconstraintlayout_version"
     implementation "androidx.recyclerview:recyclerview:$androidxrecyclerview_version"
+    implementation "androidx.cardview:cardview:$androidxcardview_version"
     // other modules
     implementation project(':domain-layer')
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary_version"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary_version"
     // testing dependencies

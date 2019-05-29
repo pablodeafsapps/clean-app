@@ -1,5 +1,7 @@
 package org.deafsapps.android.cleanapp.presentationlayer.di
 
+import org.deafsapps.android.cleanapp.presentationlayer.detail.DetailContract
+import org.deafsapps.android.cleanapp.presentationlayer.detail.presenter.DetailPresenter
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.deafsapps.android.cleanapp.presentationlayer.login.presenter.LoginPresenter
 import org.deafsapps.android.cleanapp.presentationlayer.main.MainContract
@@ -17,5 +19,8 @@ val presentationLayerModule = module(override = true) {
     }
     factory<MainContract.Presenter> { (view: MainContract.View) ->
         MainPresenter(view)
+    }
+    factory<DetailContract.Presenter> { (view: DetailContract.View) ->
+        DetailPresenter(view)
     }
 }
