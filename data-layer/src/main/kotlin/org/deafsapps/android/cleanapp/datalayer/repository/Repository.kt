@@ -34,10 +34,17 @@ object Repository : DomainlayerContract.Datalayer.FirebaseRepository<List<String
     }
 
     override suspend fun fetchJokes(params: List<String>?): Either<FailureBo, List<JokeBo>> {
-        return icndbDataSource.fetchIcndbJokes(params = params)?.let {
-            Either.Right(it.dtoToBoJoke())
-        } ?: run {
-            Either.Left(FailureDto.Unknown.dtoToBoFailure())
+        val queryResponse = icndbDataSource.fetchIcndbJokesResponse(params = params)
+        return if (queryResponse.isSuccessful) {
+            val jokeList = queryResponse.body()?.value?.dtoToBoJoke()
+            jokeList?.let { Either.Right(jokeList) } ?: run { Either.Left(FailureDto.Unknown.dtoToBoFailure()) }
+        } else {
+            when (queryResponse.code()) {
+                in 300..399 -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
+                in 400..499 -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
+                in 500..599 -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
+                else -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
+            }
         }
     }
 
