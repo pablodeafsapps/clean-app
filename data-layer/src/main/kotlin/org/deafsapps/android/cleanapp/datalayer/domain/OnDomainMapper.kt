@@ -4,15 +4,14 @@ import org.deafsapps.android.cleanapp.datalayer.base.FailureDto
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBo
 
-fun dtoToBoFailure(serverError: FailureDto): FailureBo {
-    return when (serverError) {
-        FailureDto.FirebaseLoginError -> FailureBo.ServerError(serverError.msg)
-        FailureDto.FirebaseRegisterError -> FailureBo.ServerError(serverError.msg)
+fun FailureDto.dtoToBoFailure(): FailureBo =
+    when (this) {
+        FailureDto.FirebaseLoginError -> FailureBo.ServerError(msg)
+        FailureDto.FirebaseRegisterError -> FailureBo.ServerError(msg)
         FailureDto.Unknown -> FailureBo.Unknown
     }
-}
 
-fun dtoToBoJoke(list: List<JokeDto>): List<JokeBo> =
-    list.map { jokeDto ->
+fun List<JokeDto>.dtoToBoJoke(): List<JokeBo> =
+    map { jokeDto ->
         JokeBo(id = jokeDto.id, joke = jokeDto.joke, categories = jokeDto.categories)
     }

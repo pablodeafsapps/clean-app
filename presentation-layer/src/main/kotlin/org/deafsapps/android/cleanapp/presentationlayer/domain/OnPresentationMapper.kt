@@ -4,16 +4,14 @@ import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBo
 import org.deafsapps.android.cleanapp.presentationlayer.base.FailureVo
 
-fun boToVoFailure(serverError: FailureBo): FailureVo {
-    return when (serverError) {
-        is FailureBo.ServerError -> FailureVo.ServerError(serverError.msg)
+fun FailureBo.boToVoFailure(): FailureVo {
+    return when (this) {
+        is FailureBo.ServerError -> FailureVo.ServerError(msg)
         FailureBo.Unknown -> FailureVo.Unknown
     }
 }
 
-fun boToVo(list: List<JokeBo>): List<JokeVo> {
-    return list.map { boToVo(it) }
-}
+fun List<JokeBo>.boToVo(): List<JokeVo> = map { it.boToVo() }
 
-fun boToVo(jokeBo: JokeBo): JokeVo =
-    JokeVo(id = jokeBo.id, joke = jokeBo.joke, categories = jokeBo.categories)
+private fun JokeBo.boToVo(): JokeVo =
+    JokeVo(id = id, joke = joke, categories = categories)

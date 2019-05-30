@@ -10,7 +10,6 @@
         android:id="@+id/activity_main__tv__title"
         android:layout_width="@dimen/fully_stretchable"
         android:layout_height="wrap_content"
-        android:background="@color/lightGray"
         android:gravity="center_horizontal"
         android:padding="@dimen/eight"
         android:text="@string/tv_title_text"

@@ -47,9 +47,9 @@ class DetailActivity : AppCompatActivity(), DetailContract.View {
     }
 
     override fun loadJokeItem(item: JokeVo) {
-        tvId?.text = item.id.toString()
+        tvId?.text = getString(R.string.tv_detail_id, item.id.toString())
         tvJoke?.text = item.joke
-        tvCategories?.text = item.categories.toString()
+        tvCategories?.text = item.categories.takeIf { it.isNotEmpty() }?.toString()
     }
 
 }
