@@ -7,6 +7,6 @@ import retrofit2.http.PUT
 interface IcndbRetrofitApi {
 
     @PUT("jokes")
-    fun getJokes(): Deferred<JokeDtoWrapper>
+    fun getJokesAsync(): Deferred<JokeDtoWrapper>
 
 }

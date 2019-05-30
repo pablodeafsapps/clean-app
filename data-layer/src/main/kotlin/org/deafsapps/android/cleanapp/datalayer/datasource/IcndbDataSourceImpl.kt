@@ -16,6 +16,6 @@ class IcndbDataSourceImpl : DataLayerContract.IcndbDataSource, KoinComponent {
         .baseUrl("http://api.icndb.com")
 
     override suspend fun fetchIcndbJokes(params: List<String>?): List<JokeDto>? =
-        retrofitBuilder.build().create(IcndbRetrofitApi::class.java).getJokes().await().value
+        retrofitBuilder.build().create(IcndbRetrofitApi::class.java).getJokesAsync().await().value
 
 }

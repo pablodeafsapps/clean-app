@@ -1,4 +1,4 @@
-package org.deafsapps.android.cleanapp
+package org.deafsapps.android.cleanapp.presentationlayer
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
