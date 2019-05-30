@@ -22,7 +22,7 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
-        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
 }
 
@@ -53,6 +53,8 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test:runner:$androidxtestrunner_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
