@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
-import org.deafsapps.android.cleanapp.presentationlayer.DetailActivity
 import org.deafsapps.android.cleanapp.presentationlayer.R
+import org.deafsapps.android.cleanapp.presentationlayer.detail.view.ui.DetailActivity
 import org.deafsapps.android.cleanapp.presentationlayer.domain.JokeVo
 import org.deafsapps.android.cleanapp.presentationlayer.main.MainContract
 import org.deafsapps.android.cleanapp.presentationlayer.main.view.adapter.CnJokeActionView
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun navigateToDetailActivity(item: JokeVo) {
-        startActivity<DetailActivity>()
+        startActivity<DetailActivity>("jokeItem" to item)
     }
 
     override fun onDestroy() {

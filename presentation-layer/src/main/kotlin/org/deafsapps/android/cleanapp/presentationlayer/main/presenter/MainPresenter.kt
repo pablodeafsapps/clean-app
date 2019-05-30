@@ -34,11 +34,11 @@ class MainPresenter(private var view: MainContract.View?) : MainContract.Present
     }
 
     private fun handleSuccess(list: List<JokeBo>) {
-        view?.loadJokesData(boToVo(list))
+        view?.loadJokesData(list.boToVo())
     }
 
     private fun handleError(failureBo: FailureBo) {
-        view?.showInfoMessage(boToVoFailure(failureBo).getErrorMessage())
+        view?.showInfoMessage(failureBo.boToVoFailure().getErrorMessage())
     }
 
 }

@@ -62,7 +62,7 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     }
 
     private fun handleError(failureBo: FailureBo) {
-        view?.showInfoMessage(boToVoFailure(failureBo).getErrorMessage())
+        view?.showInfoMessage(failureBo.boToVoFailure().getErrorMessage())
     }
 
 }

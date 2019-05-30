@@ -19,25 +19,25 @@ object Repository : DomainlayerContract.Datalayer.FirebaseRepository<List<String
 
     override fun loginUser(params: List<String>): Either<FailureBo, Boolean> {
         return firebaseDataSource.requestFirebaseLogin(email = params[0], password = params[1])?.let {
-            if (it) Either.Right(it) else Either.Left(dtoToBoFailure(FailureDto.FirebaseLoginError))
+            if (it) Either.Right(it) else Either.Left(FailureDto.FirebaseLoginError.dtoToBoFailure())
         } ?: run {
-            Either.Left(dtoToBoFailure(FailureDto.Unknown))
+            Either.Left(FailureDto.Unknown.dtoToBoFailure())
         }
     }
 
     override fun registerUser(params: List<String>): Either<FailureBo, Boolean> {
         return firebaseDataSource.requestFirebaseRegister(email = params[0], password = params[1])?.let {
-            if (it) Either.Right(it) else Either.Left(dtoToBoFailure(FailureDto.FirebaseRegisterError))
+            if (it) Either.Right(it) else Either.Left(FailureDto.FirebaseRegisterError.dtoToBoFailure())
         } ?: run {
-            Either.Left(dtoToBoFailure(FailureDto.Unknown))
+            Either.Left(FailureDto.Unknown.dtoToBoFailure())
         }
     }
 
     override suspend fun fetchJokes(params: List<String>?): Either<FailureBo, List<JokeBo>> {
         return icndbDataSource.fetchIcndbJokes(params = params)?.let {
-            Either.Right(dtoToBoJoke(it))
+            Either.Right(it.dtoToBoJoke())
         } ?: run {
-            Either.Left(dtoToBoFailure(FailureDto.Unknown))
+            Either.Left(FailureDto.Unknown.dtoToBoFailure())
         }
     }
 

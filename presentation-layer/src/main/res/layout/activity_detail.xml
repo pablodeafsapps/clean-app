@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".detail.view.ui.DetailActivity">
+
+    <ProgressBar
+        android:id="@+id/activity_detail__pb__loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activity_detail__tv__joke"
+        android:layout_width="@dimen/fully_stretchable"
+        android:layout_height="@dimen/fully_stretchable"
+        android:layout_marginStart="@dimen/eight"
+        android:layout_marginLeft="@dimen/eight"
+        android:layout_marginEnd="@dimen/eight"
+        android:layout_marginRight="@dimen/eight"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_detail__tv__categories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activity_detail__tv__id"
+        tools:text="Joke text" />
+
+    <TextView
+        android:id="@+id/activity_detail__tv__categories"
+        android:layout_width="@dimen/fully_stretchable"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/eight"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail__tv__joke"
+        tools:text="[explicit,nerd]" />
+
+    <TextView
+        android:id="@+id/activity_detail__tv__id"
+        android:layout_width="@dimen/fully_stretchable"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/eight"
+        android:background="#F0F4C3"
+        android:padding="@dimen/eight"
+        android:text="@string/tv_detail_id"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/activity_detail__tv__joke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="#24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

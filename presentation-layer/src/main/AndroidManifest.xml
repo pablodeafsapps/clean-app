@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".login.view.ui.LoginActivity" />
         <activity android:name=".main.view.ui.MainActivity" />
-        <activity android:name=".DetailActivity" />
+        <activity android:name=".detail.view.ui.DetailActivity" />
     </application>
 
 </manifest>
