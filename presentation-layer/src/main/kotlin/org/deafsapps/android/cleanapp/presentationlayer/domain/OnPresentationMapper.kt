@@ -6,7 +6,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.base.FailureVo
 
 fun FailureBo.boToVoFailure(): FailureVo {
     return when (this) {
-        is FailureBo.ServerError -> FailureVo.ServerError(msg)
+        is FailureBo.ServerError -> FailureVo.ServerError(code = code, msg = msg)
         FailureBo.Unknown -> FailureVo.Unknown
     }
 }

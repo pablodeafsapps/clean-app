@@ -11,6 +11,7 @@ android {
         applicationId "org.deafsapps.android.cleanapp.application"
         minSdkVersion minsdk_version
         targetSdkVersion targetsdk_version
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -38,13 +39,14 @@ dokka {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:multidex:$androidmultidex_version"
     // other modules
     implementation project(':presentation-layer')
     implementation project(':domain-layer')
     implementation project(':data-layer')
     // 3rd party libraries
-    implementation "com.google.firebase:firebase-core:$firebasecore_version"
     implementation "org.koin:koin-android:$koin_version"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

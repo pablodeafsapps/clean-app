@@ -1,5 +1,7 @@
 package org.deafsapps.android.cleanapp.presentationlayer.main.presenter
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBo
 import org.deafsapps.android.cleanapp.domainlayer.feature.main.MainDomainLayerBridge
@@ -9,8 +11,13 @@ import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVoFailure
 import org.deafsapps.android.cleanapp.presentationlayer.main.MainContract
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
+import kotlin.coroutines.CoroutineContext
 
 class MainPresenter(private var view: MainContract.View?) : MainContract.Presenter, KoinComponent {
+
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.IO
 
     private val mainDomainLayerBridge: MainDomainLayerBridge<List<String>?, List<JokeBo>>? by inject("mainDomainLayerBridge")
 
@@ -19,7 +26,7 @@ class MainPresenter(private var view: MainContract.View?) : MainContract.Present
     }
 
     override fun onViewResumed() {
-        mainDomainLayerBridge?.fetchJokes(params = null,
+        mainDomainLayerBridge?.fetchJokes(scope = this, params = null,
             onResult = {
                 it.either(::handleError, ::handleSuccess)
             })
@@ -31,6 +38,7 @@ class MainPresenter(private var view: MainContract.View?) : MainContract.Present
 
     override fun onDetach() {
         view = null
+        job.cancel()
     }
 
     private fun handleSuccess(list: List<JokeBo>) {

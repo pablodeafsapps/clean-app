@@ -40,9 +40,8 @@ object Repository : DomainlayerContract.Datalayer.FirebaseRepository<List<String
             jokeList?.let { Either.Right(jokeList) } ?: run { Either.Left(FailureDto.Unknown.dtoToBoFailure()) }
         } else {
             when (queryResponse.code()) {
-                in 300..399 -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
-                in 400..499 -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
-                in 500..599 -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
+                in 300..599 -> Either.Left(
+                    FailureDto.Error(code = queryResponse.code(), msg = queryResponse.message()).dtoToBoFailure())
                 else -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
             }
         }

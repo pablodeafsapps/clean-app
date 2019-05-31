@@ -1,13 +1,20 @@
 package org.deafsapps.android.cleanapp.presentationlayer.login.presenter
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.feature.login.LoginDomainLayerBridge
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVoFailure
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
+import kotlin.coroutines.CoroutineContext
 
 class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Presenter, KoinComponent {
+
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.IO
 
     private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean> by inject("loginDomainLayerBridge")
 
@@ -37,10 +44,11 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
 
     override fun onDetach() {
         view = null
+        job.cancel()
     }
 
     private fun loginUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.loginUser(params = listOf(email, password),
+        loginDomainLayerBridge.loginUser(scope = this, params = listOf(email, password),
             onResult = {
                 it.either(::handleError, ::handleSuccess)
                 view?.hideLoading()
@@ -48,7 +56,7 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     }
 
     private fun registerUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.registerUser(params = listOf(email, password),
+        loginDomainLayerBridge.registerUser(scope = this, params = listOf(email, password),
             onResult = {
                 it.either(::handleError, ::handleSuccess)
                 view?.hideLoading()

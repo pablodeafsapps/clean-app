@@ -39,12 +39,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
     // testing dependencies
     testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test:runner:$androidxtestrunner_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
     testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"

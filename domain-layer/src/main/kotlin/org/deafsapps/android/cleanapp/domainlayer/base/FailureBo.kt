@@ -2,7 +2,7 @@ package org.deafsapps.android.cleanapp.domainlayer.base
 
 sealed class FailureBo(var msg: String = "n/a") {
 
-    class ServerError(msg: String) : FailureBo(msg)
+    class ServerError(val code: Int, msg: String) : FailureBo(msg)
     object Unknown : FailureBo()
 
 }
