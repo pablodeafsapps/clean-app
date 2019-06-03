@@ -9,8 +9,9 @@ import org.deafsapps.android.cleanapp.presentationlayer.domain.JokeVo
 import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVo
 import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVoFailure
 import org.deafsapps.android.cleanapp.presentationlayer.main.MainContract
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 import kotlin.coroutines.CoroutineContext
 
 class MainPresenter(private var view: MainContract.View?) : MainContract.Presenter, KoinComponent {
@@ -19,7 +20,7 @@ class MainPresenter(private var view: MainContract.View?) : MainContract.Present
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-    private val mainDomainLayerBridge: MainDomainLayerBridge<List<String>?, List<JokeBo>>? by inject("mainDomainLayerBridge")
+    private val mainDomainLayerBridge: MainDomainLayerBridge<List<String>?, List<JokeBo>>? by inject(named("mainDomainLayerBridge"))
 
     override fun onAttach(mvpView: MainContract.View) {
         //No need to define it since 'view' is already injected through constructor

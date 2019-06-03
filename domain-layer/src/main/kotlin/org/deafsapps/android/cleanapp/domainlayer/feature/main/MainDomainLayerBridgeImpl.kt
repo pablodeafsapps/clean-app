@@ -5,14 +5,21 @@ import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBo
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 
 class MainDomainLayerBridgeImpl : MainDomainLayerBridge<List<String>?, List<JokeBo>>, KoinComponent {
 
-    private val fetchJokesApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String>?, List<JokeBo>> by inject("fetchJokesApiUc")
+    private val fetchJokesApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String>?, List<JokeBo>> by inject(
+        named("fetchJokesApiUc")
+    )
 
-    override fun fetchJokes(scope: CoroutineScope, params: List<String>?, onResult: (Either<FailureBo, List<JokeBo>>) -> Unit) {
+    override fun fetchJokes(
+        scope: CoroutineScope,
+        params: List<String>?,
+        onResult: (Either<FailureBo, List<JokeBo>>) -> Unit
+    ) {
         fetchJokesApiUc.invoke(scope = scope, params = params, onResult = onResult)
     }
 

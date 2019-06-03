@@ -9,13 +9,14 @@ import org.deafsapps.android.cleanapp.domainlayer.feature.main.MainDomainLayerBr
 import org.deafsapps.android.cleanapp.domainlayer.usecase.FetchJokesApiUc
 import org.deafsapps.android.cleanapp.domainlayer.usecase.LoginUserApiUc
 import org.deafsapps.android.cleanapp.domainlayer.usecase.RegisterUserApiUc
-import org.koin.dsl.module.module
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 
 val domainLayerModule = module(override = true) {
-    factory<LoginDomainLayerBridge<List<String?>, Boolean>>("loginDomainLayerBridge") { LoginDomainLayerBridgeImpl() }
-    factory<MainDomainLayerBridge<List<String>?, List<JokeBo>>>("mainDomainLayerBridge") { MainDomainLayerBridgeImpl() }
+    factory<LoginDomainLayerBridge<List<String?>, Boolean>>(named("loginDomainLayerBridge")) { LoginDomainLayerBridgeImpl() }
+    factory<MainDomainLayerBridge<List<String>?, List<JokeBo>>>(named("mainDomainLayerBridge")) { MainDomainLayerBridgeImpl() }
 
-    factory<DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>>("loginUserApiUc") { LoginUserApiUc() }
-    factory<DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>>("registerUserApiUc") { RegisterUserApiUc() }
-    factory<DomainlayerContract.Presentationlayer.UseCase<List<String>?, List<JokeBo>>>("fetchJokesApiUc") { FetchJokesApiUc() }
+    factory<DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>>(named("loginUserApiUc")) { LoginUserApiUc() }
+    factory<DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>>(named("registerUserApiUc")) { RegisterUserApiUc() }
+    factory<DomainlayerContract.Presentationlayer.UseCase<List<String>?, List<JokeBo>>>(named("fetchJokesApiUc")) { FetchJokesApiUc() }
 }

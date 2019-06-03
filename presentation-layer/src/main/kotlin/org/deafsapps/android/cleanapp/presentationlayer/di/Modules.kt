@@ -8,7 +8,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.main.MainContract
 import org.deafsapps.android.cleanapp.presentationlayer.main.presenter.MainPresenter
 import org.deafsapps.android.cleanapp.presentationlayer.splash.SplashContract
 import org.deafsapps.android.cleanapp.presentationlayer.splash.presenter.SplashPresenter
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 
 val presentationLayerModule = module(override = true) {
     factory<SplashContract.Presenter> { (view: SplashContract.View) ->

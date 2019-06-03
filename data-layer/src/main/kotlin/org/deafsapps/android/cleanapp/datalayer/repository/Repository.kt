@@ -8,14 +8,15 @@ import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBo
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 
 object Repository : DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean>,
     DomainlayerContract.Datalayer.IcndbRepository<List<String>?, List<JokeBo>>, KoinComponent {
 
-    private val firebaseDataSource: DataLayerContract.FirebaseDataSource by inject("firebaseDataSource")
-    private val icndbDataSource: DataLayerContract.IcndbDataSource by inject("icndbDataSource")
+    private val firebaseDataSource: DataLayerContract.FirebaseDataSource by inject(named("firebaseDataSource"))
+    private val icndbDataSource: DataLayerContract.IcndbDataSource by inject(named("icndbDataSource"))
 
     override fun loginUser(params: List<String>): Either<FailureBo, Boolean> {
         return firebaseDataSource.requestFirebaseLogin(email = params[0], password = params[1])?.let {
@@ -41,7 +42,8 @@ object Repository : DomainlayerContract.Datalayer.FirebaseRepository<List<String
         } else {
             when (queryResponse.code()) {
                 in 300..599 -> Either.Left(
-                    FailureDto.Error(code = queryResponse.code(), msg = queryResponse.message()).dtoToBoFailure())
+                    FailureDto.Error(code = queryResponse.code(), msg = queryResponse.message()).dtoToBoFailure()
+                )
                 else -> Either.Left(FailureDto.Unknown.dtoToBoFailure())
             }
         }

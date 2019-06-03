@@ -10,6 +10,7 @@ android {
     defaultConfig {
         minSdkVersion minsdk_version
         targetSdkVersion targetsdk_version
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -52,12 +53,15 @@ dependencies {
     implementation project(':domain-layer')
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
-    // testing dependencies
-    testImplementation "junit:junit:$junit_version"
+    // testing dependencies - Instrumentation Test
     androidTestImplementation "androidx.test:runner:$androidxtestrunner_version"
     androidTestImplementation "androidx.test:rules:$androidxtestrules_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
+    androidTestImplementation("org.mockito:mockito-android:$mockitoandroid_version")
     // koin testing tools
-    testImplementation "org.koin:koin-test:$koin_version"
-    testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
+    androidTestImplementation("org.koin:koin-test:$koin_version") {
+        exclude group: 'org.mockito'
+        exclude group: 'mockito-inline'
+    }
 }

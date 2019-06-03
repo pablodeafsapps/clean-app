@@ -3,10 +3,9 @@ package org.deafsapps.android.cleanapp.presentationlayer.splash.presenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.deafsapps.android.cleanapp.presentationlayer.splash.SplashContract
-import org.koin.standalone.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
-class SplashPresenter(private var view: SplashContract.View?) : SplashContract.Presenter, KoinComponent {
+class SplashPresenter(private var view: SplashContract.View?) : SplashContract.Presenter {
 
     private val job = Job()
     override val coroutineContext: CoroutineContext

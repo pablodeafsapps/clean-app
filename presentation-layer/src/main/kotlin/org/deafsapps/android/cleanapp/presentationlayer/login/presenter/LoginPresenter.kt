@@ -4,10 +4,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.feature.login.LoginDomainLayerBridge
-import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVoFailure
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 import kotlin.coroutines.CoroutineContext
 
 class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Presenter, KoinComponent {
@@ -16,7 +17,7 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-    private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean> by inject("loginDomainLayerBridge")
+    private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean> by inject(named("loginDomainLayerBridge"))
 
     override fun onAttach(mvpView: LoginContract.View) {
         //No need to define it since 'view' is already injected through constructor
@@ -27,11 +28,11 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     }
 
     override fun onButtonClicked(action: LoginContract.Action, email: String?, password: String?) {
+        view?.showLoading()
         when (action) {
             LoginContract.Action.LOGIN -> loginUserWithData(email, password)
             LoginContract.Action.REGISTER -> registerUserWithData(email, password)
         }
-        view?.showLoading()
     }
 
     override fun onToggleModeTapped(isLoginMode: Boolean) {

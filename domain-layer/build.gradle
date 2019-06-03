@@ -42,9 +42,18 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
-    // testing dependencies
+    // testing dependencies - Unit Test
     testImplementation "junit:junit:$junit_version"
+    testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
     // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
-    testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
+    // testing dependencies - Instrumentation Test
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
+    androidTestImplementation("org.mockito:mockito-android:$mockitoandroid_version")
+    // koin testing tools
+    androidTestImplementation("org.koin:koin-test:$koin_version") {
+        exclude group: 'org.mockito'
+        exclude group: 'mockito-inline'
+    }
 }

@@ -14,7 +14,6 @@ android {
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -46,7 +45,7 @@ dependencies {
     implementation project(':data-layer')
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
-    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
 }
 
 apply plugin: 'com.google.gms.google-services'
