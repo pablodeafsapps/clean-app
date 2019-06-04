@@ -58,7 +58,6 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidxtestrules_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
     androidTestImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
-    androidTestImplementation("org.mockito:mockito-android:$mockitoandroid_version")
     // koin testing tools
     androidTestImplementation("org.koin:koin-test:$koin_version") {
         exclude group: 'org.mockito'

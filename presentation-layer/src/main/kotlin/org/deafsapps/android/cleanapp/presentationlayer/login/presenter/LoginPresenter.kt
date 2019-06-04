@@ -6,9 +6,8 @@ import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.feature.login.LoginDomainLayerBridge
 import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVoFailure
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
-import org.koin.core.KoinComponent
-import org.koin.core.inject
-import org.koin.core.qualifier.named
+import org.koin.standalone.KoinComponent
+import org.koin.standalone.inject
 import kotlin.coroutines.CoroutineContext
 
 class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Presenter, KoinComponent {
@@ -17,7 +16,7 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-    private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean> by inject(named("loginDomainLayerBridge"))
+    private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean> by inject("loginDomainLayerBridge")
 
     override fun onAttach(mvpView: LoginContract.View) {
         //No need to define it since 'view' is already injected through constructor

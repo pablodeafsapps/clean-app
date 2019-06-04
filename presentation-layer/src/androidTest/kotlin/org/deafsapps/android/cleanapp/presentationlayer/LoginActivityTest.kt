@@ -9,17 +9,18 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import org.deafsapps.android.cleanapp.presentationlayer.di.presentationLayerModule
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
+import org.deafsapps.android.cleanapp.presentationlayer.login.presenter.LoginPresenter
 import org.deafsapps.android.cleanapp.presentationlayer.login.view.ui.LoginActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
-import org.koin.core.parameter.parametersOf
+import org.koin.dsl.module.module
+import org.koin.standalone.StandAloneContext.loadKoinModules
+import org.koin.standalone.StandAloneContext.startKoin
+import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.test.KoinTest
-import org.koin.test.inject
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -28,11 +29,12 @@ class LoginActivityTest : KoinTest {
     @get:Rule
     var activityRule = ActivityTestRule(LoginActivity::class.java)
 
+//    private val mockLoginPresenter = mock<LoginContract.Presenter>()
+
     @Before
     fun setUp() {
-        startKoin {
-            modules(listOf(presentationLayerModule))
-        }
+//        loadKoinModules(listOf(presentationLayerModule))
+        startKoin(listOf(presentationLayerModule))
     }
 
     @After
@@ -42,6 +44,7 @@ class LoginActivityTest : KoinTest {
 
     @Test
     fun whenActivityStartsLoginIsDisplayed() {
+
         onView(withId(R.id.activity_login_tv_title))
             .check(matches(isDisplayed()))
     }

@@ -21,7 +21,7 @@ buildscript {
         googleservices_version = '4.0.1'
         firebasecore_version = '16.0.9'
         firebaseauth_version = '17.0.0'
-        koin_version = '2.0.1'
+        koin_version = '1.0.2'
         leakcanary_version = '2.0-alpha-2'
         retrofit_version = '2.5.0'
         timber_version = '4.7.1'
