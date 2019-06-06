@@ -6,6 +6,14 @@ apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'com.github.gfx.ribbonizer'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/home/pablo/dummy-key-store.jks')
+            storePassword 'dummy-key-store'
+            keyAlias = 'dummy-key'
+            keyPassword 'dummy-key'
+        }
+    }
     compileSdkVersion compilesdk_version
     defaultConfig {
         applicationId "org.deafsapps.android.cleanapp.application"

@@ -9,8 +9,10 @@ import org.koin.standalone.inject
 
 class LoginDomainLayerBridgeImpl : LoginDomainLayerBridge<List<String?>, Boolean>, KoinComponent {
 
-    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean> by inject("loginUserApiUc")
-    private val registerUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean> by inject("registerUserApiUc")
+    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>
+            by inject("loginUserApiUc")
+    private val registerUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>
+            by inject("registerUserApiUc")
 
     override fun loginUser(
         scope: CoroutineScope,

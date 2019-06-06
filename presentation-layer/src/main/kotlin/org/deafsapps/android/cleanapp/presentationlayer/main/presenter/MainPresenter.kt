@@ -19,7 +19,8 @@ class MainPresenter(private var view: MainContract.View?) : MainContract.Present
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-    private val mainDomainLayerBridge: MainDomainLayerBridge<List<String>?, List<JokeBo>>? by inject("mainDomainLayerBridge")
+    private val mainDomainLayerBridge: MainDomainLayerBridge<List<String>?, List<JokeBo>>?
+            by inject("mainDomainLayerBridge")
 
     override fun onAttach(mvpView: MainContract.View) {
         //No need to define it since 'view' is already injected through constructor

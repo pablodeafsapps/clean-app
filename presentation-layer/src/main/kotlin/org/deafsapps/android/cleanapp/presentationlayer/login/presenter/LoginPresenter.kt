@@ -16,7 +16,8 @@ class LoginPresenter(private var view: LoginContract.View?) : LoginContract.Pres
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-    private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean> by inject("loginDomainLayerBridge")
+    private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean>
+            by inject("loginDomainLayerBridge")
 
     override fun onAttach(mvpView: LoginContract.View) {
         //No need to define it since 'view' is already injected through constructor

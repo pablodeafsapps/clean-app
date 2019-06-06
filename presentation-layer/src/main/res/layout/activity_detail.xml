@@ -30,10 +30,10 @@
         android:gravity="bottom"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_detail__img__guideline_horizontal"
+        app:layout_constraintBottom_toTopOf="@id/activity_detail__img__guideline_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_detail__tv__id"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail__tv__id"
         tools:text="Joke text" />
 
     <TextView

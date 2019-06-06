@@ -6,6 +6,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jetbrains.dokka'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/home/pablo/dummy-key-store.jks')
+            storePassword 'dummy-key-store'
+            keyAlias = 'dummy-key'
+            keyPassword 'dummy-key'
+        }
+    }
     compileSdkVersion compilesdk_version
     defaultConfig {
         minSdkVersion minsdk_version

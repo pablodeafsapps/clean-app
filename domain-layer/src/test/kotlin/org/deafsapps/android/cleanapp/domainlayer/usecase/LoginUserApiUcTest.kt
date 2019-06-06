@@ -17,7 +17,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.koin.dsl.module.module
-import org.koin.standalone.StandAloneContext
 import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.standalone.inject
@@ -26,7 +25,8 @@ import org.koin.test.KoinTest
 class LoginUserApiUcTest : KoinTest {
 
     private val scope = CoroutineScope(Dispatchers.Unconfined)
-    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean> by inject("loginUserApiUc")
+    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>
+            by inject("loginUserApiUc")
     // mocking a 'loginUserApiUc' dependency
     private val mockRepository = mock<DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean>>()
 

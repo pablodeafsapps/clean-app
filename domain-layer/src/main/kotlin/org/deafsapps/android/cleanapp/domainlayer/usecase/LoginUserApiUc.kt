@@ -10,7 +10,8 @@ private const val REQUIRED_DATA = 2
 
 class LoginUserApiUc : DomainlayerContract.Presentationlayer.UseCase<List<String?>?, Boolean>, KoinComponent {
 
-    private val firebaseRepository: DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean> by inject("firebaseRepository")
+    private val firebaseRepository: DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean>
+            by inject("firebaseRepository")
 
     override suspend fun run(params: List<String?>?): Either<FailureBo, Boolean> =
         params?.filterNotNull()?.let {

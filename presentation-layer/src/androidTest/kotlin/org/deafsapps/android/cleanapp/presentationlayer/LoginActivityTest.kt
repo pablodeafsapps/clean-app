@@ -8,16 +8,12 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import org.deafsapps.android.cleanapp.presentationlayer.di.presentationLayerModule
-import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
-import org.deafsapps.android.cleanapp.presentationlayer.login.presenter.LoginPresenter
 import org.deafsapps.android.cleanapp.presentationlayer.login.view.ui.LoginActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.dsl.module.module
-import org.koin.standalone.StandAloneContext.loadKoinModules
 import org.koin.standalone.StandAloneContext.startKoin
 import org.koin.standalone.StandAloneContext.stopKoin
 import org.koin.test.KoinTest
@@ -27,14 +23,12 @@ import org.koin.test.KoinTest
 class LoginActivityTest : KoinTest {
 
     @get:Rule
-    var activityRule = ActivityTestRule(LoginActivity::class.java)
-
-//    private val mockLoginPresenter = mock<LoginContract.Presenter>()
+    var activityRule = ActivityTestRule(LoginActivity::class.java, false, false)
 
     @Before
     fun setUp() {
-//        loadKoinModules(listOf(presentationLayerModule))
         startKoin(listOf(presentationLayerModule))
+        activityRule.launchActivity(null)
     }
 
     @After
@@ -44,14 +38,12 @@ class LoginActivityTest : KoinTest {
 
     @Test
     fun whenActivityStartsLoginIsDisplayed() {
-
         onView(withId(R.id.activity_login_tv_title))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun whenActivityStartsAndRegisterIsTappedRegisterTitleIsDisplayed() {
-
         val requiredText = "Register"
 
         onView(withId(R.id.activity_login__tb__access_mode))
@@ -60,28 +52,5 @@ class LoginActivityTest : KoinTest {
         onView(withId(R.id.activity_login_tv_title))
             .check(matches(withText(requiredText)))
     }
-
-    /*
-    @Test
-    fun whenActivityStartsAndEmailIsFilledProgressBarIsDisplayed() {
-
-        val emailToUse = "pablo@mytest.com"
-        val passwordToUse = "dummy password"
-
-        onView(withId(R.id.activity_login__et__email))
-            .perform(typeText(emailToUse))
-
-        onView(withId(R.id.activity_login__et__password))
-            .perform(typeText(passwordToUse))
-
-        Espresso.closeSoftKeyboard()
-
-        onView(withId(R.id.activity_login__btn__login))
-            .perform(click())
-
-        onView(withId(R.id.activity_login__pb__loading))
-            .check(matches(isDisplayed()))
-    }
-    */
 
 }
