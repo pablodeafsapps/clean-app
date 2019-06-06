@@ -1,14 +1,12 @@
 package org.deafsapps.android.cleanapp.datalayer.datasource
 
-import android.util.Log
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import org.deafsapps.android.cleanapp.datalayer.DataLayerContract
-import org.koin.standalone.KoinComponent
 import timber.log.Timber
 
-class FirebaseDataSourceImpl : DataLayerContract.FirebaseDataSource, KoinComponent {
+class FirebaseDataSourceImpl : DataLayerContract.FirebaseDataSource {
 
     private val fbAuth: FirebaseAuth? by lazy { FirebaseAuth.getInstance() }
 
@@ -28,7 +26,7 @@ class FirebaseDataSourceImpl : DataLayerContract.FirebaseDataSource, KoinCompone
             try {
                 Tasks.await<AuthResult>(createUserWithEmailAndPassword(email, password)).user != null
             } catch (e1: Exception) {
-                Timber.w( "register: ${e1.message}")
+                Timber.w("register: ${e1.message}")
                 null
             }
         }

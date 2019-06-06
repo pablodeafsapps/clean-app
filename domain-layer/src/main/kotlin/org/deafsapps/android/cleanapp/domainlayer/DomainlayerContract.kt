@@ -12,8 +12,7 @@ interface DomainlayerContract {
     interface Presentationlayer {
 
         interface UseCase<in T, out S> {
-            fun invoke(params: T?, onResult: (Either<FailureBo, S>) -> Unit) {
-                val scope = CoroutineScope(Dispatchers.IO)
+            fun invoke(scope: CoroutineScope, params: T?, onResult: (Either<FailureBo, S>) -> Unit) {
                 // task undertaken in a worker thread
                 val job = scope.async { run(params) }
                 // once completed, result sent in the Main thread

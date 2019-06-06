@@ -5,10 +5,10 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import org.deafsapps.android.cleanapp.presentationlayer.main.view.ui.MainActivity
 import org.deafsapps.android.cleanapp.presentationlayer.R
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract
 import org.deafsapps.android.cleanapp.presentationlayer.login.LoginContract.Action
+import org.deafsapps.android.cleanapp.presentationlayer.main.view.ui.MainActivity
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.koin.android.ext.android.inject
@@ -34,22 +34,17 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         btnLogin?.setOnClickListener {
             // correct login: pablo@mytest.com, pablomytest
             loginPresenter?.onButtonClicked(
-                Action.LOGIN,
-                etEmail?.text?.toString(),
-                etPassword?.text?.toString()
+                Action.LOGIN, etEmail?.text?.toString(), etPassword?.text?.toString()
             )
         }
         btnRegister?.setOnClickListener {
             loginPresenter?.onButtonClicked(
-                Action.REGISTER,
-                etEmail?.text?.toString(),
-                etPassword?.text?.toString()
+                Action.REGISTER, etEmail?.text?.toString(), etPassword?.text?.toString()
             )
         }
         tbAccessMode?.setOnClickListener {
             loginPresenter?.onToggleModeTapped(btnLogin?.visibility == View.VISIBLE)
         }
-
     }
 
     override fun onResume() {

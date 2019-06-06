@@ -7,6 +7,7 @@ buildscript {
         minsdk_version = 16
         targetsdk_version = 28
         androidxappcompat_version = '1.1.0-alpha05'
+        androidmultidex_version = '1.0.3'
         androidxcore_version = '1.2.0-alpha01'
         androidxrecyclerview_version = '1.0.0'
         androidxcardview_version = '1.0.0'
@@ -21,14 +22,17 @@ buildscript {
         firebasecore_version = '16.0.9'
         firebaseauth_version = '17.0.0'
         koin_version = '1.0.2'
+        leakcanary_version = '2.0-alpha-2'
         retrofit_version = '2.5.0'
         timber_version = '4.7.1'
         gson_version = '2.8.5'
         leakCanary_version = '1.6.2'
         junit_version = '4.12'
-        androidxtestrunner_version = '1.1.2-alpha02'
-        espresso_version = '3.2.0-alpha02'
+        mockitoandroid_version = '2.28.2'
         nhaarmanmockito_version = '1.5.0'
+        androidxtestrunner_version = '1.1.2-alpha02'
+        androidxtestrules_version = '1.1.0'
+        espresso_version = '3.2.0'
     }
     repositories {
         google()

@@ -1,5 +1,6 @@
 package org.deafsapps.android.cleanapp.domainlayer.feature.main
 
+import kotlinx.coroutines.CoroutineScope
 import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
@@ -11,8 +12,12 @@ class MainDomainLayerBridgeImpl : MainDomainLayerBridge<List<String>?, List<Joke
 
     private val fetchJokesApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String>?, List<JokeBo>> by inject("fetchJokesApiUc")
 
-    override fun fetchJokes(params: List<String>?, onResult: (Either<FailureBo, List<JokeBo>>) -> Unit) {
-        fetchJokesApiUc.invoke(params = params, onResult = onResult)
+    override fun fetchJokes(
+        scope: CoroutineScope,
+        params: List<String>?,
+        onResult: (Either<FailureBo, List<JokeBo>>) -> Unit
+    ) {
+        fetchJokesApiUc.invoke(scope = scope, params = params, onResult = onResult)
     }
 
 }
