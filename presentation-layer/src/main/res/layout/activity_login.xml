@@ -116,6 +116,6 @@
         app:layout_constraintEnd_toEndOf="@id/activity_login__et__email"
         app:layout_constraintStart_toStartOf="@id/activity_login__et__email"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plexus_logo" />
+        app:srcCompat="@drawable/ic_android" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package org.deafsapps.android.cleanapp.datalayer
 
-import org.deafsapps.android.cleanapp.datalayer.domain.JokeDto
 import org.deafsapps.android.cleanapp.datalayer.domain.JokeDtoWrapper
 import retrofit2.Response
 
@@ -12,7 +11,6 @@ interface DataLayerContract {
     }
 
     interface IcndbDataSource {
-
         suspend fun fetchIcndbJokesResponse(params: List<String>?): Response<JokeDtoWrapper>
     }
 

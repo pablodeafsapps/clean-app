@@ -14,6 +14,7 @@ import org.deafsapps.android.cleanapp.domainlayer.base.Either
 import org.deafsapps.android.cleanapp.domainlayer.base.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.di.domainLayerModule
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.koin.dsl.module.module
@@ -55,6 +56,26 @@ class LoginUserApiUcTest : KoinTest {
         }
 
         verify(mockRepository).loginUser(params = eq(paramsList))
+    }
+
+    @Test
+    fun `check that if params List is null, error is returned`() {
+        val paramsList = listOf(null)
+        val expectedResult = Either.Left(FailureBo.Unknown)
+
+        runBlocking {
+            Assert.assertTrue(loginUserApiUc.run(params = paramsList) == expectedResult)
+        }
+    }
+
+    @Test
+    fun `check that if params are insufficient, error is returned`() {
+        val paramsList = listOf("user")
+        val expectedResult = Either.Left(FailureBo.Unknown)
+
+        runBlocking {
+            Assert.assertTrue(loginUserApiUc.run(params = paramsList) == expectedResult)
+        }
     }
 
 }
