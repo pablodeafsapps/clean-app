@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".login.view.ui.LoginActivity">
+    tools:context=".feature.login.view.ui.LoginActivity">
 
     <TextView
         android:id="@+id/activity_login_tv_title"
@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/thirty_two"
         android:text="@string/tv_login_text"
-        app:layout_constraintBottom_toTopOf="@+id/activity_login__et__email"
-        app:layout_constraintLeft_toLeftOf="@+id/activity_login__et__password"
-        app:layout_constraintRight_toRightOf="@+id/activity_login__et__password" />
+        app:layout_constraintBottom_toTopOf="@id/activity_login__et__email"
+        app:layout_constraintLeft_toLeftOf="@id/activity_login__et__password"
+        app:layout_constraintRight_toRightOf="@id/activity_login__et__password" />
 
     <EditText
         android:id="@+id/activity_login__et__email"
@@ -54,7 +54,7 @@
         android:textAllCaps="false"
         android:textColor="@android:color/black"
         app:layout_constraintBaseline_toBaselineOf="@id/activity_login__tb__access_mode"
-        app:layout_constraintEnd_toStartOf="@+id/activity_login__tb__access_mode"
+        app:layout_constraintEnd_toStartOf="@id/activity_login__tb__access_mode"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,7 +73,7 @@
         app:layout_constraintBaseline_toBaselineOf="@id/activity_login__tb__access_mode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/activity_login__tb__access_mode"
+        app:layout_constraintStart_toEndOf="@id/activity_login__tb__access_mode"
         tools:visibility="visible" />
 
     <ToggleButton
@@ -87,9 +87,9 @@
         android:textOff="@string/btn_register_text"
         android:textOn="@string/btn_login_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/activity_login__btn__register"
+        app:layout_constraintEnd_toStartOf="@id/activity_login__btn__register"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/activity_login__btn__login"
+        app:layout_constraintStart_toEndOf="@id/activity_login__btn__login"
         app:layout_constraintTop_toBottomOf="@id/activity_login__et__password" />
 
     <ProgressBar
@@ -97,13 +97,25 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/eight"
+        android:layout_marginBottom="@dimen/eight"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/activity_login__tb__access_mode"
+        app:layout_constraintBottom_toTopOf="@id/activity_login__tb__access_mode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_login__et__password"
+        app:layout_constraintTop_toBottomOf="@id/activity_login__et__password"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/activity_login__img__logo"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/eight"
+        android:layout_marginBottom="@dimen/eight"
+        app:layout_constraintBottom_toTopOf="@id/activity_login_tv_title"
+        app:layout_constraintEnd_toEndOf="@id/activity_login__et__email"
+        app:layout_constraintStart_toStartOf="@id/activity_login__et__email"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_plexus_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

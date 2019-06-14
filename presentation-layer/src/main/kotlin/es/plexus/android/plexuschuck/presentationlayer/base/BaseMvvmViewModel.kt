@@ -1,7 +1,6 @@
 package es.plexus.android.plexuschuck.presentationlayer.base
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
 import kotlinx.coroutines.CoroutineScope

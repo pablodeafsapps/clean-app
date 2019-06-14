@@ -53,6 +53,7 @@ dependencies {
     implementation project(':domain-layer')
     // 3rd party libraries
     implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
     // testing dependencies - Instrumentation Test
     androidTestImplementation "androidx.test:runner:$androidxtestrunner_version"
     androidTestImplementation "androidx.test:rules:$androidxtestrules_version"

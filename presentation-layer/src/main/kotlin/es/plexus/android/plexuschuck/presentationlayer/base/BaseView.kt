@@ -1,7 +1,3 @@
 package es.plexus.android.plexuschuck.presentationlayer.base
 
-interface BaseView<T> {
-
-    fun getViewInstance(): T
-
-}
+interface BaseView<T>

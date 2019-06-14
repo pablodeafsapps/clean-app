@@ -1,9 +1,18 @@
 package es.plexus.android.plexuschuck.domainlayer.feature.login
 
-class LoginDomainLayerBridgeImpl : LoginDomainLayerBridge {
+import es.plexus.android.plexuschuck.domainlayer.base.Either
+import es.plexus.android.plexuschuck.domainlayer.base.FailureBo
+import kotlinx.coroutines.CoroutineScope
+import org.koin.standalone.KoinComponent
 
-    override fun request() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class LoginDomainLayerBridgeImpl : LoginDomainLayerBridge<List<String?>, Boolean>, KoinComponent {
+
+    override fun loginUser(scope: CoroutineScope, params: List<String?>, onResult: (Either<FailureBo, Boolean>) -> Unit) {
+
+    }
+
+    override fun registerUser(scope: CoroutineScope, params: List<String?>, onResult: (Either<FailureBo, Boolean>) -> Unit) {
+
     }
 
 }

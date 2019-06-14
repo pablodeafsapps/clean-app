@@ -1,4 +1,4 @@
-package es.plexus.android.plexuschuck.presentationlayer.base
+package es.plexus.android.plexuschuck.presentationlayer.domain
 
 sealed class FailureVo(private var msg: String = "n/a") {
 
