@@ -7,7 +7,7 @@ import org.koin.dsl.module.module
 
 val presentationLayerModule = module(override = true) {
 
-    viewModel<SplashActivityViewModel> { SplashActivityViewModel() }
-    viewModel<LoginActivityViewModel> { LoginActivityViewModel() }
+    viewModel { SplashActivityViewModel() }
+    viewModel { LoginActivityViewModel() }
 
 }

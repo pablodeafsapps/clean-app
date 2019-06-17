@@ -17,15 +17,8 @@ import kotlin.coroutines.CoroutineContext
 
 class LoginActivityViewModel : BaseMvvmViewModel<LoginDomainLayerBridge<List<String?>, Boolean>, LoginState>() {
 
-    private val job = Job()
-    override val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.IO
-
-    private val loginDomainLayerBridge: LoginDomainLayerBridge<List<String?>, Boolean>
-            by inject("loginDomainLayerBridge")
-
+    override val bridge: LoginDomainLayerBridge<List<String?>, Boolean>? by inject(name = getDomainLayerBridgeId())
     private lateinit var _loginState: MutableLiveData<ScreenState<LoginState>>
-
     override val screenState: LiveData<ScreenState<LoginState>>
         get() {
             if (!::_loginState.isInitialized) {
@@ -50,15 +43,15 @@ class LoginActivityViewModel : BaseMvvmViewModel<LoginDomainLayerBridge<List<Str
     }
 
     private fun loginUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.loginUser(scope = this, params = listOf(email, password),
+        bridge?.loginUser(scope = this, params = listOf(email, password),
             onResult = {
                 it.either(::handleError, ::handleSuccess)
-                _loginState.value = ScreenState.Render(LoginState.Loading)
+                _loginState.value = ScreenState.Render(LoginState.Idle)
             })
     }
 
     private fun registerUserWithData(email: String?, password: String?) {
-        loginDomainLayerBridge.registerUser(scope = this, params = listOf(email, password),
+        bridge?.registerUser(scope = this, params = listOf(email, password),
             onResult = {
                 it.either(::handleError, ::handleSuccess)
                 _loginState.value = ScreenState.Render(LoginState.Idle)

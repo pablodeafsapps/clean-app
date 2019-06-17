@@ -31,24 +31,7 @@
         {
           "current_key": "AIzaSyCnoXbNBVdWA6-ZcO6Q-CL2qwWovLEWA7o"
         }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1060858310779-dh4t76ambi20bcikc6bpl0jh202ja5u2.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1060858310779-lbv3p81g0fv5g247al6onj8vu9141qns.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.plexus.Plexus-NBA"
-              }
-            }
-          ]
-        }
-      }
+      ]
     }
   ],
   "configuration_version": "1"

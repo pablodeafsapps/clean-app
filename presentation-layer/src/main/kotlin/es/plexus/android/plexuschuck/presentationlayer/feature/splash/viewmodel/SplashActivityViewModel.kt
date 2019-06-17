@@ -10,8 +10,8 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.splash.view.state
 
 class SplashActivityViewModel : BaseMvvmViewModel<SplashDomainLayerBridge, SplashState>() {
 
+    override val bridge: SplashDomainLayerBridge? = null   // no 'domain-layer' needed
     private lateinit var _splashState: MutableLiveData<ScreenState<SplashState>>
-
     override val screenState: LiveData<ScreenState<SplashState>>
         get() {
             if (!::_splashState.isInitialized) {
