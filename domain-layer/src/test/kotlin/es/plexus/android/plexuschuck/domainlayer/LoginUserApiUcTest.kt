@@ -3,8 +3,10 @@ package es.plexus.android.plexuschuck.domainlayer
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.FIREBASE_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.base.Either
 import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -32,7 +34,7 @@ class LoginUserApiUcTest : KoinTest {
     @Before
     fun setUp() {
         // adding that dependency to the DI graph, since it is in a different module (overriding)
-        startKoin(listOf(domainLayerModule, module { single("firebaseRepository") { mockRepository } }))
+        startKoin(listOf(domainLayerModule, module { single(name = FIREBASE_REPOSITORY_TAG) { mockRepository } }))
         // this next line allows to run test with coroutines using the 'Dispatchers.Main'
         Dispatchers.setMain(Dispatchers.Unconfined)
     }
