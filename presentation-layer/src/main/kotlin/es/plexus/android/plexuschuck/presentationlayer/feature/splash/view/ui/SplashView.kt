@@ -29,7 +29,7 @@ class SplashView : AppCompatActivity(),
 
     override fun processRenderState(renderState: SplashState?) {
         when (renderState) {
-            is SplashState.FinishView -> startLoginActivity()
+            is SplashState.LoadingFinished -> startLoginActivity()
         }
     }
 

@@ -23,7 +23,7 @@ class SplashActivityViewModel : BaseMvvmViewModel<SplashDomainLayerBridge, Splas
     override fun getDomainLayerBridgeId(): String = SPLASH_DOMAIN_TAG
 
     fun onViewCreated() {
-        _splashState.value = ScreenState.Render(SplashState.FinishView)
+        _splashState.value = ScreenState.Render(SplashState.LoadingFinished)
     }
 
 }

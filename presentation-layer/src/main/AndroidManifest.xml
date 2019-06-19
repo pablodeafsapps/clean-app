@@ -20,6 +20,7 @@
         <activity
             android:name=".feature.login.view.ui.LoginActivity"
             android:theme="@style/LoginTheme"/>
+        <activity android:name=".feature.main.view.ui.MainActivity" />
     </application>
 
 </manifest>

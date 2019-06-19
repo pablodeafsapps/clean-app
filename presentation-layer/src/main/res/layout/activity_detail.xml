@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".detail.view.ui.DetailActivity">
+    tools:context=".feature.detail.view.ui.DetailActivity">
 
     <ProgressBar
         android:id="@+id/activity_detail__pb__loading"
@@ -30,10 +30,10 @@
         android:gravity="bottom"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/activity_detail__img__guideline_horizontal"
+        app:layout_constraintBottom_toTopOf="@id/activity_detail__img__guideline_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/activity_detail__tv__id"
+        app:layout_constraintTop_toBottomOf="@id/activity_detail__tv__id"
         tools:text="Joke text" />
 
     <TextView
@@ -67,8 +67,9 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/activity_detail__img__guideline_vertical"
-        app:layout_constraintTop_toTopOf="@+id/activity_detail__img__guideline_horizontal"
+        android:contentDescription="@string/default_content_description"
+        app:layout_constraintStart_toStartOf="@id/activity_detail__img__guideline_vertical"
+        app:layout_constraintTop_toTopOf="@id/activity_detail__img__guideline_horizontal"
         app:srcCompat="@drawable/img_cn_profile" />
 
     <androidx.constraintlayout.widget.Guideline

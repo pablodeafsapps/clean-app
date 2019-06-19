@@ -3,7 +3,7 @@ package es.plexus.android.plexuschuck.datalayer.datasource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.*
 import es.plexus.android.plexuschuck.datalayer.DataLayerContract
-import es.plexus.android.plexuschuck.datalayer.base.FailureDto
+import es.plexus.android.plexuschuck.datalayer.domain.FailureDto
 import es.plexus.android.plexuschuck.domainlayer.base.Either
 import timber.log.Timber
 

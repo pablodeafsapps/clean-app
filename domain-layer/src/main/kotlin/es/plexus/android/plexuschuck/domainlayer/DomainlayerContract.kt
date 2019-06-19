@@ -1,7 +1,7 @@
 package es.plexus.android.plexuschuck.domainlayer
 
 import es.plexus.android.plexuschuck.domainlayer.base.Either
-import es.plexus.android.plexuschuck.domainlayer.base.FailureBo
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -26,10 +26,18 @@ interface DomainlayerContract {
 
     interface Datalayer {
 
-        interface FirebaseRepository<in T, out S> {
+        companion object {
+            const val FIREBASE_REPOSITORY_TAG = "firebaseRepository"
+            const val ICNDB_REPOSITORY_TAG = "icndbRepository"
+        }
 
+        interface FirebaseRepository<in T, out S> {
             fun loginUser(params: T): Either<FailureBo, S>
             fun registerUser(params: T): Either<FailureBo, S>
+        }
+
+        interface IcndbRepository<in T, out S> {
+            suspend fun fetchJokes(params: T?): Either<FailureBo, S>
         }
 
     }

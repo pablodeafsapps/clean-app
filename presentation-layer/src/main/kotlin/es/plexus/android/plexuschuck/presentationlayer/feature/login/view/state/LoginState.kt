@@ -5,7 +5,6 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 
 sealed class LoginState : BaseState() {
     object Idle : LoginState()
-    object Loading : LoginState()
     object Login : LoginState()
     object Register : LoginState()
     object AccessGranted : LoginState()

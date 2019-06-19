@@ -13,7 +13,9 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.LoginContract.Action
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.LoginState
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel.LoginActivityViewModel
+import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -38,6 +40,16 @@ class LoginActivity : AppCompatActivity(),
         initView()
     }
 
+    override fun processRenderState(renderState: LoginState?) {
+        when (renderState) {
+            is LoginState.Idle -> hideLoading()
+            is LoginState.Login -> showLoginUi()
+            is LoginState.Register -> showRegisterUi()
+            is LoginState.AccessGranted -> navigateToMainActivity()
+            is LoginState.ShowError -> showError(renderState.failure)
+        }
+    }
+
     private fun initModel() {
         viewModel?.screenState?.observe(this, Observer { screenState ->
             when (screenState) {
@@ -57,17 +69,6 @@ class LoginActivity : AppCompatActivity(),
         }
         tbAccessMode?.setOnClickListener {
             viewModel?.onToggleModeTapped(btnLogin?.visibility == View.VISIBLE)
-        }
-    }
-
-    override fun processRenderState(renderState: LoginState?) {
-        when (renderState) {
-            is LoginState.Idle -> hideLoading()
-            is LoginState.Loading -> showLoading()
-            is LoginState.Login -> showLoginUi()
-            is LoginState.Register -> showRegisterUi()
-            is LoginState.AccessGranted -> navigateToMainActivity()
-            is LoginState.ShowError -> showError(renderState.failure)
         }
     }
 
@@ -103,7 +104,7 @@ class LoginActivity : AppCompatActivity(),
     }
 
     private fun navigateToMainActivity() {
-        TODO("not implemented")
+        startActivity<MainActivity>()
     }
 
     private fun showError(failure: FailureVo?) {

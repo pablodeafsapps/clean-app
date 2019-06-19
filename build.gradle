@@ -1,12 +1,12 @@
 buildscript {
     ext {
         gradle_version = '3.4.1'
-        kotlin_version = '1.3.31'
+        kotlin_version = '1.3.40'
         anko_version = '0.10.8'
         compilesdk_version = 28
         minsdk_version = 16
         targetsdk_version = 28
-        androidxappcompat_version = '1.1.0-alpha05'
+        androidxappcompat_version = '1.1.0-beta01'
         androidmultidex_version = '1.0.3'
         androidxcore_version = '1.2.0-alpha01'
         androidxrecyclerview_version = '1.0.0'
@@ -28,7 +28,7 @@ buildscript {
         gson_version = '2.8.5'
         leakCanary_version = '1.6.2'
         junit_version = '4.12'
-        mockitoandroid_version = '2.24.5'
+        mockitoandroid_version = '2.28.2'
         nhaarmanmockito_version = '1.5.0'
         androidxtestrunner_version = '1.1.2-alpha02'
         androidxtestrules_version = '1.1.0'
