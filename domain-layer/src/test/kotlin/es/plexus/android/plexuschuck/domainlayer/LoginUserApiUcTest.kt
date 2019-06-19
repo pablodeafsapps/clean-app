@@ -7,6 +7,7 @@ import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.C
 import es.plexus.android.plexuschuck.domainlayer.base.Either
 import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
+import es.plexus.android.plexuschuck.domainlayer.usecase.LOGIN_UC_TAG
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -27,7 +28,7 @@ class LoginUserApiUcTest : KoinTest {
 
     private val scope = CoroutineScope(Dispatchers.Unconfined)
     private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>
-            by inject("loginUserApiUc")
+            by inject(name = LOGIN_UC_TAG)
     // mocking a 'loginUserApiUc' dependency
     private val mockRepository = mock<DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean>>()
 

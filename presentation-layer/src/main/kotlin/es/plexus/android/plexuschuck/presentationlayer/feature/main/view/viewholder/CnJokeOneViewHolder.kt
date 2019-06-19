@@ -1,6 +1,5 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.main.view.viewholder
 
-
 import android.view.View
 import android.widget.TextView
 import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
