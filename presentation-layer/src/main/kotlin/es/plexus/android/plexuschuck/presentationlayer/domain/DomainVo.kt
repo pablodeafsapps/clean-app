@@ -1,5 +1,9 @@
 package es.plexus.android.plexuschuck.presentationlayer.domain
 
+import android.os.Parcelable
+import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter.CnJokeViewType
+import kotlinx.android.parcel.Parcelize
+
 sealed class FailureVo(private var msg: String = "n/a") {
 
     abstract fun getErrorMessage(): String
@@ -20,3 +24,6 @@ sealed class FailureVo(private var msg: String = "n/a") {
     }
 
 }
+
+@Parcelize
+data class JokeVo(val id: Int, val joke: String, val categories: List<String>) : CnJokeViewType.JokeTypeOne(), Parcelable

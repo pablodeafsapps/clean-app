@@ -1,4 +1,6 @@
-package es.plexus.android.plexuschuck.domainlayer.base
+package es.plexus.android.plexuschuck.domainlayer.domain
+
+data class JokeBo(val id: Int, val joke: String, val categories: List<String>)
 
 sealed class FailureBo(var msg: String = "n/a") {
 

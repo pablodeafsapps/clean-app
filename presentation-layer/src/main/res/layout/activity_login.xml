@@ -112,6 +112,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="@dimen/eight"
         android:layout_marginBottom="@dimen/eight"
+        android:contentDescription="@string/default_content_description"
         app:layout_constraintBottom_toTopOf="@id/activity_login_tv_title"
         app:layout_constraintEnd_toEndOf="@id/activity_login__et__email"
         app:layout_constraintStart_toStartOf="@id/activity_login__et__email"
