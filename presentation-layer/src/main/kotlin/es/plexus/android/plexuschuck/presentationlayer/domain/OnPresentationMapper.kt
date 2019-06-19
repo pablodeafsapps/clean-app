@@ -1,6 +1,7 @@
 package es.plexus.android.plexuschuck.presentationlayer.domain
 
-import es.plexus.android.plexuschuck.domainlayer.base.FailureBo
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
+import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
 
 fun FailureBo.boToVoFailure(): FailureVo {
     return when (this) {
@@ -9,3 +10,8 @@ fun FailureBo.boToVoFailure(): FailureVo {
         FailureBo.Unknown -> FailureVo.Unknown
     }
 }
+
+fun List<JokeBo>.boToVo(): List<JokeVo> = map { it.boToVo() }
+
+private fun JokeBo.boToVo(): JokeVo =
+    JokeVo(id = id, joke = joke, categories = categories)

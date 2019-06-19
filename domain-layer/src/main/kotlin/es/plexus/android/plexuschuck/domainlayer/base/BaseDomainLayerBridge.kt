@@ -1,3 +1,9 @@
 package es.plexus.android.plexuschuck.domainlayer.base
 
-interface BaseDomainLayerBridge
+interface BaseDomainLayerBridge {
+
+    interface Presentation
+
+    interface Data
+
+}

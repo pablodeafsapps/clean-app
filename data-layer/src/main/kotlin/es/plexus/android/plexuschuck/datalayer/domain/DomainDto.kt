@@ -1,4 +1,8 @@
-package es.plexus.android.plexuschuck.datalayer.base
+package es.plexus.android.plexuschuck.datalayer.domain
+
+data class JokeDto(val id: Int, val joke: String, val categories: List<String>)
+
+data class JokeDtoWrapper(val type: String, val value: List<JokeDto>)
 
 sealed class FailureDto(val msg: String) {
 

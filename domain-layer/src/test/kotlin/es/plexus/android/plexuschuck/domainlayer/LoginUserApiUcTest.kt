@@ -4,7 +4,6 @@ import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import es.plexus.android.plexuschuck.domainlayer.base.Either
-import es.plexus.android.plexuschuck.domainlayer.base.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

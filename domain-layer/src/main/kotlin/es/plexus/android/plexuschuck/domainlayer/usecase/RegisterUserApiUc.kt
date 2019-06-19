@@ -2,14 +2,15 @@ package es.plexus.android.plexuschuck.domainlayer.usecase
 
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
 import es.plexus.android.plexuschuck.domainlayer.base.Either
-import es.plexus.android.plexuschuck.domainlayer.base.FailureBo
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 
 const val REGISTER_UC_TAG = "registerUserApiUc"
 private const val REQUIRED_DATA = 2
 
-class RegisterUserApiUc : DomainlayerContract.Presentationlayer.UseCase<List<String?>?, Boolean>, KoinComponent {
+internal class RegisterUserApiUc : DomainlayerContract.Presentationlayer.UseCase<List<String?>?, Boolean>,
+    KoinComponent {
 
     private val repository: DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean> by inject("firebaseRepository")
 

@@ -2,7 +2,7 @@ package es.plexus.android.plexuschuck.domainlayer.feature.login
 
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
 import es.plexus.android.plexuschuck.domainlayer.base.Either
-import es.plexus.android.plexuschuck.domainlayer.base.FailureBo
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.usecase.LOGIN_UC_TAG
 import es.plexus.android.plexuschuck.domainlayer.usecase.REGISTER_UC_TAG
 import kotlinx.coroutines.CoroutineScope
