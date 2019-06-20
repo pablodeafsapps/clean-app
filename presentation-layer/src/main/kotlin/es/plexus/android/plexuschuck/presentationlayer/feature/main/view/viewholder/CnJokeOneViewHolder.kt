@@ -1,5 +1,6 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.main.view.viewholder
 
+import android.text.Html
 import android.view.View
 import android.widget.TextView
 import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
@@ -16,7 +17,7 @@ class CnJokeOneViewHolder(itemView: View) : BaseViewTypeHolder<CnJokeViewType, C
 
     override fun onBind(item: CnJokeViewType, callback: (CnJokeActionView) -> Unit) {
         (item as? JokeVo)?.let { jokeVo ->
-            tvJoke?.text = jokeVo.joke
+            tvJoke?.text = Html.fromHtml(jokeVo.joke)
             tvCategories?.text = jokeVo.categories.takeIf { it.isNotEmpty() }?.toString()
             container.setOnClickListener {
                 callback(CnJokeActionView.JokeItemTapped(item))

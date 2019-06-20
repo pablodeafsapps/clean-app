@@ -13,10 +13,10 @@ import kotlin.coroutines.CoroutineContext
  * This parametrized abstract class is intended to be extended by any app presentation-layer view-model which aims to be
  * integrated within the MVVM architecture pattern.
  *
- * @param T represents the bridge to the domain layer, and must extend from @see{BaseDomainLayerBridge}
- * @param S represents the state of the view, and must extend from @see{BaseState}
+ * @param T represents the bridge to the domain layer, and must extend from [BaseDomainLayerBridge]
+ * @param S represents the state of the view, and must extend from [BaseState]
  * @property bridge the bridge which connects to the 'domain-layer' module
- * @property screenState the @see{LiveData} which will be updated to notify the view
+ * @property screenState the [LiveData] which will be updated to notify the view
  * @property viewModelJob represents the job to be launched for the coroutine
  * @property coroutineContext a context to host the coroutine
  *

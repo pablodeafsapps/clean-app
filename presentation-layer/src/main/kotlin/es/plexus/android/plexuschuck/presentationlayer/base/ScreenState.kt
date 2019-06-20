@@ -1,7 +1,7 @@
 package es.plexus.android.plexuschuck.presentationlayer.base
 
 /**
- * This open class is the baseline upon which any screen state is constructed
+ * This sealed class is the baseline upon which any screen state is constructed
  *
  * @author Pablo L. Sordo
  * @since 1.0

@@ -43,6 +43,7 @@ class SplashActivity : AppCompatActivity(),
 
     private fun startLoginActivity() {
         startActivity<LoginActivity>()
+        finish()
     }
 
 }
