@@ -11,6 +11,13 @@ import es.plexus.android.plexuschuck.domainlayer.feature.main.MainDomainLayerBri
 import es.plexus.android.plexuschuck.domainlayer.usecase.*
 import org.koin.dsl.module.module
 
+/**
+ * This variable represents the 'domain-layer' dependencies module to be used by Koin. It basically includes bridge and
+ * use-case definitions.
+ *
+ * @author Pablo L. Sordo
+ * @since 1.0
+ */
 val domainLayerModule = module(override = true) {
     factory<LoginDomainLayerBridge<List<String?>, Boolean>>(name = LOGIN_DOMAIN_BRIDGE_TAG) { LoginDomainLayerBridgeImpl() }
     factory<MainDomainLayerBridge<List<String>?, List<JokeBo>>>(name = MAIN_DOMAIN_BRIDGE_TAG) { MainDomainLayerBridgeImpl() }

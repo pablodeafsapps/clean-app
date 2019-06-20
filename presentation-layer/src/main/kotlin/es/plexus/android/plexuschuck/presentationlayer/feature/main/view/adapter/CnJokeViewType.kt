@@ -9,7 +9,6 @@ sealed class CnJokeViewType(viewType: Int) : BaseViewTypeItem(viewType) {
     }
 
     open class JokeTypeOne : CnJokeViewType(JokeViewType.TYPE_ONE.type)
-
     open class JokeTypeTwo : CnJokeViewType(JokeViewType.TYPE_TWO.type)
 
 }

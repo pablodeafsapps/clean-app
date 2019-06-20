@@ -31,11 +31,11 @@ androidExtensions {
 }
 
 dokka {
-    outputFormat = 'javadoc'
-    outputDirectory = "$buildDir/docs"
-    skipEmptyPackages = true   //Skip empty packages
-    skipDeprecated = true   //Skip deprecated
-    noStdlibLink = true   //Skip documentation related to kotlin-stdlib
+    outputFormat = 'html'
+    outputDirectory = "./docs/dokka"
+    skipEmptyPackages = true   // skip empty packages
+    skipDeprecated = false   // skip deprecated
+    noStdlibLink = false   // skip documentation related to kotlin-stdlib
 }
 
 dependencies {
