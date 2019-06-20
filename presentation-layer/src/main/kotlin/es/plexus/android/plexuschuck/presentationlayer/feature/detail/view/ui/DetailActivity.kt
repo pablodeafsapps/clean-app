@@ -61,9 +61,9 @@ class DetailActivity : AppCompatActivity(),
     }
 
     private fun loadJokeItem(item: JokeVo) {
-        tvId?.text = getString(R.string.tv_detail_id, item.id.toString())
-        tvJoke?.text = Html.fromHtml(item.joke)
-        tvCategories?.text = item.categories.takeIf { it.isNotEmpty() }?.toString()
+        tvId?.text = getString(R.string.tv_detail_id, item.id?.toString() ?: "")
+        tvJoke?.text = Html.fromHtml(item.joke ?: "")
+        tvCategories?.text = item.categories.takeIf { it?.isNotEmpty() == true }?.toString()
     }
 
     private fun showLoading() {
