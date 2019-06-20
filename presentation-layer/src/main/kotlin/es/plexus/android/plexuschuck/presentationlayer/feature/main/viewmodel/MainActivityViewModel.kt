@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
-import es.plexus.android.plexuschuck.domainlayer.feature.main.MAIN_DOMAIN_TAG
+import es.plexus.android.plexuschuck.domainlayer.feature.main.MAIN_DOMAIN_BRIDGE_TAG
 import es.plexus.android.plexuschuck.domainlayer.feature.main.MainDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmViewModel
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
@@ -27,7 +27,7 @@ class MainActivityViewModel : BaseMvvmViewModel<MainDomainLayerBridge<List<Strin
             return _mainState
         }
 
-    override fun getDomainLayerBridgeId(): String = MAIN_DOMAIN_TAG
+    override fun getDomainLayerBridgeId(): String = MAIN_DOMAIN_BRIDGE_TAG
 
     private fun requestJokes() {
         _mainState.value = ScreenState.Loading
@@ -47,7 +47,7 @@ class MainActivityViewModel : BaseMvvmViewModel<MainDomainLayerBridge<List<Strin
     }
 
     fun onJokeItemClicked(item: JokeVo) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        _mainState.value = ScreenState.Render(MainState.ShowJokeDetail(item))
     }
 
 }

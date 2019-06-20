@@ -5,7 +5,7 @@ import es.plexus.android.plexuschuck.domainlayer.base.Either
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import kotlinx.coroutines.CoroutineScope
 
-const val LOGIN_DOMAIN_TAG = "loginDomainLayerBridge"
+const val LOGIN_DOMAIN_BRIDGE_TAG = "loginDomainLayerBridge"
 
 interface LoginDomainLayerBridge<in T, out S> : BaseDomainLayerBridge {
 

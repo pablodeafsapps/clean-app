@@ -53,8 +53,8 @@ class LoginActivity : AppCompatActivity(),
     private fun initModel() {
         viewModel?.screenState?.observe(this, Observer { screenState ->
             when (screenState) {
-                is ScreenState.Render<LoginState> -> processRenderState(screenState.renderState)
                 is ScreenState.Loading -> showLoading()
+                is ScreenState.Render<LoginState> -> processRenderState(screenState.renderState)
             }
         })
     }

@@ -26,7 +26,7 @@ import kotlin.coroutines.CoroutineContext
 abstract class BaseMvvmViewModel<T : BaseDomainLayerBridge, S : BaseState> : ViewModel(), CoroutineScope,
     KoinComponent {
 
-    abstract val bridge: BaseDomainLayerBridge?
+    abstract val bridge: T?
     abstract val screenState: LiveData<ScreenState<S>>
     private val viewModelJob = SupervisorJob()
     override val coroutineContext: CoroutineContext

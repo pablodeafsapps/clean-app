@@ -12,7 +12,7 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.splash.viewmodel.
 import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class SplashView : AppCompatActivity(),
+class SplashActivity : AppCompatActivity(),
     BaseMvvmView<SplashActivityViewModel, SplashDomainLayerBridge, SplashState> {
 
     override val viewModel: SplashActivityViewModel? by viewModel()

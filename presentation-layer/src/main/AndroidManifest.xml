@@ -9,7 +9,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".feature.splash.view.ui.SplashView"
+            android:name=".feature.splash.view.ui.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -21,6 +21,7 @@
             android:name=".feature.login.view.ui.LoginActivity"
             android:theme="@style/LoginTheme"/>
         <activity android:name=".feature.main.view.ui.MainActivity" />
+        <activity android:name=".feature.detail.view.ui.DetailActivity" />
     </application>
 
 </manifest>
