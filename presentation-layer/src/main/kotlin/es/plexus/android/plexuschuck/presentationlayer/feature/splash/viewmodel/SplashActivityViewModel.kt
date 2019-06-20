@@ -2,7 +2,7 @@ package es.plexus.android.plexuschuck.presentationlayer.feature.splash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import es.plexus.android.plexuschuck.domainlayer.feature.splash.SPLASH_DOMAIN_TAG
+import es.plexus.android.plexuschuck.domainlayer.feature.splash.SPLASH_DOMAIN_BRIDGE_TAG
 import es.plexus.android.plexuschuck.domainlayer.feature.splash.SplashDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmViewModel
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
@@ -20,7 +20,7 @@ class SplashActivityViewModel : BaseMvvmViewModel<SplashDomainLayerBridge, Splas
             return _splashState
         }
 
-    override fun getDomainLayerBridgeId(): String = SPLASH_DOMAIN_TAG
+    override fun getDomainLayerBridgeId(): String = SPLASH_DOMAIN_BRIDGE_TAG
 
     fun onViewCreated() {
         _splashState.value = ScreenState.Render(SplashState.LoadingFinished)

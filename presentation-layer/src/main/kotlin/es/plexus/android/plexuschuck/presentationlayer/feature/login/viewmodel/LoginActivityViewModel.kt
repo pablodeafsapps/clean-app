@@ -3,7 +3,7 @@ package es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
-import es.plexus.android.plexuschuck.domainlayer.feature.login.LOGIN_DOMAIN_TAG
+import es.plexus.android.plexuschuck.domainlayer.feature.login.LOGIN_DOMAIN_BRIDGE_TAG
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LoginDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmViewModel
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
@@ -24,7 +24,7 @@ class LoginActivityViewModel : BaseMvvmViewModel<LoginDomainLayerBridge<List<Str
             return _loginState
         }
 
-    override fun getDomainLayerBridgeId(): String = LOGIN_DOMAIN_TAG
+    override fun getDomainLayerBridgeId(): String = LOGIN_DOMAIN_BRIDGE_TAG
 
     fun onButtonClicked(action: Action, email: String?, password: String?) {
         _loginState.value = ScreenState.Loading

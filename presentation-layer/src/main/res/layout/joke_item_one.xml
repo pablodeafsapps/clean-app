@@ -23,6 +23,7 @@
             android:layout_margin="@dimen/eight"
             android:layout_marginBottom="@dimen/eight"
             android:ellipsize="end"
+            android:gravity="center_vertical"
             android:maxLines="3"
             android:text="@string/tv_placeholder_text_one"
             android:textColor="@android:color/black"

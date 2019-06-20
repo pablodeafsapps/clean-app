@@ -9,7 +9,7 @@ import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
  * @param T represents the ViewModel, and thus it must extend from @see{BaseMvvmViewModel}
  * @param S represents the bridge to the domain layer, and must extend from @see{BaseDomainLayerBridge}
  * @param U represents the state of the view, and must extend from @see{BaseState}
- * @property viewModel a reference to the @see{ViewModel} associated to this view
+ * @property viewModel a reference to the [BaseMvvmViewModel] associated to this view
  *
  * @author Pablo L. Sordo
  * @since 1.0
