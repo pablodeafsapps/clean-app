@@ -29,9 +29,9 @@ From Android Studio:
 ## Login
 After the initial splash, a login/register screen displays. To get access, use the following credentials:
 
-`User: pablo@mytest.com`
+`User: pablo.sordomartinez@plexus.es`
 
-`Password: pablomytest`
+`Password: plexu5`
 
 
 ## Architecture and project organization
@@ -79,14 +79,12 @@ The documentation is managed in two different ways:
 * Using this **README.md** file to give a quick overview of the project.
 * Using **dokka**, which is a framework for Kotlin projects, similar to Javadoc.
 
-For the latter, the documentation can be find in the *docs* folder. To inspect it, just open up `index.html`.
-
-In case you want to regenerate or update the documentation, simply run the next command from a terminal:
+For the latter, the documentation can be find in the *docs/dokka* folder, organized in modules. To generate it, simply run the next command from a terminal:
 ```bash
 > ./gradlew dokka
 ```  
 
-When finished, reopen `index.html` or refresh the browser.
+When finished, open up `index.html` using your favourite browser.
 
 
 ## Maintainers

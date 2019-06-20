@@ -12,6 +12,13 @@ import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.C
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
 import org.koin.dsl.module.module
 
+/**
+ * This variable represents the 'data-layer' dependencies module to be used by Koin. It basically includes repository
+ * and data-source definitions.
+ *
+ * @author Pablo L. Sordo
+ * @since 1.0
+ */
 val dataLayerModule = module(override = true) {
     factory<DataLayerContract.FirebaseDataSource>(name = FIREBASE_DATA_SOURCE_TAG) { FirebaseDataSourceImpl() }
     factory<DataLayerContract.IcndbDataSource>(name = ICNDB_DATA_SOURCE_TAG) { IcndbDataSourceImpl() }

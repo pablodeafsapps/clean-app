@@ -7,6 +7,13 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.splash.viewmodel.
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
+/**
+ * This variable represents the 'presentation-layer' dependencies module to be used by Koin. It basically includes
+ * ViewModel definitions.
+ *
+ * @author Pablo L. Sordo
+ * @since 1.0
+ */
 val presentationLayerModule = module(override = true) {
     viewModel { SplashActivityViewModel() }
     viewModel { LoginActivityViewModel() }
