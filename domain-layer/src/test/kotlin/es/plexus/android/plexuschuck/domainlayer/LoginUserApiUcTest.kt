@@ -1,8 +1,8 @@
 package es.plexus.android.plexuschuck.domainlayer
 
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.FIREBASE_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.base.Either
 import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
