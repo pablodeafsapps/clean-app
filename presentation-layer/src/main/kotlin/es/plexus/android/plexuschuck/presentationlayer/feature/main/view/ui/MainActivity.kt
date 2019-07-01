@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun processRenderState(renderState: MainState?) {
         when (renderState) {
-            is MainState.Idle -> hideLoading()
+            MainState.Idle -> hideLoading()
             is MainState.ShowJokeList -> loadJokesData(renderState.jokeList)
             is MainState.ShowJokeDetail -> navigateToDetailActivity(renderState.joke)
             is MainState.ShowError -> showError(renderState.failure)

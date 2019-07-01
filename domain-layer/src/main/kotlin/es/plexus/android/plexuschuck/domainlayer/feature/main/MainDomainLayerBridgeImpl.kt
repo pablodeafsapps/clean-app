@@ -6,14 +6,15 @@ import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
 import es.plexus.android.plexuschuck.domainlayer.usecase.MAIN_UC_TAG
 import kotlinx.coroutines.CoroutineScope
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 
-internal class MainDomainLayerBridgeImpl : MainDomainLayerBridge<List<String>?, List<JokeBo>>, KoinComponent {
+internal class MainDomainLayerBridgeImpl : MainDomainLayerBridge<List<String>?, List<JokeBo>>,
+    KoinComponent {
 
-    private val fetchJokesApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String>?, List<JokeBo>> by inject(
-        name = MAIN_UC_TAG
-    )
+    private val fetchJokesApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String>?, List<JokeBo>>
+            by inject(named(name = MAIN_UC_TAG))
 
     override fun fetchJokes(
         scope: CoroutineScope,

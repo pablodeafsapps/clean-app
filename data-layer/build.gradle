@@ -27,10 +27,6 @@ android {
     }
 }
 
-androidExtensions {
-    experimental = true
-}
-
 dokka {
     outputFormat = 'html'
     outputDirectory = "./docs/dokka"

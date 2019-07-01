@@ -3,12 +3,12 @@ package es.plexus.android.plexuschuck.datalayer.repository
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import es.plexus.android.plexuschuck.datalayer.DataLayerContract
-import es.plexus.android.plexuschuck.datalayer.DataLayerContract.Companion.ICNDB_DATA_SOURCE_TAG
+import es.plexus.android.plexuschuck.datalayer.DataLayerContract.Companion.JOKES_DATA_SOURCE_TAG
 import es.plexus.android.plexuschuck.datalayer.di.dataLayerModule
 import es.plexus.android.plexuschuck.datalayer.domain.JokeDto
 import es.plexus.android.plexuschuck.datalayer.domain.JokeDtoWrapper
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
-import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.ICNDB_REPOSITORY_TAG
+import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.DATA_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.base.Either
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
 import kotlinx.coroutines.Dispatchers
@@ -19,30 +19,34 @@ import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.koin.dsl.module.module
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.StandAloneContext.stopKoin
-import org.koin.standalone.inject
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import org.koin.test.KoinTest
+import org.koin.test.inject
 import retrofit2.Response
 
 class RepositoryTest : KoinTest {
 
-    private val icndbRepository: DomainlayerContract.Datalayer.IcndbRepository<List<String>?, List<JokeBo>>
-            by inject(name = ICNDB_REPOSITORY_TAG)
-    private lateinit var mockIcndbDataSource: DataLayerContract.IcndbDataSource
+    private val dataRepository: DomainlayerContract.Datalayer.DataRepository<List<String>?, List<JokeBo>>
+            by inject(named(name = DATA_REPOSITORY_TAG))
+    private lateinit var mockIcndbDataSource: DataLayerContract.JokesDataSource
 
     @Before
     fun setUp() {
         // create data-source mock
         mockIcndbDataSource = mock {
-            onBlocking { fetchIcndbJokesResponse(null) }.doReturn(getRetrofitSuccessfulResponse())
+            onBlocking { fetchJokesResponse(null) }.doReturn(getRetrofitSuccessfulResponse())
         }
-        startKoin(
-            listOf(
-                dataLayerModule,
-                module(override = true) { factory(name = ICNDB_DATA_SOURCE_TAG) { mockIcndbDataSource } })
-        )
+        startKoin {
+            modules(
+                listOf(
+                    dataLayerModule,
+                    module(override = true) { factory(named(name = JOKES_DATA_SOURCE_TAG)) { mockIcndbDataSource } }
+                )
+            )
+        }
         Dispatchers.setMain(Dispatchers.Unconfined)
     }
 
@@ -57,7 +61,7 @@ class RepositoryTest : KoinTest {
         val paramsList = null
 
         runBlocking {
-            val actualResult = icndbRepository.fetchJokes(params = paramsList)
+            val actualResult = dataRepository.fetchJokes(params = paramsList)
             Assert.assertTrue((actualResult as? Either.Right<List<JokeBo>>)?.let {
                 println("list size: ${it.b.size}")
                 it.b.isNotEmpty()
@@ -72,7 +76,7 @@ class RepositoryTest : KoinTest {
         val paramsList = null
 
         runBlocking {
-            val actualResult = icndbRepository.fetchJokes(params = paramsList)
+            val actualResult = dataRepository.fetchJokes(params = paramsList)
             Assert.assertTrue(actualResult as? Either.Right<List<JokeBo>> != null)
         }
     }

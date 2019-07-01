@@ -6,13 +6,17 @@ import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.usecase.LOGIN_UC_TAG
 import es.plexus.android.plexuschuck.domainlayer.usecase.REGISTER_UC_TAG
 import kotlinx.coroutines.CoroutineScope
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 
-internal class LoginDomainLayerBridgeImpl : LoginDomainLayerBridge<List<String?>, Boolean>, KoinComponent {
+internal class LoginDomainLayerBridgeImpl : LoginDomainLayerBridge<List<String?>, Boolean>,
+    KoinComponent {
 
-    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>? by inject(name = LOGIN_UC_TAG)
-    private val registerUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>? by inject(name = REGISTER_UC_TAG)
+    private val loginUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>?
+            by inject(named(name = LOGIN_UC_TAG))
+    private val registerUserApiUc: DomainlayerContract.Presentationlayer.UseCase<List<String?>, Boolean>?
+            by inject(named(name = REGISTER_UC_TAG))
 
     override fun loginUser(
         scope: CoroutineScope,
