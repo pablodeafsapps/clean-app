@@ -27,8 +27,8 @@ interface DomainlayerContract {
     interface Datalayer {
 
         companion object {
-            const val FIREBASE_REPOSITORY_TAG = "firebaseRepository"
-            const val ICNDB_REPOSITORY_TAG = "icndbRepository"
+            const val AUTHENTICATION_REPOSITORY_TAG = "authenticationRepository"
+            const val JOKES_DATA_REPOSITORY_TAG = "jokesDataRepository"
         }
 
         interface FirebaseRepository<in T, out S> {

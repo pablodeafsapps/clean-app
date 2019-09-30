@@ -7,11 +7,11 @@ import es.plexus.android.plexuschuck.datalayer.domain.FailureDto
 import es.plexus.android.plexuschuck.domainlayer.base.Either
 import timber.log.Timber
 
-class FirebaseDataSourceImpl : DataLayerContract.FirebaseDataSource {
+class FirebaseDataSourceImpl : DataLayerContract.AuthenticationDataSource {
 
     private val fbAuth: FirebaseAuth? by lazy { FirebaseAuth.getInstance() }
 
-    override fun requestFirebaseLogin(email: String, password: String): Either<FailureDto, Boolean>? {
+    override fun requestLogin(email: String, password: String): Either<FailureDto, Boolean>? {
         return fbAuth?.run {
             try {
                 val success = Tasks.await<AuthResult>(signInWithEmailAndPassword(email, password)).user != null
@@ -31,7 +31,7 @@ class FirebaseDataSourceImpl : DataLayerContract.FirebaseDataSource {
         }
     }
 
-    override fun requestFirebaseRegister(email: String, password: String): Either<FailureDto, Boolean>? {
+    override fun requestRegister(email: String, password: String): Either<FailureDto, Boolean>? {
         return fbAuth?.run {
             try {
                 val success = Tasks.await<AuthResult>(createUserWithEmailAndPassword(email, password)).user != null

@@ -10,14 +10,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 private const val ICNDB_BASE_URL = "http://api.icndb.com"
 
-class IcndbDataSourceImpl : DataLayerContract.IcndbDataSource {
+class IcndbDataSourceImpl : DataLayerContract.JokesDataSource {
 
     private val retrofitBuilder: Retrofit.Builder = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .baseUrl(ICNDB_BASE_URL)
 
-    override suspend fun fetchIcndbJokesResponse(params: List<String>?): Response<JokeDtoWrapper> =
+    override suspend fun fetchJokesResponse(params: List<String>?): Response<JokeDtoWrapper> =
         retrofitBuilder.build().create(IcndbRetrofitApi::class.java).getJokesAsync().await()
 
 }
