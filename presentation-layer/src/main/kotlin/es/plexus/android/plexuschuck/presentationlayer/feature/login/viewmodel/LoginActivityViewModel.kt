@@ -10,11 +10,12 @@ import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
 import es.plexus.android.plexuschuck.presentationlayer.domain.boToVoFailure
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.LoginContract.Action
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.LoginState
-import org.koin.standalone.inject
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 
 class LoginActivityViewModel : BaseMvvmViewModel<LoginDomainLayerBridge<List<String?>, Boolean>, LoginState>() {
 
-    override val bridge: LoginDomainLayerBridge<List<String?>, Boolean>? by inject(name = getDomainLayerBridgeId())
+    override val bridge: LoginDomainLayerBridge<List<String?>, Boolean>? by inject(named(name = getDomainLayerBridgeId()))
     private lateinit var _loginState: MutableLiveData<ScreenState<LoginState>>
     override val screenState: LiveData<ScreenState<LoginState>>
         get() {
@@ -36,7 +37,9 @@ class LoginActivityViewModel : BaseMvvmViewModel<LoginDomainLayerBridge<List<Str
 
     fun onToggleModeTapped(isLoginMode: Boolean) {
         _loginState.value =
-            if (isLoginMode) ScreenState.Render(LoginState.Register) else ScreenState.Render(LoginState.Login)
+            if (isLoginMode) ScreenState.Render(LoginState.Register) else ScreenState.Render(
+                LoginState.Login
+            )
     }
 
     private fun loginUserWithData(email: String?, password: String?) {

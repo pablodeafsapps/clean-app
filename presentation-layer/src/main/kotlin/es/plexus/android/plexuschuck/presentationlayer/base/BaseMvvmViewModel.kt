@@ -6,7 +6,7 @@ import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import org.koin.standalone.KoinComponent
+import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 /**
@@ -23,8 +23,8 @@ import kotlin.coroutines.CoroutineContext
  * @author Pablo L. Sordo
  * @since 1.0
  */
-abstract class BaseMvvmViewModel<T : BaseDomainLayerBridge, S : BaseState> : ViewModel(), CoroutineScope,
-    KoinComponent {
+abstract class BaseMvvmViewModel<T : BaseDomainLayerBridge, S : BaseState> : ViewModel(),
+    CoroutineScope, KoinComponent {
 
     abstract val bridge: T?
     abstract val screenState: LiveData<ScreenState<S>>

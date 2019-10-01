@@ -17,10 +17,12 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.StandAloneContext.stopKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import org.koin.test.declareMock
+import org.koin.test.mock.declareMock
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -31,7 +33,9 @@ class MainActivityTest : KoinTest {
 
     @Before
     fun setUp() {
-        startKoin(listOf(presentationLayerModule, domainLayerModule))
+        startKoin {
+            modules(listOf(presentationLayerModule, domainLayerModule))
+        }
         declareMock<MainDomainLayerBridge<List<String>?, List<JokeBo>>>()
         activityRule.launchActivity(null)
     }

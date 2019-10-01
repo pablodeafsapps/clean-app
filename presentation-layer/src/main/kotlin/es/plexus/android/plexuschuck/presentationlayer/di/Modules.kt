@@ -4,8 +4,8 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.detail.viewmodel.
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel.LoginActivityViewModel
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.viewmodel.MainActivityViewModel
 import es.plexus.android.plexuschuck.presentationlayer.feature.splash.viewmodel.SplashActivityViewModel
-import org.koin.android.viewmodel.ext.koin.viewModel
-import org.koin.dsl.module.module
+import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 /**
  * This variable represents the 'presentation-layer' dependencies module to be used by Koin. It basically includes

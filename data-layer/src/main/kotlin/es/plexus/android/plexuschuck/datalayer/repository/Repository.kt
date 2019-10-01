@@ -10,14 +10,17 @@ import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
 import es.plexus.android.plexuschuck.domainlayer.base.Either
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
-import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 
-object Repository : DomainlayerContract.Datalayer.FirebaseRepository<List<String>, Boolean>,
-    DomainlayerContract.Datalayer.IcndbRepository<List<String>?, List<JokeBo>>, KoinComponent {
+object Repository : DomainlayerContract.Datalayer.AuthenticationRepository<List<String>, Boolean>,
+    DomainlayerContract.Datalayer.DataRepository<List<String>?, List<JokeBo>>, KoinComponent {
 
-    private val authenticationDataSource: DataLayerContract.AuthenticationDataSource? by inject(name = AUTHENTICATION_DATA_SOURCE_TAG)
-    private val jokesDataSource: DataLayerContract.JokesDataSource by inject(name = JOKES_DATA_SOURCE_TAG)
+    private val authenticationDataSource: DataLayerContract.AuthenticationDataSource?
+            by inject(named(name = AUTHENTICATION_DATA_SOURCE_TAG))
+    private val jokesDataSource: DataLayerContract.JokesDataSource
+            by inject(named(name = JOKES_DATA_SOURCE_TAG))
 
     override fun loginUser(params: List<String>): Either<FailureBo, Boolean> {
         return authenticationDataSource?.requestLogin(

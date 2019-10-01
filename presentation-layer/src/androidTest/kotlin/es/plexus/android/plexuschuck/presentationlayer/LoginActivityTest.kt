@@ -14,8 +14,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.koin.standalone.StandAloneContext.startKoin
-import org.koin.standalone.StandAloneContext.stopKoin
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 
 @RunWith(AndroidJUnit4::class)
@@ -27,7 +27,9 @@ class LoginActivityTest : KoinTest {
 
     @Before
     fun setUp() {
-        startKoin(listOf(presentationLayerModule))
+        startKoin {
+            modules(listOf(presentationLayerModule))
+        }
         activityRule.launchActivity(null)
     }
 
