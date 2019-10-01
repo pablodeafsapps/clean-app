@@ -22,7 +22,6 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/test/kotlin'
-        androidTest.java.srcDirs += 'src/androidTest/kotlin'
     }
 }
 
@@ -43,17 +42,8 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
     // testing dependencies - Unit Test
     testImplementation "junit:junit:$junit_version"
-    testImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$nhaarmanmockito_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     // koin testing tools
     testImplementation "org.koin:koin-test:$koin_version"
-    // testing dependencies - Instrumentation Test
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-    androidTestImplementation "com.nhaarman:mockito-kotlin:$nhaarmanmockito_version"
-    androidTestImplementation("org.mockito:mockito-android:$mockitoandroid_version")
-    // koin testing tools
-    androidTestImplementation("org.koin:koin-test:$koin_version") {
-        exclude group: 'org.mockito'
-        exclude group: 'mockito-inline'
-    }
 }

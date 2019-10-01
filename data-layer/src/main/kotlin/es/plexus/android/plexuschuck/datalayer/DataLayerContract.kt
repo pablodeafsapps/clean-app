@@ -8,17 +8,17 @@ import retrofit2.Response
 interface DataLayerContract {
 
     companion object {
-        const val FIREBASE_DATA_SOURCE_TAG = "firebaseDataSource"
-        const val ICNDB_DATA_SOURCE_TAG = "icndbDataSource"
+        const val AUTHENTICATION_DATA_SOURCE_TAG = "authenticationDataSource"
+        const val JOKES_DATA_SOURCE_TAG = "jokesDataSource"
     }
 
-    interface FirebaseDataSource {
-        fun requestFirebaseLogin(email: String, password: String): Either<FailureDto, Boolean>?
-        fun requestFirebaseRegister(email: String, password: String): Either<FailureDto, Boolean>?
+    interface AuthenticationDataSource {
+        fun requestLogin(email: String, password: String): Either<FailureDto, Boolean>?
+        fun requestRegister(email: String, password: String): Either<FailureDto, Boolean>?
     }
 
-    interface IcndbDataSource {
-        suspend fun fetchIcndbJokesResponse(params: List<String>?): Response<JokeDtoWrapper>
+    interface JokesDataSource {
+        suspend fun fetchJokesResponse(params: List<String>?): Response<JokeDtoWrapper>
     }
 
 }

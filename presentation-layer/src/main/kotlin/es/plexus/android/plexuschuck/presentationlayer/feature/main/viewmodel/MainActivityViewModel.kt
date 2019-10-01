@@ -12,11 +12,13 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.boToVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.boToVoFailure
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.state.MainState
-import org.koin.standalone.inject
+import org.koin.core.inject
+import org.koin.core.qualifier.named
 
 class MainActivityViewModel : BaseMvvmViewModel<MainDomainLayerBridge<List<String>?, List<JokeBo>>, MainState>() {
 
-    override val bridge: MainDomainLayerBridge<List<String>?, List<JokeBo>>? by inject(getDomainLayerBridgeId())
+    override val bridge: MainDomainLayerBridge<List<String>?, List<JokeBo>>?
+            by inject(named(name = getDomainLayerBridgeId()))
     private lateinit var _mainState: MutableLiveData<ScreenState<MainState>>
     override val screenState: LiveData<ScreenState<MainState>>
         get() {
