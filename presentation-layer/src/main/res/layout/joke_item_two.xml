@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/joke_item_two__tv__joke"
         android:layout_width="@dimen/fully_stretchable"
         android:layout_height="wrap_content"

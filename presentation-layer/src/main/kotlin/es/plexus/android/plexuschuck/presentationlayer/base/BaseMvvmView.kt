@@ -1,6 +1,7 @@
 package es.plexus.android.plexuschuck.presentationlayer.base
 
 import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * This parametrized interface is intended to be implemented by any app presentation-layer view which aims to be
@@ -14,6 +15,7 @@ import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
  * @author Pablo L. Sordo
  * @since 1.0
  */
+@ExperimentalCoroutinesApi
 interface BaseMvvmView<T : BaseMvvmViewModel<S, U>, S : BaseDomainLayerBridge, U : BaseState> {
 
     val viewModel: T?

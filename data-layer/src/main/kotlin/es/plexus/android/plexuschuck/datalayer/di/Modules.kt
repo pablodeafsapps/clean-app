@@ -1,29 +1,66 @@
 package es.plexus.android.plexuschuck.datalayer.di
 
-import es.plexus.android.plexuschuck.datalayer.DataLayerContract
-import es.plexus.android.plexuschuck.datalayer.DataLayerContract.Companion.AUTHENTICATION_DATA_SOURCE_TAG
-import es.plexus.android.plexuschuck.datalayer.DataLayerContract.Companion.JOKES_DATA_SOURCE_TAG
-import es.plexus.android.plexuschuck.datalayer.datasource.FirebaseDataSourceImpl
-import es.plexus.android.plexuschuck.datalayer.datasource.IcndbDataSourceImpl
+import com.google.firebase.auth.FirebaseAuth
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import es.plexus.android.plexuschuck.datalayer.datasource.AuthenticationDataSource
+import es.plexus.android.plexuschuck.datalayer.datasource.AuthenticationDataSource.Companion.AUTHENTICATION_DATA_SOURCE_TAG
+import es.plexus.android.plexuschuck.datalayer.datasource.AuthenticationDataSource.Companion.AUTHENTICATOR_TAG
+import es.plexus.android.plexuschuck.datalayer.datasource.FirebaseDataSource
+import es.plexus.android.plexuschuck.datalayer.datasource.IcndbDataSource
+import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource
+import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.ICNDB_BASE_URL
+import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.JOKES_API_SERVICE_TAG
+import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.JOKES_DATA_SOURCE_TAG
 import es.plexus.android.plexuschuck.datalayer.repository.Repository
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.AUTHENTICATION_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.DATA_REPOSITORY_TAG
-import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
+import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
+import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 /**
- * This variable represents the 'data-layer' dependencies module to be used by Koin. It basically includes repository
- * and data-source definitions.
+ * This variable represents the 'data-layer' dependencies module to be used by Koin. It basically
+ * includes repository and data-source definitions.
  *
  * @author Pablo L. Sordo
  * @since 1.0
  */
 val dataLayerModule = module(override = true) {
-    factory<DataLayerContract.AuthenticationDataSource>(named(name = AUTHENTICATION_DATA_SOURCE_TAG)) { FirebaseDataSourceImpl() }
-    factory<DataLayerContract.JokesDataSource>(named(name = JOKES_DATA_SOURCE_TAG)) { IcndbDataSourceImpl() }
-
-    single<DomainlayerContract.Datalayer.AuthenticationRepository<List<String>, Boolean>>(named(name = AUTHENTICATION_REPOSITORY_TAG)) { Repository }
-    single<DomainlayerContract.Datalayer.DataRepository<List<String>?, List<JokeBo>>>(named(name = DATA_REPOSITORY_TAG)) { Repository }
+    // repository
+    single<DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>>(named(name = AUTHENTICATION_REPOSITORY_TAG)) {
+        Repository.apply {
+            authenticationDataSource = get(named(name = AUTHENTICATION_DATA_SOURCE_TAG))
+            jokesDataSource = get(named(name = JOKES_DATA_SOURCE_TAG))
+        }
+    }
+    single<DomainlayerContract.Datalayer.DataRepository<JokeBoWrapper>>(named(name = DATA_REPOSITORY_TAG)) {
+        Repository.apply {
+            authenticationDataSource = get(named(name = AUTHENTICATION_DATA_SOURCE_TAG))
+            jokesDataSource = get(named(name = JOKES_DATA_SOURCE_TAG))
+        }
+    }
+    // data-source
+    factory<AuthenticationDataSource>(named(name = AUTHENTICATION_DATA_SOURCE_TAG)) {
+        FirebaseDataSource(fbAuth = get(named(name = AUTHENTICATOR_TAG)))
+    }
+    factory<JokesDataSource>(named(name = JOKES_DATA_SOURCE_TAG)) { IcndbDataSource(get(named(name = JOKES_API_SERVICE_TAG))) }
+    // retrofit
+    single<Retrofit>(named(name = JOKES_API_SERVICE_TAG)) {
+        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+        Retrofit.Builder()
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl(ICNDB_BASE_URL)
+            .build()
+    }
+    // firebase
+    single<FirebaseAuth>(named(name = AUTHENTICATOR_TAG)) {
+        FirebaseAuth.getInstance()
+    }
 }
