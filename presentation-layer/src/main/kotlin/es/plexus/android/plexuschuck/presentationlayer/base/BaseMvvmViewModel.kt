@@ -1,33 +1,42 @@
 package es.plexus.android.plexuschuck.presentationlayer.base
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
-import org.koin.core.KoinComponent
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlin.coroutines.CoroutineContext
 
 /**
  * This parametrized abstract class is intended to be extended by any app presentation-layer view-model which aims to be
  * integrated within the MVVM architecture pattern.
  *
- * @param T represents the bridge to the domain layer, and must extend from [BaseDomainLayerBridge]
  * @param S represents the state of the view, and must extend from [BaseState]
- * @property bridge the bridge which connects to the 'domain-layer' module
- * @property screenState the [LiveData] which will be updated to notify the view
+ * @property screenState the [StateFlow] which will be updated to notify the view
  * @property viewModelJob represents the job to be launched for the coroutine
  * @property coroutineContext a context to host the coroutine
  *
  * @author Pablo L. Sordo
  * @since 1.0
  */
-abstract class BaseMvvmViewModel<T : BaseDomainLayerBridge, S : BaseState> : ViewModel(),
-    CoroutineScope, KoinComponent {
+@ExperimentalCoroutinesApi
+abstract class BaseMvvmViewModel<T : BaseDomainLayerBridge, S : BaseState>(val bridge: T) : ViewModel(),
+    CoroutineScope {
 
-    abstract val bridge: T?
-    abstract val screenState: LiveData<ScreenState<S>>
+    protected lateinit var _screenState: MutableStateFlow<ScreenState<S>>
+    val screenState: StateFlow<ScreenState<S>>
+        get() {
+            if (!::_screenState.isInitialized) {
+                _screenState = MutableStateFlow(ScreenState.Idle)
+            }
+            return _screenState
+        }
+
     private val viewModelJob = SupervisorJob()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + viewModelJob
@@ -39,12 +48,5 @@ abstract class BaseMvvmViewModel<T : BaseDomainLayerBridge, S : BaseState> : Vie
         super.onCleared()
         viewModelJob.cancel()
     }
-
-    protected fun getDomainLayerBridge(): BaseDomainLayerBridge? = bridge
-
-    /**
-     * To be implemented by the ViewModel implementation
-     */
-    abstract fun getDomainLayerBridgeId(): String
 
 }

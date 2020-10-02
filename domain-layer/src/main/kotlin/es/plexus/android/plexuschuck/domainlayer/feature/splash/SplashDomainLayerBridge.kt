@@ -9,3 +9,11 @@ interface SplashDomainLayerBridge : BaseDomainLayerBridge {
     fun request()
 
 }
+
+internal class SplashDomainLayerBridgeImpl : SplashDomainLayerBridge {
+
+    override fun request() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+}

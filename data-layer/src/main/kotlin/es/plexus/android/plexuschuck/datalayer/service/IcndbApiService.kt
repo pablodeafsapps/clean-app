@@ -5,9 +5,9 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.POST
 
-interface IcndbRetrofitApi {
+interface IcndbApiService {
 
     @POST("jokes")
-    fun getJokesAsync(): Deferred<Response<JokeDtoWrapper>>
+    suspend fun getJokesAsync(): Response<JokeDtoWrapper>
 
 }

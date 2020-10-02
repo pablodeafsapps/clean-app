@@ -69,6 +69,22 @@ The main advantage that supports the usage of _coroutines_ is an easy and enhanc
 
 From the _execution-flow_ perspective, every task is undertaken in the main thread (UI thread), until a _use-case_ is invoked. From that moment onwards, operations are handled in worker threads, to later retrieve the computed results in the main thread again.
 
+### Functional Programming and Arrow
+
+Functional Programming (FP) is a paradigm from the 1950s which is based upon the principals of declarative programming. It comprises certain prior foundations such as immutability, pure functions and no side effects/disciplined states, and referential transparency. Contrary to Object Oriented Programming (OOP), everything is meant to be a function (instead of an object). Bringing these concepts into an application allows to make it more flexible, understandable, and easily scalable.
+
+<img src="docs/images/arrow-logo.png" alt="Arrow" width="500">
+
+[<b>Arrow</b>](https://arrow-kt.io/) is a functional programming suite written in Kotlin which aims to bring functional programming into Kotlin applications, such as Android ones. According to the [official documentation](https://arrow-kt.io/docs/core/), <i>"Arrow is a modular set of libraries that build on top of each other to provide increasingly higher level features"</i>.
+
+The Plexus Android Team is continuously assessing this application so that more functional features are added. So far, only the `Either` data type is used, allowing to parametrize any data source query available.
+
+### Testing
+
+As one main aspect in the current state-of-the-art in software development, **Plexus Chuck** does include a good number of Unit Tests and a few Instrumentation Tests. The former cover the *domain* and *data* layers, whereas the latter are included in the *presentation* layer.
+
+The Plexus Android Team advocates for an extensive usage of Unit Tests and Integration Tests. On the other hand, Instrumentation Tests, such as UI tests, are restricted to only a few, due to their slow execution and emultor/device dependency.
+
 
 ## License 
 This project belongs to Tecnologias Plexus S.L.

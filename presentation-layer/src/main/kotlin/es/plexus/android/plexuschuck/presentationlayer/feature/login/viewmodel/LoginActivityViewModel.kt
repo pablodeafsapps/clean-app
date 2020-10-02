@@ -1,71 +1,59 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
-import es.plexus.android.plexuschuck.domainlayer.feature.login.LOGIN_DOMAIN_BRIDGE_TAG
+import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LoginDomainLayerBridge
+import es.plexus.android.plexuschuck.presentationlayer.R
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmViewModel
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
+import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
+import es.plexus.android.plexuschuck.presentationlayer.domain.UserLoginVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.boToVoFailure
+import es.plexus.android.plexuschuck.presentationlayer.domain.voToBo
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.LoginContract.Action
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.LoginState
-import org.koin.core.inject
-import org.koin.core.qualifier.named
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class LoginActivityViewModel : BaseMvvmViewModel<LoginDomainLayerBridge<List<String?>, Boolean>, LoginState>() {
+@ExperimentalCoroutinesApi
+class LoginActivityViewModel(bridge: LoginDomainLayerBridge<UserLoginBo, Boolean>) :
+    BaseMvvmViewModel<LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState>(bridge = bridge) {
 
-    override val bridge: LoginDomainLayerBridge<List<String?>, Boolean>? by inject(named(name = getDomainLayerBridgeId()))
-    private lateinit var _loginState: MutableLiveData<ScreenState<LoginState>>
-    override val screenState: LiveData<ScreenState<LoginState>>
-        get() {
-            if (!::_loginState.isInitialized) {
-                _loginState = MutableLiveData()
-            }
-            return _loginState
-        }
-
-    override fun getDomainLayerBridgeId(): String = LOGIN_DOMAIN_BRIDGE_TAG
-
-    fun onButtonClicked(action: Action, email: String?, password: String?) {
-        _loginState.value = ScreenState.Loading
+    fun onButtonSelected(action: Action, userData: UserLoginVo) {
+        _screenState.value = ScreenState.Loading
         when (action) {
-            Action.LOGIN -> loginUserWithData(email, password)
-            Action.REGISTER -> registerUserWithData(email, password)
+            Action.LOGIN -> loginUserWithData(userData = userData)
+            Action.REGISTER -> registerUserWithData(userData = userData)
         }
     }
 
     fun onToggleModeTapped(isLoginMode: Boolean) {
-        _loginState.value =
-            if (isLoginMode) ScreenState.Render(LoginState.Register) else ScreenState.Render(
-                LoginState.Login
-            )
+        _screenState.value = ScreenState.Render(if (isLoginMode) LoginState.Register else LoginState.Login)
     }
 
-    private fun loginUserWithData(email: String?, password: String?) {
-        bridge?.loginUser(scope = this, params = listOf(email, password),
+    private fun loginUserWithData(userData: UserLoginVo) {
+        bridge.loginUser(scope = this, params = userData.voToBo(),
             onResult = {
-                it.either(::handleError, ::handleSuccess)
-                _loginState.value = ScreenState.Render(LoginState.Idle)
+                it.fold(::handleError, ::handleSuccess)
             })
     }
 
-    private fun registerUserWithData(email: String?, password: String?) {
-        bridge?.registerUser(scope = this, params = listOf(email, password),
+    private fun registerUserWithData(userData: UserLoginVo) {
+        bridge.registerUser(scope = this, params = userData.voToBo(),
             onResult = {
-                it.either(::handleError, ::handleSuccess)
-                _loginState.value = ScreenState.Render(LoginState.Idle)
+                it.fold(::handleError, ::handleSuccess)
             })
     }
 
     private fun handleSuccess(isSuccessful: Boolean) {
-        if (isSuccessful) {
-            _loginState.value = ScreenState.Render(LoginState.AccessGranted)
+        _screenState.value = if (isSuccessful) {
+            ScreenState.Render(LoginState.AccessGranted)
+        } else {
+            ScreenState.Render(LoginState.ShowError(failure = FailureVo.Unknown(msgRes = R.string.error_login_response)))
         }
     }
 
     private fun handleError(failureBo: FailureBo) {
-        _loginState.value = ScreenState.Render(LoginState.ShowError(failureBo.boToVoFailure()))
+        _screenState.value = ScreenState.Render(LoginState.ShowError(failureBo.boToVoFailure()))
     }
 
 }

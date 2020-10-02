@@ -9,7 +9,7 @@
     tools:context=".feature.detail.view.ui.DetailActivity">
 
     <ProgressBar
-        android:id="@+id/activity_detail__pb__loading"
+        android:id="@+id/pbLoading"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,8 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/activity_detail__tv__joke"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvJoke"
         android:layout_width="@dimen/fully_stretchable"
         android:layout_height="@dimen/fully_stretchable"
         android:layout_marginStart="@dimen/eight"
@@ -30,14 +30,14 @@
         android:gravity="bottom"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/activity_detail__img__guideline_horizontal"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHor06"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/activity_detail__tv__id"
+        app:layout_constraintTop_toBottomOf="@id/tvId"
         tools:text="Joke text" />
 
-    <TextView
-        android:id="@+id/activity_detail__tv__categories"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCategories"
         android:layout_width="@dimen/fully_stretchable"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/eight"
@@ -47,8 +47,8 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="[explicit,nerd]" />
 
-    <TextView
-        android:id="@+id/activity_detail__tv__id"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvId"
         android:layout_width="@dimen/fully_stretchable"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/eight"
@@ -56,31 +56,31 @@
         android:text="@string/tv_detail_id"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/activity_detail__tv__joke"
+        app:layout_constraintBottom_toTopOf="@id/tvJoke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="#24" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivJoke"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/default_content_description"
-        app:layout_constraintStart_toStartOf="@id/activity_detail__img__guideline_vertical"
-        app:layout_constraintTop_toTopOf="@id/activity_detail__img__guideline_horizontal"
+        app:layout_constraintStart_toStartOf="@id/guidelineVer04"
+        app:layout_constraintTop_toTopOf="@id/guidelineHor06"
         app:srcCompat="@drawable/img_cn_profile" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_detail__img__guideline_horizontal"
+        android:id="@+id/guidelineHor06"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".6" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/activity_detail__img__guideline_vertical"
+        android:id="@+id/guidelineVer04"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
