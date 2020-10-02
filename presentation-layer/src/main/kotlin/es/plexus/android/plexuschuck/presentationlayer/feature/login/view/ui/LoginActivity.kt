@@ -2,42 +2,42 @@ package es.plexus.android.plexuschuck.presentationlayer.feature.login.view.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LoginDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.R
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmView
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
+import es.plexus.android.plexuschuck.presentationlayer.databinding.ActivityLoginBinding
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
+import es.plexus.android.plexuschuck.presentationlayer.domain.UserLoginVo
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.LoginContract.Action
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.LoginState
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel.LoginActivityViewModel
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui.MainActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val EMPTY_STRING = ""
 
+@ExperimentalCoroutinesApi
 class LoginActivity : AppCompatActivity(),
-    BaseMvvmView<LoginActivityViewModel, LoginDomainLayerBridge<List<String?>, Boolean>, LoginState> {
+    BaseMvvmView<LoginActivityViewModel, LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState> {
 
-    override val viewModel: LoginActivityViewModel? by viewModel()
-    private val pbLoading: ProgressBar? by lazy { activity_login__pb__loading }
-    private val tvTitle: TextView? by lazy { activity_login_tv_title }
-    private val etEmail: EditText? by lazy { activity_login__et__email }
-    private val etPassword: EditText? by lazy { activity_login__et__password }
-    private val btnLogin: Button? by lazy { activity_login__btn__login }
-    private val btnRegister: Button? by lazy { activity_login__btn__register }
-    private val tbAccessMode: ToggleButton? by lazy { activity_login__tb__access_mode }
+    override val viewModel: LoginActivityViewModel by viewModel()
+    private lateinit var viewBinding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         initModel()
         initView()
+        setContentView(viewBinding.root)
     }
 
     override fun processRenderState(renderState: LoginState?) {
@@ -51,56 +51,81 @@ class LoginActivity : AppCompatActivity(),
     }
 
     private fun initModel() {
-        viewModel?.screenState?.observe(this, Observer { screenState ->
-            when (screenState) {
-                is ScreenState.Loading -> showLoading()
-                is ScreenState.Render<LoginState> -> processRenderState(screenState.renderState)
+        lifecycleScope.launch {
+            viewModel.screenState.collect { screenState ->
+                when (screenState) {
+                    is ScreenState.Loading -> showLoading()
+                    is ScreenState.Render<LoginState> -> {
+                        processRenderState(screenState.renderState)
+                        hideLoading()
+                    }
+                }
             }
-        })
+        }
     }
 
     private fun initView() {
-        btnLogin?.setOnClickListener {
-            // correct login: pablo@mytest.com, pablomytest
-            viewModel?.onButtonClicked(Action.LOGIN, etEmail?.text?.toString(), etPassword?.text?.toString())
-        }
-        btnRegister?.setOnClickListener {
-            viewModel?.onButtonClicked(Action.REGISTER, etEmail?.text?.toString(), etPassword?.text?.toString())
-        }
-        tbAccessMode?.setOnClickListener {
-            viewModel?.onToggleModeTapped(btnLogin?.visibility == View.VISIBLE)
+        with(viewBinding) {
+            btnLogin.setOnClickListener {
+                // correct login: pablo@mytest.com, pablomytest
+                viewModel.onButtonSelected(
+                    action = Action.LOGIN,
+                    userData = UserLoginVo(
+                        email = etEmail.text?.toString(), password = etPassword.text?.toString()
+                    )
+                )
+            }
+            btnRegister.setOnClickListener {
+                viewModel.onButtonSelected(
+                    action = Action.REGISTER,
+                    userData = UserLoginVo(
+                        email = etEmail.text?.toString(), password = etPassword.text?.toString()
+                    )
+                )
+            }
+            tbAccessMode.setOnClickListener {
+                viewModel.onToggleModeTapped(btnLogin.visibility == View.VISIBLE)
+            }
         }
     }
 
     private fun showLoginUi() {
-        tvTitle?.text = this.getString(R.string.tv_login_text)
-        btnLogin?.visibility = View.VISIBLE
-        btnRegister?.visibility = View.INVISIBLE
+        with(viewBinding) {
+            tvTitle.text = getString(R.string.tv_login_text)
+            btnLogin.visibility = View.VISIBLE
+            btnRegister.visibility = View.INVISIBLE
+        }
     }
 
     private fun showRegisterUi() {
-        tvTitle?.text = this.getString(R.string.tv_register_text)
-        btnLogin?.visibility = View.INVISIBLE
-        btnRegister?.visibility = View.VISIBLE
+        with(viewBinding) {
+            tvTitle.text = getString(R.string.tv_register_text)
+            btnLogin.visibility = View.INVISIBLE
+            btnRegister.visibility = View.VISIBLE
+        }
     }
 
     private fun showLoading() {
-        pbLoading?.visibility = View.VISIBLE
-        etEmail?.isEnabled = false
-        etPassword?.isEnabled = false
-        btnLogin?.isEnabled = false
-        tbAccessMode?.isEnabled = false
-        btnRegister?.isEnabled = false
+        with(viewBinding) {
+            pbLoading.visibility = View.VISIBLE
+            etEmail.isEnabled = false
+            etPassword.isEnabled = false
+            btnLogin.isEnabled = false
+            tbAccessMode.isEnabled = false
+            btnRegister.isEnabled = false
+        }
     }
 
     private fun hideLoading() {
-        pbLoading?.visibility = View.GONE
-        etEmail?.isEnabled = true
-        etPassword?.isEnabled = true
-        etPassword?.setText(EMPTY_STRING)
-        btnLogin?.isEnabled = true
-        tbAccessMode?.isEnabled = true
-        btnRegister?.isEnabled = true
+        with(viewBinding) {
+            pbLoading.visibility = View.GONE
+            etEmail.isEnabled = true
+            etPassword.isEnabled = true
+            etPassword.setText(EMPTY_STRING)
+            btnLogin.isEnabled = true
+            tbAccessMode.isEnabled = true
+            btnRegister.isEnabled = true
+        }
     }
 
     private fun navigateToMainActivity() {

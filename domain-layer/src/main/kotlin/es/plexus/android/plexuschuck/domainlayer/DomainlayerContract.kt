@@ -1,6 +1,6 @@
 package es.plexus.android.plexuschuck.domainlayer
 
-import es.plexus.android.plexuschuck.domainlayer.base.Either
+import arrow.core.Either
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +12,9 @@ interface DomainlayerContract {
     interface Presentationlayer {
 
         interface UseCase<in T, out S> {
-            fun invoke(scope: CoroutineScope, params: T?, onResult: (Either<FailureBo, S>) -> Unit) {
+            fun invoke(
+                scope: CoroutineScope, params: T? = null, onResult: (Either<FailureBo, S>) -> Unit
+            ) {
                 // task undertaken in a worker thread
                 val job = scope.async { run(params) }
                 // once completed, result sent in the Main thread
@@ -36,8 +38,8 @@ interface DomainlayerContract {
             fun registerUser(params: T): Either<FailureBo, S>
         }
 
-        interface DataRepository<in T, out S> {
-            suspend fun fetchJokes(params: T?): Either<FailureBo, S>
+        interface DataRepository<out T> {
+            suspend fun fetchJokes(): Either<FailureBo, T>
         }
 
     }

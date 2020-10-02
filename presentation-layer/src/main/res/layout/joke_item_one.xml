@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/joke_item_one__tv__joke"
             android:layout_width="@dimen/fully_stretchable"
             android:layout_height="@dimen/fully_stretchable"
@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/joke_item_one__tv__categories"
             android:layout_width="@dimen/fully_stretchable"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:text="categories" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/joke_item_one__iv__cn_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"

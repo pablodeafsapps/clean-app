@@ -6,4 +6,6 @@
     <dimen name="sixteen">16dp</dimen>
     <dimen name="thirty_two">32dp</dimen>
     <dimen name="hundred">100dp</dimen>
+    <!-- text -->
+    <dimen name="text_eighteen">18sp</dimen>
 </resources>

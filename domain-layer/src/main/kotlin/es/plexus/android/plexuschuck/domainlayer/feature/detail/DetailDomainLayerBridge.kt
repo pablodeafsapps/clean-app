@@ -9,3 +9,11 @@ interface DetailDomainLayerBridge : BaseDomainLayerBridge {
     fun request()
 
 }
+
+internal class DetailDomainLayerBridgeImpl : DetailDomainLayerBridge {
+
+    override fun request() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+}
