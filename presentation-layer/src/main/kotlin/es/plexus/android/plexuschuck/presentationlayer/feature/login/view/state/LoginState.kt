@@ -4,9 +4,8 @@ import es.plexus.android.plexuschuck.presentationlayer.base.BaseState
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 
 sealed class LoginState : BaseState() {
-    object Idle : LoginState()
     object Login : LoginState()
     object Register : LoginState()
     object AccessGranted : LoginState()
-    class ShowError(val failure: FailureVo?) : LoginState()
+    class ShowError(val failure: FailureVo) : LoginState()
 }

@@ -1,5 +1,6 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LoginDomainLayerBridge
@@ -31,14 +32,14 @@ class LoginActivityViewModel(bridge: LoginDomainLayerBridge<UserLoginBo, Boolean
     }
 
     private fun loginUserWithData(userData: UserLoginVo) {
-        bridge.loginUser(scope = this, params = userData.voToBo(),
+        bridge.loginUser(scope = viewModelScope, params = userData.voToBo(),
             onResult = {
                 it.fold(::handleError, ::handleSuccess)
             })
     }
 
     private fun registerUserWithData(userData: UserLoginVo) {
-        bridge.registerUser(scope = this, params = userData.voToBo(),
+        bridge.registerUser(scope = viewModelScope, params = userData.voToBo(),
             onResult = {
                 it.fold(::handleError, ::handleSuccess)
             })

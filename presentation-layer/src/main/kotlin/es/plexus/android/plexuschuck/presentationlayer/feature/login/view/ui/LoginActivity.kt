@@ -40,9 +40,8 @@ class LoginActivity : AppCompatActivity(),
         setContentView(viewBinding.root)
     }
 
-    override fun processRenderState(renderState: LoginState?) {
+    override fun processRenderState(renderState: LoginState) {
         when (renderState) {
-            is LoginState.Idle -> hideLoading()
             is LoginState.Login -> showLoginUi()
             is LoginState.Register -> showRegisterUi()
             is LoginState.AccessGranted -> navigateToMainActivity()
@@ -50,10 +49,11 @@ class LoginActivity : AppCompatActivity(),
         }
     }
 
-    private fun initModel() {
+    override fun initModel() {
         lifecycleScope.launch {
             viewModel.screenState.collect { screenState ->
                 when (screenState) {
+                    is ScreenState.Idle -> hideLoading()
                     is ScreenState.Loading -> showLoading()
                     is ScreenState.Render<LoginState> -> {
                         processRenderState(screenState.renderState)
