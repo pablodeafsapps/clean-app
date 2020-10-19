@@ -3,52 +3,74 @@ package es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel
 import arrow.core.Either
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.argumentCaptor
+import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
+import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
+import es.plexus.android.plexuschuck.domainlayer.feature.login.LOGIN_DOMAIN_BRIDGE_TAG
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LoginDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.R
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
+import es.plexus.android.plexuschuck.presentationlayer.di.presentationLayerModule
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.UserLoginVo
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.LoginContract
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.LoginState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.core.qualifier.named
+import org.koin.dsl.module
+import org.koin.test.KoinTest
+import org.koin.test.inject
 
 @ExperimentalCoroutinesApi
-class LoginActivityViewModelTest {
+class LoginActivityViewModelTest : KoinTest {
 
-    @InjectMocks
-    private lateinit var viewModel: LoginActivityViewModel
+    private val viewModel: LoginActivityViewModel by inject()
 
-    @Mock
-    private lateinit var bridge: LoginDomainLayerBridge<UserLoginBo, Boolean>
+    private lateinit var mockBridge: LoginDomainLayerBridge<UserLoginBo, Boolean>
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        mockBridge = mock()
+        startKoin {
+            modules(
+                listOf(
+                    presentationLayerModule, domainLayerModule,
+                    module(override = true) {
+                        factory(named(name = LOGIN_DOMAIN_BRIDGE_TAG)) { mockBridge }
+                    }
+                ))
+        }
+    }
+
+    @After
+    fun tearDown() {
+        stopKoin()
     }
 
     @Test
-    fun `login successful with email and password correct`() {
-        // Given
+    fun `check that login is successful with email and password correct`() {
+        // given
+        val rightEmail = "example@plexus.es"
+        val rightPassword = "password"
         val captor = argumentCaptor<(Either<FailureBo, Boolean>) -> Unit>()
-        val userLogin =  UserLoginVo(
-            email = "pablo.sordomartinez@plexus.es",
-            password = "plexu5"
+        val userLogin = UserLoginVo(
+            email = rightEmail,
+            password = rightPassword
         )
-        // When
+        // when
         viewModel.onButtonSelected(LoginContract.Action.LOGIN, userLogin)
-        // Then
-        verify(bridge).loginUser(any(), any(), captor.capture())
-        verifyNoMoreInteractions(bridge)
+        // then
+        verify(mockBridge).loginUser(any(), any(), captor.capture())
+        verifyNoMoreInteractions(mockBridge)
         captor.firstValue.invoke(Either.Right(true))
 
         Assert.assertEquals(LoginState.AccessGranted, getRenderState())
@@ -56,22 +78,27 @@ class LoginActivityViewModelTest {
     }
 
     @Test
-    fun `login error because email is not register`() {
-        // Given
+    fun `check that login is error because email is not register`() {
+        // given
+        val wrongEmail = "emailNotRegister@plexus.es"
+        val wrongPassword = "password"
         val captor = argumentCaptor<(Either<FailureBo, Boolean>) -> Unit>()
-        val userLogin =  UserLoginVo(
-            email = "pablo.mudomartinez",
-            password = "plexu5"
+        val userLogin = UserLoginVo(
+            email = wrongEmail,
+            password = wrongPassword
         )
-        // When
+        // when
         viewModel.onButtonSelected(LoginContract.Action.LOGIN, userLogin)
-        // Then
-        verify(bridge).loginUser(any(), any(), captor.capture())
-        verifyNoMoreInteractions(bridge)
+        // then
+        verify(mockBridge).loginUser(any(), any(), captor.capture())
+        verifyNoMoreInteractions(mockBridge)
         captor.firstValue.invoke(Either.Right(false))
 
         val stateShowError = getRenderState() as? LoginState.ShowError
-        Assert.assertEquals(FailureVo.Unknown(R.string.error_login_response).msgRes, stateShowError?.failure?.msgRes)
+        Assert.assertEquals(
+            FailureVo.Unknown(R.string.error_login_response).msgRes,
+            stateShowError?.failure?.msgRes
+        )
 
     }
 
