@@ -18,6 +18,16 @@ Clone this repository and import into **Android Studio**
 > git clone https://repo.plexus.services/desarrollo/mobile-playground/plexus-chuck.git
 ```
 
+#### Prerequisites
+In order to compile or execute the application, it is required to create a `keystore.properties` file at the project directory, with the following format:
+```
+storeFile = ""
+storePassword = ""
+keyAlias = ""
+keyPassword = ""
+```
+
+This file can contain random or fake data when building as _debug_, but a real keystore is required to generate a signed APK.
 
 ## Generating signed APK
 From Android Studio:
