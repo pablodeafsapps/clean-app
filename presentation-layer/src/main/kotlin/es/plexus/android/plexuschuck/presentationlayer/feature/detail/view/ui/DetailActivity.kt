@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.lifecycleScope
-import es.plexus.android.plexuschuck.domainlayer.feature.detail.DetailDomainLayerBridge
+import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.R
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmView
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
@@ -23,7 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
 class DetailActivity : AppCompatActivity(),
-    BaseMvvmView<DetailActivityViewModel, DetailDomainLayerBridge, DetailState> {
+    BaseMvvmView<DetailActivityViewModel, BaseDomainLayerBridge.None, DetailState> {
 
     override val viewModel: DetailActivityViewModel by viewModel()
     private lateinit var viewBinding: ActivityDetailBinding
@@ -42,18 +42,18 @@ class DetailActivity : AppCompatActivity(),
         viewModel.onViewCreated(jokeItem)
     }
 
-    override fun processRenderState(renderState: DetailState?) {
+    override fun processRenderState(renderState: DetailState) {
         when (renderState) {
-            is DetailState.Idle -> hideLoading()
             is DetailState.ShowJokeInfo -> loadJokeItem(renderState.joke)
             is DetailState.ShowError -> showError(renderState.failure)
         }
     }
 
-    private fun initModel() {
+    override fun initModel() {
         lifecycleScope.launch {
             viewModel.screenState.collect { screenState ->
                 when (screenState) {
+                    is ScreenState.Idle -> hideLoading()
                     is ScreenState.Loading -> showLoading()
                     is ScreenState.Render<DetailState> -> processRenderState(screenState.renderState)
                 }

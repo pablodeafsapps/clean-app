@@ -1,5 +1,6 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.main.viewmodel
 
+import androidx.lifecycle.viewModelScope
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import es.plexus.android.plexuschuck.domainlayer.feature.main.MainDomainLayerBridge
@@ -17,7 +18,7 @@ class MainActivityViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
 
     fun onViewCreated() {
         _screenState.value = ScreenState.Loading
-        bridge.fetchJokes(scope = this, onResult = {
+        bridge.fetchJokes(scope = viewModelScope, onResult = {
             it.fold(::handleError, ::handleSuccess)
         })
     }

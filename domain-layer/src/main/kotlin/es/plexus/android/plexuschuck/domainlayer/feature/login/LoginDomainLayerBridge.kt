@@ -12,7 +12,11 @@ const val LOGIN_DOMAIN_BRIDGE_TAG = "loginDomainLayerBridge"
 interface LoginDomainLayerBridge<in T, out S> : BaseDomainLayerBridge {
 
     fun loginUser(scope: CoroutineScope, params: T, onResult: (Either<FailureBo, S>) -> Unit = {})
-    fun registerUser(scope: CoroutineScope, params: T, onResult: (Either<FailureBo, S>) -> Unit = {})
+    fun registerUser(
+        scope: CoroutineScope,
+        params: T,
+        onResult: (Either<FailureBo, S>) -> Unit = {}
+    )
 
 }
 

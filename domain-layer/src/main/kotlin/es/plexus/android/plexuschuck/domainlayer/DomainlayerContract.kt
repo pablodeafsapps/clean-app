@@ -2,10 +2,12 @@ package es.plexus.android.plexuschuck.domainlayer
 
 import arrow.core.Either
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 interface DomainlayerContract {
 
@@ -13,12 +15,13 @@ interface DomainlayerContract {
 
         interface UseCase<in T, out S> {
             fun invoke(
-                scope: CoroutineScope, params: T? = null, onResult: (Either<FailureBo, S>) -> Unit
+                scope: CoroutineScope,
+                params: T? = null,
+                onResult: (Either<FailureBo, S>) -> Unit,
+                dispatcherWorker: CoroutineDispatcher = Dispatchers.IO
             ) {
-                // task undertaken in a worker thread
-                val job = scope.async { run(params) }
-                // once completed, result sent in the Main thread
-                scope.launch(Dispatchers.Main) { onResult(job.await()) }
+                // task undertaken in a dispatcher worker and once completed, result sent in the scope thread
+                scope.launch { onResult(withContext(dispatcherWorker) { run(params) }) }
             }
 
             suspend fun run(params: T? = null): Either<FailureBo, S>

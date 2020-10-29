@@ -44,19 +44,19 @@ class MainActivity : AppCompatActivity(),
         viewModel.onViewCreated()
     }
 
-    override fun processRenderState(renderState: MainState?) {
+    override fun processRenderState(renderState: MainState) {
         when (renderState) {
-            MainState.Idle -> hideLoading()
             is MainState.ShowJokeList -> loadJokesData(renderState.jokeList)
             is MainState.ShowJokeDetail -> navigateToDetailActivity(renderState.joke)
             is MainState.ShowError -> showError(renderState.failure)
         }
     }
 
-    private fun initModel() {
+    override fun initModel() {
         lifecycleScope.launch {
             viewModel.screenState.collect { screenState ->
                 when (screenState) {
+                    is ScreenState.Idle -> hideLoading()
                     is ScreenState.Loading -> showLoading()
                     is ScreenState.Render<MainState> -> {
                         processRenderState(screenState.renderState)
