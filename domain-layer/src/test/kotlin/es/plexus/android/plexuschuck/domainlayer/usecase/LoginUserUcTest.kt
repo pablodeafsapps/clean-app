@@ -1,6 +1,7 @@
 package es.plexus.android.plexuschuck.domainlayer.usecase
 
 import arrow.core.Either
+import arrow.core.Right
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -10,6 +11,7 @@ import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Assert
@@ -21,6 +23,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import org.mockito.Mockito
 
 @ExperimentalCoroutinesApi
 class LoginUserUcTest : KoinTest {
@@ -74,6 +77,25 @@ class LoginUserUcTest : KoinTest {
         val response = loginUserUc.run(params = wrongParms)
         // then
         Assert.assertTrue((response as? Either.Left<FailureBo>)?.a is FailureBo.InputParamsError)
+    }
+
+    @Test
+    fun `check that if user is correct, true is returned`() = runBlockingTest {
+        // given
+        val rightParams = UserLoginBo(email = "example@plexus.es", password = "password")
+        val callbackMock = mock<(Either<FailureBo, Boolean>) -> Unit>()
+        val dispatcherWorker = TestCoroutineDispatcher()
+        // when
+        Mockito.`when`(mockRepository.loginUser(rightParams)).thenReturn(Either.right(true))
+        loginUserUc.invoke(
+            params = rightParams,
+            scope = this,
+            onResult = callbackMock,
+            dispatcherWorker = dispatcherWorker
+        )
+        // then
+        verify(callbackMock).invoke(Right(true))
+
     }
 
 }

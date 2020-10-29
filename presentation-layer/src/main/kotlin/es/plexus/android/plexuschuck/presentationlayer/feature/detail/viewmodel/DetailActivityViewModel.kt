@@ -1,6 +1,6 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.detail.viewmodel
 
-import es.plexus.android.plexuschuck.domainlayer.feature.detail.DetailDomainLayerBridge
+import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.R
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmViewModel
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
@@ -10,8 +10,8 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.detail.view.state
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class DetailActivityViewModel(bridge: DetailDomainLayerBridge) :
-    BaseMvvmViewModel<DetailDomainLayerBridge, DetailState>(bridge = bridge) {
+class DetailActivityViewModel(bridge: BaseDomainLayerBridge.None) :
+    BaseMvvmViewModel<BaseDomainLayerBridge.None, DetailState>(bridge = bridge) {
 
     fun onViewCreated(jokeItem: JokeVo?) {
         _screenState.value = ScreenState.Render(

@@ -3,7 +3,7 @@ package es.plexus.android.plexuschuck.presentationlayer.feature.splash.view.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import es.plexus.android.plexuschuck.domainlayer.feature.splash.SplashDomainLayerBridge
+import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmView
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.ui.LoginActivity
@@ -17,7 +17,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
 class SplashActivity : AppCompatActivity(),
-    BaseMvvmView<SplashActivityViewModel, SplashDomainLayerBridge, SplashState> {
+    BaseMvvmView<SplashActivityViewModel, BaseDomainLayerBridge.None, SplashState> {
 
     override val viewModel: SplashActivityViewModel by viewModel()
 
@@ -31,13 +31,13 @@ class SplashActivity : AppCompatActivity(),
         viewModel.onViewCreated()
     }
 
-    override fun processRenderState(renderState: SplashState?) {
+    override fun processRenderState(renderState: SplashState) {
         when (renderState) {
             is SplashState.LoadingFinished -> startLoginActivity()
         }
     }
 
-    private fun initModel() {
+    override fun initModel() {
         lifecycleScope.launch {
             viewModel.screenState.collect { screenState ->
                 when (screenState) {

@@ -64,6 +64,7 @@ dependencies {
     implementation(Libraries.ankoDesign)
     implementation(Libraries.appCompat)
     implementation(Libraries.lifecycle)
+    implementation(Libraries.viewModelKtx)
     implementation(Libraries.constraintLayout)
     implementation(Libraries.recyclerview)
     implementation(Libraries.cardview)
