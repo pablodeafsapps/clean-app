@@ -34,10 +34,11 @@ private fun JokeBo.boToVo(): JokeVo =
  */
 fun FailureBo.boToVoFailure(): FailureVo =
     when (this) {
-        is FailureBo.InputParamsError -> FailureVo.Error(msgRes = msgRes)
-        is FailureBo.RequestError -> FailureVo.Error(msgRes = msgRes)
-        is FailureBo.ServerError -> FailureVo.Error(msgRes = msgRes)
-        is FailureBo.NoData -> FailureVo.NoData(msgRes = msgRes)
-        is FailureBo.NoConnection -> FailureVo.NoConnection(msgRes = msgRes)
-        is FailureBo.Unknown -> FailureVo.Unknown(msgRes = msgRes)
+        is FailureBo.InputParamsError -> FailureVo.Error(msg = msg)
+        is FailureBo.RequestError -> FailureVo.Error(msg = msg)
+        is FailureBo.ServerError -> FailureVo.Error(msg = msg)
+        is FailureBo.NoData -> FailureVo.NoData
+        is FailureBo.NoConnection -> FailureVo.NoConnection
+        is FailureBo.Unknown -> FailureVo.Unknown
+        is FailureBo.Error -> FailureVo.Error(msg = msg)
     }

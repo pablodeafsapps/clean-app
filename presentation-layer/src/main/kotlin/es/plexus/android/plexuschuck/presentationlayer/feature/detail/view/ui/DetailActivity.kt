@@ -13,7 +13,7 @@ import es.plexus.android.plexuschuck.presentationlayer.databinding.ActivityDetai
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
 import es.plexus.android.plexuschuck.presentationlayer.feature.detail.view.state.DetailState
-import es.plexus.android.plexuschuck.presentationlayer.feature.detail.viewmodel.DetailActivityViewModel
+import es.plexus.android.plexuschuck.presentationlayer.feature.detail.viewmodel.DetailViewModel
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui.INTENT_DATA_KEY
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -23,9 +23,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
 class DetailActivity : AppCompatActivity(),
-    BaseMvvmView<DetailActivityViewModel, BaseDomainLayerBridge.None, DetailState> {
+    BaseMvvmView<DetailViewModel, BaseDomainLayerBridge.None, DetailState> {
 
-    override val viewModel: DetailActivityViewModel by viewModel()
+    override val viewModel: DetailViewModel by viewModel()
     private lateinit var viewBinding: ActivityDetailBinding
     private var jokeItem: JokeVo? = null
 

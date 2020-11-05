@@ -1,4 +1,5 @@
 buildscript {
+    val kotlin_version by extra("1.4.10")
     repositories {
         google()
         jcenter()
@@ -10,6 +11,7 @@ buildscript {
         classpath(Build.ribbonizerPlugin)
         classpath(Build.fbCrashlyticsGradlePlugin)
         classpath(Build.googleServicesPlugin)
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
 

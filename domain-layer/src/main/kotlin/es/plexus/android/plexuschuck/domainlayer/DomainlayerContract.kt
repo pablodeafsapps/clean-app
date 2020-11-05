@@ -5,7 +5,6 @@ import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -37,8 +36,8 @@ interface DomainlayerContract {
         }
 
         interface AuthenticationRepository<in T, out S> {
-            fun loginUser(params: T): Either<FailureBo, S>
-            fun registerUser(params: T): Either<FailureBo, S>
+            suspend fun loginUser(params: T): Either<FailureBo, S>
+            suspend fun registerUser(params: T): Either<FailureBo, S>
         }
 
         interface DataRepository<out T> {

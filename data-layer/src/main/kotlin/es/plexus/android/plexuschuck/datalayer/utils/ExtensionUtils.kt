@@ -8,9 +8,9 @@ import android.util.Log
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import es.plexus.android.plexuschuck.datalayer.R
 import es.plexus.android.plexuschuck.datalayer.domain.FailureDto
 import es.plexus.android.plexuschuck.datalayer.domain.dtoToBoFailure
+import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import retrofit2.Response
 
@@ -81,7 +81,7 @@ fun <T, R> Response<T>.safeCall(
  */
 fun <T> Response<T>?.handleDataSourceError(): Either<FailureBo, Nothing> =
     when (this?.code()) {
-        in 400..499 -> FailureDto.RequestError(code = 400, msgRes = R.string.error_bad_request)
-        in 500..599 -> FailureDto.RequestError(code = 500, msgRes = R.string.error_server)
+        in 400..499 -> FailureDto.RequestError(code = 400, msg = ErrorMessage.ERROR_BAD_REQUEST)
+        in 500..599 -> FailureDto.RequestError(code = 500, msg = ErrorMessage.ERROR_SERVER)
         else -> FailureDto.Unknown
     }.dtoToBoFailure().left()

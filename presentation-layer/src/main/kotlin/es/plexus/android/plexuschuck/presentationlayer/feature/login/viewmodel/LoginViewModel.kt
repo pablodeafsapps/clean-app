@@ -16,7 +16,7 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class LoginActivityViewModel(bridge: LoginDomainLayerBridge<UserLoginBo, Boolean>) :
+class LoginViewModel(bridge: LoginDomainLayerBridge<UserLoginBo, Boolean>) :
     BaseMvvmViewModel<LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState>(bridge = bridge) {
 
     fun onButtonSelected(action: Action, userData: UserLoginVo) {
@@ -49,7 +49,7 @@ class LoginActivityViewModel(bridge: LoginDomainLayerBridge<UserLoginBo, Boolean
         _screenState.value = if (isSuccessful) {
             ScreenState.Render(LoginState.AccessGranted)
         } else {
-            ScreenState.Render(LoginState.ShowError(failure = FailureVo.Unknown(msgRes = R.string.error_login_response)))
+            ScreenState.Render(LoginState.ShowError(failure = FailureVo.Unknown))
         }
     }
 

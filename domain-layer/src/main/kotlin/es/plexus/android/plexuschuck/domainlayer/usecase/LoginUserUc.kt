@@ -3,7 +3,7 @@ package es.plexus.android.plexuschuck.domainlayer.usecase
 import arrow.core.Either
 import arrow.core.left
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
-import es.plexus.android.plexuschuck.domainlayer.R
+import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 
@@ -16,7 +16,7 @@ internal class LoginUserUc(private val authenticationRepository: DomainlayerCont
         params.takeIf { !it?.email.isNullOrEmpty() && !it?.password.isNullOrEmpty() }?.let {
             authenticationRepository.loginUser(it)
         } ?: run {
-            FailureBo.InputParamsError(R.string.error_params_cannot_be_empty).left()
+            FailureBo.InputParamsError(ErrorMessage.ERROR_PARAMS_CANNOT_BE_EMPTY).left()
         }
 
 }

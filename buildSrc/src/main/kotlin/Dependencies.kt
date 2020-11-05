@@ -21,6 +21,8 @@ object Build {
 object Plugins {
     const val androidApplication = "com.android.application"
     const val androidLibrary = "com.android.library"
+    const val javaLibrary = "java-library"
+    const val kotlin = "kotlin"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
     const val dokka = "org.jetbrains.dokka"
@@ -66,6 +68,7 @@ object Libraries {
     const val fbAuth = "com.google.firebase:firebase-auth:${Versions.fbAuth}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
     // koin
+    const val koinCore = "org.koin:koin-core:${Versions.koin}"
     const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
     const val koinViewmodel = "org.koin:koin-android-viewmodel:${Versions.koin}"
     // retrofit

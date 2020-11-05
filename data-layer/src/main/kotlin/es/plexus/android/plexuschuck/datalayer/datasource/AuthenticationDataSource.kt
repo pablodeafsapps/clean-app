@@ -9,7 +9,7 @@ import com.google.firebase.auth.*
 import com.google.firebase.auth.FirebaseAuth
 import es.plexus.android.plexuschuck.datalayer.domain.FailureDto
 import es.plexus.android.plexuschuck.datalayer.domain.UserLoginDto
-import es.plexus.android.plexuschuck.domainlayer.R
+import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 
 interface AuthenticationDataSource {
 
@@ -52,18 +52,15 @@ class FirebaseDataSource(private val fbAuth: FirebaseAuth) : AuthenticationDataS
             when (e.cause) {
                 is FirebaseAuthUserCollisionException -> {
                     Log.w("requestRegister", "register: e-mail already registered")
-                    FailureDto.FirebaseRegisterError(msgRes = R.string.error_register_request_duplicated)
-                        .left()
+                    FailureDto.FirebaseRegisterError(msg = ErrorMessage.ERROR_REGISTER_REQUEST_DUPLICATED).left()
                 }
                 is FirebaseAuthWeakPasswordException -> {
                     Log.w("requestRegister", "register: a 6-digits password is required")
-                    FailureDto.FirebaseRegisterError(msgRes = R.string.error_register_request_password)
-                        .left()
+                    FailureDto.FirebaseRegisterError(msg = ErrorMessage.ERROR_REGISTER_REQUEST_PASSWORD).left()
                 }
                 else -> {
                     Log.e("requestRegister", "register: ${e.message}")
-                    FailureDto.FirebaseRegisterError(msgRes = R.string.error_register_request_default)
-                        .left()
+                    FailureDto.FirebaseRegisterError(msg = ErrorMessage.ERROR_REGISTER_REQUEST).left()
                 }
             }
         }

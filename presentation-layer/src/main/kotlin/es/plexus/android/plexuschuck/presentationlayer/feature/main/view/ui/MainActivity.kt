@@ -17,7 +17,7 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.detail.view.ui.De
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter.CnJokeActionView
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter.CnJokeListAdapter
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.state.MainState
-import es.plexus.android.plexuschuck.presentationlayer.feature.main.viewmodel.MainActivityViewModel
+import es.plexus.android.plexuschuck.presentationlayer.feature.main.viewmodel.MainViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -30,9 +30,9 @@ const val INTENT_DATA_KEY = "jokeItem"
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity(),
-    BaseMvvmView<MainActivityViewModel, MainDomainLayerBridge<JokeBoWrapper>, MainState> {
+    BaseMvvmView<MainViewModel, MainDomainLayerBridge<JokeBoWrapper>, MainState> {
 
-    override val viewModel: MainActivityViewModel by viewModel()
+    override val viewModel: MainViewModel by viewModel()
     private lateinit var viewBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

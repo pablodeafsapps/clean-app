@@ -14,7 +14,7 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.UserLoginVo
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.LoginContract.Action
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.LoginState
-import es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel.LoginActivityViewModel
+import es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel.LoginViewModel
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui.MainActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -27,9 +27,9 @@ private const val EMPTY_STRING = ""
 
 @ExperimentalCoroutinesApi
 class LoginActivity : AppCompatActivity(),
-    BaseMvvmView<LoginActivityViewModel, LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState> {
+    BaseMvvmView<LoginViewModel, LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState> {
 
-    override val viewModel: LoginActivityViewModel by viewModel()
+    override val viewModel: LoginViewModel by viewModel()
     private lateinit var viewBinding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

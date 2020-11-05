@@ -27,11 +27,11 @@ private fun JokeDto.dtoToBo() = JokeBo(
 )
 
 fun FailureDto.dtoToBoFailure(): FailureBo = when (this) {
-    FailureDto.NoConnection -> FailureBo.NoConnection(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    is FailureDto.RequestError -> FailureBo.RequestError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    FailureDto.FirebaseLoginError -> FailureBo.ServerError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    is FailureDto.FirebaseRegisterError -> FailureBo.ServerError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    is FailureDto.Error -> FailureBo.ServerError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    FailureDto.NoData -> FailureBo.NoData(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    FailureDto.Unknown -> FailureBo.Unknown(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
+    FailureDto.NoConnection -> FailureBo.NoConnection
+    is FailureDto.RequestError -> FailureBo.RequestError(msg = msg ?: DEFAULT_STRING_VALUE)
+    FailureDto.FirebaseLoginError -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
+    is FailureDto.FirebaseRegisterError -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
+    is FailureDto.Error -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
+    FailureDto.NoData -> FailureBo.NoData
+    FailureDto.Unknown -> FailureBo.Unknown
 }

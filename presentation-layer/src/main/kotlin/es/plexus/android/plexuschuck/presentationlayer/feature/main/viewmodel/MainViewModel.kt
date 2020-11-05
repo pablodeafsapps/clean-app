@@ -13,7 +13,7 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.state.M
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
-class MainActivityViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
+class MainViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
     BaseMvvmViewModel<MainDomainLayerBridge<JokeBoWrapper>, MainState>(bridge = bridge) {
 
     fun onViewCreated() {
