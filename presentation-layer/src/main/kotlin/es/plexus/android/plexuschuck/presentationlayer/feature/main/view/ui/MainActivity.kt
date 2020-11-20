@@ -28,8 +28,12 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 const val INTENT_DATA_KEY = "jokeItem"
 
+/**
+ *
+ */
 @ExperimentalCoroutinesApi
-class MainActivity : AppCompatActivity(),
+class MainActivity :
+    AppCompatActivity(),
     BaseMvvmView<MainViewModel, MainDomainLayerBridge<JokeBoWrapper>, MainState> {
 
     override val viewModel: MainViewModel by viewModel()

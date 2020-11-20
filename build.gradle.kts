@@ -1,17 +1,17 @@
 buildscript {
-    val kotlin_version by extra("1.4.10")
     repositories {
         google()
         jcenter()
+        maven("https://plugins.gradle.org/m2/")
     }
     dependencies {
         classpath(Build.androidGradlePlugin)
         classpath(Build.kotlinGradlePlugin)
+        classpath(Build.detektPlugin)
         classpath(Build.dokkaGradlePlugin)
         classpath(Build.ribbonizerPlugin)
         classpath(Build.fbCrashlyticsGradlePlugin)
         classpath(Build.googleServicesPlugin)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
 

@@ -21,8 +21,12 @@ import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
+/**
+ *
+ */
 @ExperimentalCoroutinesApi
-class DetailActivity : AppCompatActivity(),
+class DetailActivity :
+    AppCompatActivity(),
     BaseMvvmView<DetailViewModel, BaseDomainLayerBridge.None, DetailState> {
 
     override val viewModel: DetailViewModel by viewModel()

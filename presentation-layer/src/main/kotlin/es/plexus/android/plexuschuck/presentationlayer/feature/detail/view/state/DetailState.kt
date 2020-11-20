@@ -4,6 +4,9 @@ import es.plexus.android.plexuschuck.presentationlayer.base.BaseState
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
 
+/**
+ *
+ */
 sealed class DetailState : BaseState() {
     class ShowJokeInfo(val joke: JokeVo) : DetailState()
     class ShowError(val failure: FailureVo?) : DetailState()

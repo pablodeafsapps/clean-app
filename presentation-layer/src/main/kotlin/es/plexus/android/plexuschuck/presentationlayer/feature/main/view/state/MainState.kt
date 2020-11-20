@@ -4,6 +4,9 @@ import es.plexus.android.plexuschuck.presentationlayer.base.BaseState
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
 
+/**
+ *
+ */
 sealed class MainState : BaseState() {
     class ShowJokeList(val jokeList: List<JokeVo>) : MainState()
     class ShowJokeDetail(val joke: JokeVo) : MainState()

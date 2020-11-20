@@ -2,12 +2,24 @@ package es.plexus.android.plexuschuck.domainlayer.domain
 
 private const val DEFAULT_STRING_RESOURCE = "none"
 
+/**
+ *
+ */
 data class UserLoginBo(val email: String, val password: String)
 
+/**
+ *
+ */
 data class JokeBoWrapper(val type: String, val value: List<JokeBo>)
 
+/**
+ *
+ */
 data class JokeBo(val id: Int, val joke: String, val categories: List<String>)
 
+/**
+ *
+ */
 sealed class FailureBo(var msg: String = DEFAULT_STRING_RESOURCE) {
     object NoConnection : FailureBo(msg = ErrorMessage.ERROR_NO_CONNECTION)
     class InputParamsError(msg: String) : FailureBo(msg = msg)
@@ -18,8 +30,10 @@ sealed class FailureBo(var msg: String = DEFAULT_STRING_RESOURCE) {
     class Error(msg: String) : FailureBo(msg = msg)
 }
 
+/**
+ *
+ */
 object ErrorMessage {
-
     const val ERROR_NO_CONNECTION = "No Connection"
     const val ERROR_PARAMS_CANNOT_BE_EMPTY = "Params cannot be empty"
     const val ERROR_PARAMS_BOTH_EMAIL_PASSWORD_REQUIRED = "Both e-mail and password are required"
@@ -33,5 +47,4 @@ object ErrorMessage {
     const val ERROR_NO_DATA = "No Data"
     const val ERROR_SERVER = "Server Error"
     const val ERROR_UNKNOWN = "Unknown Error"
-
 }

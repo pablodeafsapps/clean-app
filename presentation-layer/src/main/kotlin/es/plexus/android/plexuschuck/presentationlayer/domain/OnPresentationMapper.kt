@@ -6,6 +6,9 @@ import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 
 private const val DEFAULT_STRING_VALUE = "none"
 
+/**
+ *
+ */
 fun UserLoginVo.voToBo() = UserLoginBo(
     email = email ?: DEFAULT_STRING_VALUE,
     password = password ?: DEFAULT_STRING_VALUE

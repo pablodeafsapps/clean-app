@@ -2,6 +2,8 @@ plugins {
     id(Plugins.javaLibrary)
     id(Plugins.kotlin)
     id(Plugins.kotlinKapt)
+    // add lint feature
+    id(Plugins.detekt)
     // add automatic documentation generator feature
     id(Plugins.dokka)
 }
@@ -25,6 +27,8 @@ dependencies {
     api(Libraries.arrowCore)
     api(Libraries.arrowSyntax)
     kapt(Libraries.arrowMeta)
+    detekt(Libraries.detektFormatting)
+    detekt(Libraries.detektCli)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
     testImplementation(Libraries.mockitoKotlin)

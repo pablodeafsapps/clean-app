@@ -25,8 +25,12 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val EMPTY_STRING = ""
 
+/**
+ *
+ */
 @ExperimentalCoroutinesApi
-class LoginActivity : AppCompatActivity(),
+class LoginActivity :
+    AppCompatActivity(),
     BaseMvvmView<LoginViewModel, LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState> {
 
     override val viewModel: LoginViewModel by viewModel()

@@ -44,7 +44,8 @@ val dataLayerModule = module(override = true) {
             jokesDataSource = get(named(name = JOKES_DATA_SOURCE_TAG))
         }
     }
-    single<DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>>(named(name = AUTHENTICATION_REPOSITORY_TAG)) {
+    single<DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>
+            >(named(name = AUTHENTICATION_REPOSITORY_TAG)) {
         get<Repository>()
     }
     single<DomainlayerContract.Datalayer.DataRepository<JokeBoWrapper>>(named(name = DATA_REPOSITORY_TAG)) {
@@ -57,7 +58,9 @@ val dataLayerModule = module(override = true) {
     factory<AuthenticationDataSource>(named(name = AUTHENTICATION_DATA_SOURCE_TAG)) {
         FirebaseDataSource(fbAuth = get(named(name = AUTHENTICATOR_TAG)))
     }
-    factory<JokesDataSource>(named(name = JOKES_DATA_SOURCE_TAG)) { IcndbDataSource(get(named(name = JOKES_API_SERVICE_TAG))) }
+    factory<JokesDataSource>(named(name = JOKES_DATA_SOURCE_TAG)) {
+        IcndbDataSource(get(named(name = JOKES_API_SERVICE_TAG)))
+    }
     // retrofit
     single<Retrofit>(named(name = JOKES_API_SERVICE_TAG)) {
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()

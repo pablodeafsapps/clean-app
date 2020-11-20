@@ -9,8 +9,9 @@ import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 
 const val LOGIN_UC_TAG = "loginUserUc"
 
-internal class LoginUserUc(private val authenticationRepository: DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>) :
-    DomainlayerContract.Presentationlayer.UseCase<UserLoginBo, Boolean> {
+internal class LoginUserUc(
+    private val authenticationRepository: DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>
+) : DomainlayerContract.Presentationlayer.UseCase<UserLoginBo, Boolean> {
 
     override suspend fun run(params: UserLoginBo?): Either<FailureBo, Boolean> =
         params.takeIf { !it?.email.isNullOrEmpty() && !it?.password.isNullOrEmpty() }?.let {

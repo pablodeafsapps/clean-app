@@ -1,7 +1,6 @@
 package es.plexus.android.plexuschuck.presentationlayer.domain
 
 import android.os.Parcelable
-import androidx.annotation.StringRes
 import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter.CnJokeView
 import kotlinx.android.parcel.Parcelize
@@ -35,6 +34,9 @@ sealed class FailureVo(var msg: String?) {
         private const val DEFAULT_STRING_RESOURCE = "none"
     }
 
+    /**
+     *
+     */
     fun getErrorMessage(): String = msg ?: DEFAULT_STRING_RESOURCE
 
     object NoConnection : FailureVo(msg = ErrorMessage.ERROR_NO_CONNECTION)

@@ -1,7 +1,6 @@
 package es.plexus.android.plexuschuck.datalayer.datasource
 
 import arrow.core.Either
-import es.plexus.android.plexuschuck.datalayer.domain.FailureDto
 import es.plexus.android.plexuschuck.datalayer.domain.dtoToBo
 import es.plexus.android.plexuschuck.datalayer.service.IcndbApiService
 import es.plexus.android.plexuschuck.datalayer.utils.safeCall
@@ -9,6 +8,9 @@ import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import retrofit2.Retrofit
 
+/**
+ *
+ */
 interface JokesDataSource {
 
     companion object {
@@ -17,11 +19,16 @@ interface JokesDataSource {
         const val ICNDB_BASE_URL = "http://api.icndb.com"
     }
 
+    /**
+     *
+     */
     suspend fun fetchJokesResponse(): Either<FailureBo, JokeBoWrapper>
 
 }
 
-
+/**
+ *
+ */
 class IcndbDataSource(private val retrofitBuilder: Retrofit) : JokesDataSource {
 
     override suspend fun fetchJokesResponse(): Either<FailureBo, JokeBoWrapper> =

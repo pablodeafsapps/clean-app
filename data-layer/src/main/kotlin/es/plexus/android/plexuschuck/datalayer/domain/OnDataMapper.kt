@@ -8,11 +8,17 @@ import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 private const val DEFAULT_INTEGER_VALUE = 0
 private const val DEFAULT_STRING_VALUE = ""
 
+/**
+ *
+ */
 fun UserLoginBo.boToDto() = UserLoginDto(
     email = email,
     password = password
 )
 
+/**
+ *
+ */
 fun JokeDtoWrapper.dtoToBo() = JokeBoWrapper(
     type = type,
     value = value.jokeListDtoToBo()
@@ -26,6 +32,9 @@ private fun JokeDto.dtoToBo() = JokeBo(
     categories = categories ?: emptyList()
 )
 
+/**
+ *
+ */
 fun FailureDto.dtoToBoFailure(): FailureBo = when (this) {
     FailureDto.NoConnection -> FailureBo.NoConnection
     is FailureDto.RequestError -> FailureBo.RequestError(msg = msg ?: DEFAULT_STRING_VALUE)

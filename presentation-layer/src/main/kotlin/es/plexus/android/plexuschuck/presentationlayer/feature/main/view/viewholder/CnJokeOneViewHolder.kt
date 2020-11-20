@@ -11,6 +11,9 @@ import kotlinx.android.synthetic.main.joke_item_one.view.*
 
 private const val EMPTY_STRING = ""
 
+/**
+ *
+ */
 class CnJokeOneViewHolder(itemView: View) : BaseViewHolder<CnJokeView, CnJokeActionView>(itemView) {
 
     private val container by lazy { itemView }

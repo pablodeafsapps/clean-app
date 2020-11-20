@@ -15,8 +15,12 @@ import kotlinx.coroutines.launch
 import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
+/**
+ *
+ */
 @ExperimentalCoroutinesApi
-class SplashActivity : AppCompatActivity(),
+class SplashActivity :
+    AppCompatActivity(),
     BaseMvvmView<SplashActivityViewModel, BaseDomainLayerBridge.None, SplashState> {
 
     override val viewModel: SplashActivityViewModel by viewModel()

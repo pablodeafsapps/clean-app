@@ -25,4 +25,5 @@ abstract class BaseMvvmViewModel<T : BaseDomainLayerBridge, S : BaseState>(prote
         get() {
             return _screenState
         }
+
 }

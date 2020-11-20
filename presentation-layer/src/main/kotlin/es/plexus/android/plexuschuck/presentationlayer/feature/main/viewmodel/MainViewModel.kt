@@ -12,17 +12,29 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.boToVoFailure
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.state.MainState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+/**
+ *
+ */
 @ExperimentalCoroutinesApi
 class MainViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
     BaseMvvmViewModel<MainDomainLayerBridge<JokeBoWrapper>, MainState>(bridge = bridge) {
 
+    /**
+     *
+     */
     fun onViewCreated() {
         _screenState.value = ScreenState.Loading
-        bridge.fetchJokes(scope = viewModelScope, onResult = {
-            it.fold(::handleError, ::handleSuccess)
-        })
+        bridge.fetchJokes(
+            scope = viewModelScope,
+            onResult = {
+                it.fold(::handleError, ::handleSuccess)
+            }
+        )
     }
 
+    /**
+     *
+     */
     fun onJokeItemSelected(item: JokeVo) {
         _screenState.value = ScreenState.Render(MainState.ShowJokeDetail(item))
     }
