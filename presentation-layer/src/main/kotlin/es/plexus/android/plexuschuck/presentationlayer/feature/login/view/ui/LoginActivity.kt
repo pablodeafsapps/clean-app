@@ -26,7 +26,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
 private const val EMPTY_STRING = ""
 
 /**
+ * This [AppCompatActivity] represents the login feature of the application. It is here where the
+ * user can procceed to log-in or register his account.
  *
+ * The UI state is controlled thanks to the collection of a [viewModel] observable variable.
  */
 @ExperimentalCoroutinesApi
 class LoginActivity :
@@ -49,7 +52,7 @@ class LoginActivity :
             is LoginState.Login -> showLoginUi()
             is LoginState.Register -> showRegisterUi()
             is LoginState.AccessGranted -> navigateToMainActivity()
-            is LoginState.ShowError -> showError(renderState.failure)
+            is LoginState.ShowError -> showError(failure = renderState.failure)
         }
     }
 

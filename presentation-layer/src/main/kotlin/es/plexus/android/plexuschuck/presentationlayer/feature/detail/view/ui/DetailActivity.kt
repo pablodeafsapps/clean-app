@@ -22,7 +22,7 @@ import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
- *
+ * This [AppCompatActivity] displays the details of the selected [JokeVo]
  */
 @ExperimentalCoroutinesApi
 class DetailActivity :
@@ -48,8 +48,8 @@ class DetailActivity :
 
     override fun processRenderState(renderState: DetailState) {
         when (renderState) {
-            is DetailState.ShowJokeInfo -> loadJokeItem(renderState.joke)
-            is DetailState.ShowError -> showError(renderState.failure)
+            is DetailState.ShowJokeInfo -> loadJokeItem(item = renderState.joke)
+            is DetailState.ShowError -> showError(failure = renderState.failure)
         }
     }
 

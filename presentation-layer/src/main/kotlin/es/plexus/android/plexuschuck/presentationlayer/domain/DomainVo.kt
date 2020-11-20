@@ -7,26 +7,17 @@ import kotlinx.android.parcel.Parcelize
 
 /**
  * This data class represents the Visual Object related to a user login datum
- *
- * @author Pablo L. Sordo
- * @since 1.0
  */
 data class UserLoginVo(val email: String?, val password: String?)
 
 /**
  * This data class represents the Visual Object related to a joke datum
- *
- * @author Pablo L. Sordo
- * @since 1.0
  */
 @Parcelize
 data class JokeVo(val id: Int?, val joke: String?, val categories: List<String>?) : CnJokeView.JokeTypeOne(), Parcelable
 
 /**
- * This sealed class contains the 'failure' type definitions to be used in the 'presentation-layer' module
- *
- * @author Pablo L. Sordo
- * @since 1.0
+ * A class which models any failure coming from the 'domain-layer' module
  */
 sealed class FailureVo(var msg: String?) {
 
@@ -35,7 +26,7 @@ sealed class FailureVo(var msg: String?) {
     }
 
     /**
-     *
+     * Allows to get the message associated to an error
      */
     fun getErrorMessage(): String = msg ?: DEFAULT_STRING_RESOURCE
 

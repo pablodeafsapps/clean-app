@@ -1,7 +1,9 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter
 
 /**
+ * A sealed class which models all view types available to display joke data
  *
+ * @property [viewType] An [Int] which represents the specific view
  */
 sealed class CnJokeView(val viewType: Int) {
 

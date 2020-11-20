@@ -4,7 +4,8 @@ import android.content.Context
 import es.plexus.android.plexuschuck.datalayer.utils.isNetworkAvailable
 
 /**
- *
+ * This interface represents the contract to be complied by an entity to fit in as the connectivity
+ * state provider
  */
 interface ConnectivityDataSource {
 
@@ -13,14 +14,15 @@ interface ConnectivityDataSource {
     }
 
     /**
-     *
+     * Returns the current state of the connection availability
      */
     suspend fun checkNetworkConnectionAvailability(): Boolean
 
 }
 
 /**
- *
+ * This class complies with [ConnectivityDataSource] so that it is in charge of providing any
+ * required information regarding connectivity
  */
 class AndroidDataSource(private val context: Context) : ConnectivityDataSource {
 

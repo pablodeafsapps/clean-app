@@ -29,7 +29,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
 const val INTENT_DATA_KEY = "jokeItem"
 
 /**
+ * This [AppCompatActivity] represents the main feature of the application. It is here where the
+ * data of interest is rendered right after the ViewModel has handed them over.
  *
+ * The UI state is controlled thanks to the collection of a [viewModel] observable variable.
  */
 @ExperimentalCoroutinesApi
 class MainActivity :
@@ -50,9 +53,9 @@ class MainActivity :
 
     override fun processRenderState(renderState: MainState) {
         when (renderState) {
-            is MainState.ShowJokeList -> loadJokesData(renderState.jokeList)
-            is MainState.ShowJokeDetail -> navigateToDetailActivity(renderState.joke)
-            is MainState.ShowError -> showError(renderState.failure)
+            is MainState.ShowJokeList -> loadJokesData(data = renderState.jokeList)
+            is MainState.ShowJokeDetail -> navigateToDetailActivity(item = renderState.joke)
+            is MainState.ShowError -> showError(failure = renderState.failure)
         }
     }
 

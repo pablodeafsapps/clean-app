@@ -9,14 +9,17 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.detail.view.state
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
+ * This [BaseMvvmViewModel] handles the 'detail' feature view-model. Therefore, it is in charge of
+ * publishing joke detail information to all subscribers.
  *
+ * All results update an observable variable, [_screenState], with [DetailState] values.
  */
 @ExperimentalCoroutinesApi
 class DetailViewModel(bridge: BaseDomainLayerBridge.None) :
     BaseMvvmViewModel<BaseDomainLayerBridge.None, DetailState>(bridge = bridge) {
 
     /**
-     *
+     * Indicates that the associated view has been created
      */
     fun onViewCreated(jokeItem: JokeVo?) {
         _screenState.value = ScreenState.Render(

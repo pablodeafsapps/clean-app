@@ -4,7 +4,7 @@ import es.plexus.android.plexuschuck.presentationlayer.base.BaseState
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 
 /**
- *
+ * Models all available states for the 'Login' feature view
  */
 sealed class LoginState : BaseState() {
     object Login : LoginState()

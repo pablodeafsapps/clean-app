@@ -15,14 +15,22 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
+ * This [BaseMvvmViewModel] handles the 'login' feature view-model. Therefore, it is in charge of
+ * the logic which allows a user to log-in and/or register. It uses a [LoginDomainLayerBridge] which
+ * gathers all the operations available for this entity.
  *
+ * All results update an observable variable, [_screenState], with [LoginState] values.
  */
 @ExperimentalCoroutinesApi
 class LoginViewModel(bridge: LoginDomainLayerBridge<UserLoginBo, Boolean>) :
     BaseMvvmViewModel<LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState>(bridge = bridge) {
 
     /**
+     * Represents a user interaction, particularly a button click or tap. According to the [Action]
+     * input argument, an operation is invoked either for 'login' or 'register'.
      *
+     * @param [action] - the purpose of this event
+     * @param [userData] - the user data to be used
      */
     fun onButtonSelected(action: Action, userData: UserLoginVo) {
         _screenState.value = ScreenState.Loading
@@ -33,7 +41,10 @@ class LoginViewModel(bridge: LoginDomainLayerBridge<UserLoginBo, Boolean>) :
     }
 
     /**
+     * Represents a user interaction, particularly a tab toggle displaying a new init mode, either
+     * 'login' or 'register'.
      *
+     * @param [isLoginMode] - a flag indicating whether the actual mode is 'login' or not
      */
     fun onToggleModeTapped(isLoginMode: Boolean) {
         _screenState.value =

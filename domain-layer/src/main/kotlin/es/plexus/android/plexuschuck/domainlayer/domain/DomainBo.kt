@@ -3,22 +3,22 @@ package es.plexus.android.plexuschuck.domainlayer.domain
 private const val DEFAULT_STRING_RESOURCE = "none"
 
 /**
- *
+ * This data class represents the Business Object related to a user login datum
  */
 data class UserLoginBo(val email: String, val password: String)
 
 /**
- *
+ * This data class models a wrapper over a [JokeBo] datum
  */
 data class JokeBoWrapper(val type: String, val value: List<JokeBo>)
 
 /**
- *
+ * This data class represents the Business Object related to a joke datum
  */
 data class JokeBo(val id: Int, val joke: String, val categories: List<String>)
 
 /**
- *
+ * A class which models any failure coming from the 'domain-layer'
  */
 sealed class FailureBo(var msg: String = DEFAULT_STRING_RESOURCE) {
     object NoConnection : FailureBo(msg = ErrorMessage.ERROR_NO_CONNECTION)
@@ -31,7 +31,7 @@ sealed class FailureBo(var msg: String = DEFAULT_STRING_RESOURCE) {
 }
 
 /**
- *
+ * This object gathers all error messages available throughout the app
  */
 object ErrorMessage {
     const val ERROR_NO_CONNECTION = "No Connection"

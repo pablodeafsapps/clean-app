@@ -5,7 +5,7 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
 
 /**
- *
+ * Models all available states for the 'Main' feature view
  */
 sealed class MainState : BaseState() {
     class ShowJokeList(val jokeList: List<JokeVo>) : MainState()

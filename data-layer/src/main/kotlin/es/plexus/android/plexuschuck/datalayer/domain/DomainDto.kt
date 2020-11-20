@@ -6,17 +6,17 @@ import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 import okhttp3.ResponseBody
 
 /**
- *
+ * This data class represents the Data Transfer Object related to a user login datum
  */
 data class UserLoginDto(val email: String, val password: String)
 
 /**
- *
+ * This data class models a wrapper over a [JokeDto] datum
  */
 data class JokeDtoWrapper(val type: String, val value: List<JokeDto>)
 
 /**
- *
+ * This data class represents the Data Transfer Object related to a joke datum
  */
 @JsonClass(generateAdapter = true)
 data class JokeDto(
@@ -26,7 +26,7 @@ data class JokeDto(
 )
 
 /**
- *
+ * A class which models any failure coming from the 'data-layer'
  */
 sealed class FailureDto(val msg: String?) {
 

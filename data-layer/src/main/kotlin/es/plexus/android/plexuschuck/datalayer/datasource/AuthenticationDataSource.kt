@@ -15,7 +15,8 @@ import es.plexus.android.plexuschuck.datalayer.domain.UserLoginDto
 import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 
 /**
- *
+ * This interface represents the contract to be complied by an entity to fit in as the authentication
+ * system provider
  */
 interface AuthenticationDataSource {
 
@@ -25,18 +26,21 @@ interface AuthenticationDataSource {
     }
 
     /**
-     *
+     * Requests a user login and returns whether it was successful or not. If something went wrong,
+     * an error is returned.
      */
     fun requestLogin(userData: UserLoginDto): Either<FailureDto, Boolean>
     /**
-     *
+     * Requests a user register and returns whether it was successful or not. If something went wrong,
+     * an error is returned.
      */
     fun requestRegister(userData: UserLoginDto): Either<FailureDto, Boolean>
 
 }
 
 /**
- *
+ * This class complies with [AuthenticationDataSource] so that it is in charge of providing any required
+ * authentication check or query
  */
 class FirebaseDataSource(private val fbAuth: FirebaseAuth) : AuthenticationDataSource {
 

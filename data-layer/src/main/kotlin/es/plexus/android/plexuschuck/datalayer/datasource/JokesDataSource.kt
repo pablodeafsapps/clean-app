@@ -9,7 +9,7 @@ import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import retrofit2.Retrofit
 
 /**
- *
+ * This interface represents the contract to be complied by an entity to fit in as the jokes provider
  */
 interface JokesDataSource {
 
@@ -20,14 +20,15 @@ interface JokesDataSource {
     }
 
     /**
-     *
+     * Fetches a joke list in a wrapper or an error otherwise
      */
     suspend fun fetchJokesResponse(): Either<FailureBo, JokeBoWrapper>
 
 }
 
 /**
- *
+ * This class complies with [JokesDataSource] so that it is in charge of providing any required
+ * information regarding jokes
  */
 class IcndbDataSource(private val retrofitBuilder: Retrofit) : JokesDataSource {
 

@@ -9,7 +9,7 @@ private const val DEFAULT_INTEGER_VALUE = 0
 private const val DEFAULT_STRING_VALUE = ""
 
 /**
- *
+ * Maps a [UserLoginBo] into a [UserLoginDto]
  */
 fun UserLoginBo.boToDto() = UserLoginDto(
     email = email,
@@ -17,7 +17,7 @@ fun UserLoginBo.boToDto() = UserLoginDto(
 )
 
 /**
- *
+ * Maps a [JokeDtoWrapper] into a [JokeBoWrapper]
  */
 fun JokeDtoWrapper.dtoToBo() = JokeBoWrapper(
     type = type,
@@ -33,7 +33,7 @@ private fun JokeDto.dtoToBo() = JokeBo(
 )
 
 /**
- *
+ * Maps a [FailureDto] into a [FailureBo]
  */
 fun FailureDto.dtoToBoFailure(): FailureBo = when (this) {
     FailureDto.NoConnection -> FailureBo.NoConnection

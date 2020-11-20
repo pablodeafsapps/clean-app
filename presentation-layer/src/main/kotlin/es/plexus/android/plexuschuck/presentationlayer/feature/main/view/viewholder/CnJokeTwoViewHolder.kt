@@ -6,7 +6,9 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter.CnJokeView
 
 /**
+ * Holds the widgets composing the view which depicts joke data (type 2)
  *
+ * It extends parametrized [BaseViewHolder] which constraints the data types handled
  */
 class CnJokeTwoViewHolder(itemView: View) : BaseViewHolder<CnJokeView, CnJokeActionView>(itemView) {
 

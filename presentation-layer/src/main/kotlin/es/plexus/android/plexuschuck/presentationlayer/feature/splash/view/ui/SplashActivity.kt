@@ -16,7 +16,7 @@ import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
- *
+ * This [AppCompatActivity] represents the typical splash screen used to load the application
  */
 @ExperimentalCoroutinesApi
 class SplashActivity :
@@ -46,6 +46,7 @@ class SplashActivity :
             viewModel.screenState.collect { screenState ->
                 when (screenState) {
                     is ScreenState.Render<SplashState> -> processRenderState(screenState.renderState)
+                    else -> {}
                 }
             }
         }
