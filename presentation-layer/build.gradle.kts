@@ -4,6 +4,8 @@ plugins {
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinAndroidExtensions)
     id(Plugins.kotlinKapt)
+    // add lint feature
+    id(Plugins.detekt)
     // add automatic documentation generator feature
     id(Plugins.dokka)
 }
@@ -73,6 +75,8 @@ dependencies {
     // 3rd party libraries
     implementation(Libraries.koinAndroid)
     implementation(Libraries.koinViewmodel)
+    detekt(Libraries.detektFormatting)
+    detekt(Libraries.detektCli)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
     testImplementation(Libraries.mockitoKotlin)

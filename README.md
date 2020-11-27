@@ -47,12 +47,12 @@ After the initial splash, a login/register screen displays. To get access, use t
 ## Architecture and project organization
 To address this sample app development, the team has decided to employ a class hierarchy based on the [**Clean Architecture**](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) paradigm, a concept with an increasing popularity thanks to Robert C. Martin (Uncle Bob).
 
-![alt text](docs/images/clean-architecture-cejas-1.png)
+<img src="docs/images/clean-architecture-cejas-1.png" width="300">
 
 ### Class hierarchy
 Among the different implementations for Android applications of the aforementioned paradigm, there are remarkable contributions such as the ones from [Antonio Leiva](https://antonioleiva.com/clean-architecture-android/) and [Fernando Cejas](https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/). Precisely, this latter work has served as the main inspiration for this application architecture.
 
-![alt text](docs/images/clean-architecture-cejas-2.png)
+<img src="docs/images/clean-architecture-cejas-2.png" width="300">
 
 Therefore, the prior idea behind **Plexus Chuck** is concern-layers separation. Each of this entities is in charge of certain responsibilities, which are handled in isolation. These layers get interconnected thanks through interfaces, which allow to achieve the necessary abstraction between them.
 
@@ -73,7 +73,7 @@ In order to facilitate the interaction between the above described layers, Plexu
 ### Coroutines
 Since _multithreading_ has historically been a challenge in Android Development, the team has decided to include [coroutines](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0). This is one of the most interesting and appealing features recently introduced in Kotlin.
 
-<img src="docs/images/coroutines-scheme.jpg" width="500">
+<img src="docs/images/coroutines-scheme.jpg" width="400">
 
 The main advantage that supports the usage of _coroutines_ is an easy and enhanced multithreading management. _Coroutines_  allow to turn asynchronous operations in synchronous code, without affecting the application overall performance.
 
@@ -83,17 +83,31 @@ From the _execution-flow_ perspective, every task is undertaken in the main thre
 
 Functional Programming (FP) is a paradigm from the 1950s which is based upon the principals of declarative programming. It comprises certain prior foundations such as immutability, pure functions and no side effects/disciplined states, and referential transparency. Contrary to Object Oriented Programming (OOP), everything is meant to be a function (instead of an object). Bringing these concepts into an application allows to make it more flexible, understandable, and easily scalable.
 
-<img src="docs/images/arrow-logo.png" alt="Arrow" width="500">
+<img src="docs/images/arrow-logo.png" alt="Arrow" width="300">
 
 [<b>Arrow</b>](https://arrow-kt.io/) is a functional programming suite written in Kotlin which aims to bring functional programming into Kotlin applications, such as Android ones. According to the [official documentation](https://arrow-kt.io/docs/core/), <i>"Arrow is a modular set of libraries that build on top of each other to provide increasingly higher level features"</i>.
 
 The Plexus Android Team is continuously assessing this application so that more functional features are added. So far, only the `Either` data type is used, allowing to parametrize any data source query available.
+
+### Static Code Analysis with Detekt
+
+[<b>Detekt</b>](https://github.com/detekt/detekt) is a static code analysis tool for the Kotlin programming language. It operates on the abstract syntax tree provided by the Kotlin compiler.
+
+When integrated, it enables several Gradle tasks which allow to assess the code quality.
 
 ### Testing
 
 As one main aspect in the current state-of-the-art in software development, **Plexus Chuck** does include a good number of Unit Tests and a few Instrumentation Tests. The former cover the *domain* and *data* layers, whereas the latter are included in the *presentation* layer.
 
 The Plexus Android Team advocates for an extensive usage of Unit Tests and Integration Tests. On the other hand, Instrumentation Tests, such as UI tests, are restricted to only a few, due to their slow execution and emultor/device dependency.
+
+### Continuous Integration
+
+Continuous Integration (CI) is the practice of automating the integration of code changes from multiple contributors into a single software project. The CI process is comprised of automatic tools that assert the new code's correctness before integration. A source code version control system is the crux of the CI process.
+
+<img src="docs/images/jenkins-logo.png" alt="Jenkins" width="300">
+
+Among the many options available when it comes to CI, **Plexus Chuck** uses [<b>Jenkins</b>](https://www.jenkins.io/), which is one of the most popular platforms in the mobile ecosystem. In this particular case, a Jenkins copy is sitting in a Plexus server (https://icontinua.plexus.services). Three different jobs are configured: *plexus-chuck_master*, *plexus-chuck_development*, and *plexus-chuck_feature*. Each of them is triggered on merge requests (MR) and pushes on *master*, *development*, and any *feature* or *hotfix* branch, respectively.
 
 
 ## License 

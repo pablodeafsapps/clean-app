@@ -9,14 +9,26 @@ import kotlinx.coroutines.CoroutineScope
 
 const val LOGIN_DOMAIN_BRIDGE_TAG = "loginDomainLayerBridge"
 
+/**
+ * An entity which gathers all the available functionality related to the 'login' feature
+ */
 interface LoginDomainLayerBridge<in T, out S> : BaseDomainLayerBridge {
 
+    /**
+     * A function blueprint to log-in a user
+     *
+     * @param [scope] The [CoroutineScope] associated, which can be used to handle an enclosing Kotlin Coroutine
+     * @param [onResult] A callback to send back any data of interest
+     */
     fun loginUser(scope: CoroutineScope, params: T, onResult: (Either<FailureBo, S>) -> Unit = {})
-    fun registerUser(
-        scope: CoroutineScope,
-        params: T,
-        onResult: (Either<FailureBo, S>) -> Unit = {}
-    )
+
+    /**
+     * A function blueprint to register a user
+     *
+     * @param [scope] The [CoroutineScope] associated, which can be used to handle an enclosing Kotlin Coroutine
+     * @param [onResult] A callback to send back any data of interest
+     */
+    fun registerUser(scope: CoroutineScope, params: T, onResult: (Either<FailureBo, S>) -> Unit = {})
 
 }
 
@@ -26,13 +38,17 @@ internal class LoginDomainLayerBridgeImpl(
 ) : LoginDomainLayerBridge<UserLoginBo, Boolean> {
 
     override fun loginUser(
-        scope: CoroutineScope, params: UserLoginBo, onResult: (Either<FailureBo, Boolean>) -> Unit
+        scope: CoroutineScope,
+        params: UserLoginBo,
+        onResult: (Either<FailureBo, Boolean>) -> Unit
     ) {
         loginUserUc.invoke(scope = scope, params = params, onResult = onResult)
     }
 
     override fun registerUser(
-        scope: CoroutineScope, params: UserLoginBo, onResult: (Either<FailureBo, Boolean>) -> Unit
+        scope: CoroutineScope,
+        params: UserLoginBo,
+        onResult: (Either<FailureBo, Boolean>) -> Unit
     ) {
         registerUserUc.invoke(scope = scope, params = params, onResult = onResult)
     }

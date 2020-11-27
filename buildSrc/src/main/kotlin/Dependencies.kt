@@ -3,6 +3,7 @@ const val kotlinVersion = "1.4.10"
 object Build {
     object Versions {
         const val gradle = "4.0.1"
+        const val detekt = "1.15.0-RC1"
         const val dokka = "0.9.17"
         const val ribbonizer = "2.0.0"
         const val fbCrashlyticsGradle = "2.0.0-beta04"
@@ -11,6 +12,7 @@ object Build {
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.gradle}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    const val detektPlugin = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
     const val dokkaGradlePlugin = "org.jetbrains.dokka:dokka-gradle-plugin:${Versions.dokka}"
     const val ribbonizerPlugin = "com.github.gfx.ribbonizer:ribbonizer-plugin:${Versions.ribbonizer}"
     const val fbCrashlyticsGradlePlugin = "com.google.firebase:firebase-crashlytics-gradle:${Versions.fbCrashlyticsGradle}"
@@ -21,8 +23,11 @@ object Build {
 object Plugins {
     const val androidApplication = "com.android.application"
     const val androidLibrary = "com.android.library"
+    const val javaLibrary = "java-library"
+    const val kotlin = "kotlin"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
+    const val detekt = "io.gitlab.arturbosch.detekt"
     const val dokka = "org.jetbrains.dokka"
     const val fbCrashlytics = "com.google.firebase.crashlytics"
     const val ribbonizer = "com.github.gfx.ribbonizer"
@@ -66,15 +71,20 @@ object Libraries {
     const val fbAuth = "com.google.firebase:firebase-auth:${Versions.fbAuth}"
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
     // koin
+    const val koinCore = "org.koin:koin-core:${Versions.koin}"
     const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
     const val koinViewmodel = "org.koin:koin-android-viewmodel:${Versions.koin}"
     // retrofit
     const val retrofitCoroutinesAdapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.coroutinesAdapter}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+    // moshi
     const val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
     const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
     const val moshiKotlinCodegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+    // detekt
+    const val detektFormatting = "io.gitlab.arturbosch.detekt:detekt-formatting:${Build.Versions.detekt}"
+    const val detektCli = "io.gitlab.arturbosch.detekt:detekt-cli:${Build.Versions.detekt}"
     // testing
     const val instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     const val junit = "junit:junit:${Versions.junit}"

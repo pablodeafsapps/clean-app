@@ -8,11 +8,17 @@ import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 private const val DEFAULT_INTEGER_VALUE = 0
 private const val DEFAULT_STRING_VALUE = ""
 
+/**
+ * Maps a [UserLoginBo] into a [UserLoginDto]
+ */
 fun UserLoginBo.boToDto() = UserLoginDto(
     email = email,
     password = password
 )
 
+/**
+ * Maps a [JokeDtoWrapper] into a [JokeBoWrapper]
+ */
 fun JokeDtoWrapper.dtoToBo() = JokeBoWrapper(
     type = type,
     value = value.jokeListDtoToBo()
@@ -26,12 +32,15 @@ private fun JokeDto.dtoToBo() = JokeBo(
     categories = categories ?: emptyList()
 )
 
+/**
+ * Maps a [FailureDto] into a [FailureBo]
+ */
 fun FailureDto.dtoToBoFailure(): FailureBo = when (this) {
-    FailureDto.NoConnection -> FailureBo.NoConnection(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    is FailureDto.RequestError -> FailureBo.RequestError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    FailureDto.FirebaseLoginError -> FailureBo.ServerError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    is FailureDto.FirebaseRegisterError -> FailureBo.ServerError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    is FailureDto.Error -> FailureBo.ServerError(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    FailureDto.NoData -> FailureBo.NoData(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
-    FailureDto.Unknown -> FailureBo.Unknown(msgRes = msgRes ?: DEFAULT_INTEGER_VALUE)
+    FailureDto.NoConnection -> FailureBo.NoConnection
+    is FailureDto.RequestError -> FailureBo.RequestError(msg = msg ?: DEFAULT_STRING_VALUE)
+    FailureDto.FirebaseLoginError -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
+    is FailureDto.FirebaseRegisterError -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
+    is FailureDto.Error -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
+    FailureDto.NoData -> FailureBo.NoData
+    FailureDto.Unknown -> FailureBo.Unknown
 }
