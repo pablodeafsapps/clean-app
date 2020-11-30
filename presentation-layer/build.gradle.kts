@@ -18,7 +18,7 @@ android {
         multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = Libraries.testRunner
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         named("release").configure {
@@ -85,8 +85,9 @@ dependencies {
     testImplementation(Libraries.koinTest)
     // testing dependencies - Instrumentation Test
     androidTestImplementation(Libraries.mockitoAndroid)
+    androidTestImplementation(Libraries.mockitoKotlin)
+    androidTestImplementation(Libraries.testCore)
     androidTestImplementation(Libraries.testRunner)
-    androidTestImplementation(Libraries.testRules)
     androidTestImplementation(Libraries.espresso)
     // koin testing tools
     androidTestImplementation(Libraries.koinTest) {
