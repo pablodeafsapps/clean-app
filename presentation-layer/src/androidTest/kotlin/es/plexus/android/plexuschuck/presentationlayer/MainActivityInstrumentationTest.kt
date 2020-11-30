@@ -1,11 +1,10 @@
 package es.plexus.android.plexuschuck.presentationlayer
 
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.nhaarman.mockitokotlin2.mock
 import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
@@ -16,9 +15,7 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui.Main
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.qualifier.named
@@ -26,17 +23,13 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
 class MainActivityInstrumentationTest : KoinTest {
 
-    @get:Rule
-    var activityRule = ActivityTestRule(MainActivity::class.java, false, false)
-
-    private lateinit var mockBridge: MainDomainLayerBridge<JokeBoWrapper>
+    private lateinit var scenario: ActivityScenario<MainActivity>
+    private val mockBridge = mock<MainDomainLayerBridge<JokeBoWrapper>>()
 
     @Before
     fun setUp() {
-        mockBridge = mock()
         startKoin {
             modules(listOf(
                 presentationLayerModule, domainLayerModule,
@@ -45,18 +38,18 @@ class MainActivityInstrumentationTest : KoinTest {
                 }
             ))
         }
-        activityRule.launchActivity(null)
+        scenario = ActivityScenario.launch(MainActivity::class.java)
     }
 
     @After
     fun tearDown() {
         stopKoin()
+        scenario.close()
     }
 
     @Test
     fun whenActivityStartsProgressBarIsDisplayed() {
-        onView(withId(R.id.pbLoading))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.pbLoading)).check(matches(isDisplayed()))
     }
 
 }

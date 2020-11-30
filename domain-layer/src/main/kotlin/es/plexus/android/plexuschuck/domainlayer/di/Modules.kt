@@ -3,7 +3,6 @@ package es.plexus.android.plexuschuck.domainlayer.di
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.AUTHENTICATION_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.DATA_REPOSITORY_TAG
-import es.plexus.android.plexuschuck.domainlayer.base.BaseDomainLayerBridge
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LOGIN_DOMAIN_BRIDGE_TAG

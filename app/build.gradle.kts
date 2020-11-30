@@ -7,6 +7,8 @@ plugins {
     id(Plugins.androidApplication)
 
     id(Plugins.kotlinAndroid)
+    // add lint feature
+    id(Plugins.detekt)
     // add automatic documentation generator feature
     id(Plugins.dokka)
     // add crash analytics feature
@@ -83,6 +85,8 @@ dependencies {
     implementation(Libraries.koinAndroid)
     implementation(Libraries.fbAnalytics)
     implementation(Libraries.fbCrashlytics)
+    detekt(Libraries.detektFormatting)
+    detekt(Libraries.detektCli)
     debugImplementation(Libraries.leakCanary)
 }
 

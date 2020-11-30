@@ -2,6 +2,7 @@ package es.plexus.android.plexuschuck.domainlayer.usecase
 
 import arrow.core.Either
 import arrow.core.Right
+import arrow.core.right
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -86,7 +87,7 @@ class LoginUserUcTest : KoinTest {
         val callbackMock = mock<(Either<FailureBo, Boolean>) -> Unit>()
         val dispatcherWorker = TestCoroutineDispatcher()
         // when
-        Mockito.`when`(mockRepository.loginUser(rightParams)).thenReturn(Either.right(true))
+        Mockito.`when`(mockRepository.loginUser(rightParams)).thenReturn(true.right())
         loginUserUc.invoke(
             params = rightParams,
             scope = this,

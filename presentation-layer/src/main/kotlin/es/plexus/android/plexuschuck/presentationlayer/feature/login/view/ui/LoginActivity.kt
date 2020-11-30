@@ -14,7 +14,7 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.UserLoginVo
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.LoginContract.Action
 import es.plexus.android.plexuschuck.presentationlayer.feature.login.view.state.LoginState
-import es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel.LoginActivityViewModel
+import es.plexus.android.plexuschuck.presentationlayer.feature.login.viewmodel.LoginViewModel
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui.MainActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -25,11 +25,18 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val EMPTY_STRING = ""
 
+/**
+ * This [AppCompatActivity] represents the login feature of the application. It is here where the
+ * user can procceed to log-in or register his account.
+ *
+ * The UI state is controlled thanks to the collection of a [viewModel] observable variable.
+ */
 @ExperimentalCoroutinesApi
-class LoginActivity : AppCompatActivity(),
-    BaseMvvmView<LoginActivityViewModel, LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState> {
+class LoginActivity :
+    AppCompatActivity(),
+    BaseMvvmView<LoginViewModel, LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState> {
 
-    override val viewModel: LoginActivityViewModel by viewModel()
+    override val viewModel: LoginViewModel by viewModel()
     private lateinit var viewBinding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +52,7 @@ class LoginActivity : AppCompatActivity(),
             is LoginState.Login -> showLoginUi()
             is LoginState.Register -> showRegisterUi()
             is LoginState.AccessGranted -> navigateToMainActivity()
-            is LoginState.ShowError -> showError(renderState.failure)
+            is LoginState.ShowError -> showError(failure = renderState.failure)
         }
     }
 

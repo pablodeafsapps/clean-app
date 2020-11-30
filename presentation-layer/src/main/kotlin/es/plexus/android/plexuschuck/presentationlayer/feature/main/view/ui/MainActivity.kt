@@ -17,7 +17,7 @@ import es.plexus.android.plexuschuck.presentationlayer.feature.detail.view.ui.De
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter.CnJokeActionView
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.adapter.CnJokeListAdapter
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.state.MainState
-import es.plexus.android.plexuschuck.presentationlayer.feature.main.viewmodel.MainActivityViewModel
+import es.plexus.android.plexuschuck.presentationlayer.feature.main.viewmodel.MainViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -28,11 +28,18 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 const val INTENT_DATA_KEY = "jokeItem"
 
+/**
+ * This [AppCompatActivity] represents the main feature of the application. It is here where the
+ * data of interest is rendered right after the ViewModel has handed them over.
+ *
+ * The UI state is controlled thanks to the collection of a [viewModel] observable variable.
+ */
 @ExperimentalCoroutinesApi
-class MainActivity : AppCompatActivity(),
-    BaseMvvmView<MainActivityViewModel, MainDomainLayerBridge<JokeBoWrapper>, MainState> {
+class MainActivity :
+    AppCompatActivity(),
+    BaseMvvmView<MainViewModel, MainDomainLayerBridge<JokeBoWrapper>, MainState> {
 
-    override val viewModel: MainActivityViewModel by viewModel()
+    override val viewModel: MainViewModel by viewModel()
     private lateinit var viewBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +53,9 @@ class MainActivity : AppCompatActivity(),
 
     override fun processRenderState(renderState: MainState) {
         when (renderState) {
-            is MainState.ShowJokeList -> loadJokesData(renderState.jokeList)
-            is MainState.ShowJokeDetail -> navigateToDetailActivity(renderState.joke)
-            is MainState.ShowError -> showError(renderState.failure)
+            is MainState.ShowJokeList -> loadJokesData(data = renderState.jokeList)
+            is MainState.ShowJokeDetail -> navigateToDetailActivity(item = renderState.joke)
+            is MainState.ShowError -> showError(failure = renderState.failure)
         }
     }
 

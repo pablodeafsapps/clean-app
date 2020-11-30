@@ -13,7 +13,7 @@ import es.plexus.android.plexuschuck.presentationlayer.databinding.ActivityDetai
 import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
 import es.plexus.android.plexuschuck.presentationlayer.domain.JokeVo
 import es.plexus.android.plexuschuck.presentationlayer.feature.detail.view.state.DetailState
-import es.plexus.android.plexuschuck.presentationlayer.feature.detail.viewmodel.DetailActivityViewModel
+import es.plexus.android.plexuschuck.presentationlayer.feature.detail.viewmodel.DetailViewModel
 import es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui.INTENT_DATA_KEY
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -21,11 +21,15 @@ import kotlinx.coroutines.launch
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
+/**
+ * This [AppCompatActivity] displays the details of the selected [JokeVo]
+ */
 @ExperimentalCoroutinesApi
-class DetailActivity : AppCompatActivity(),
-    BaseMvvmView<DetailActivityViewModel, BaseDomainLayerBridge.None, DetailState> {
+class DetailActivity :
+    AppCompatActivity(),
+    BaseMvvmView<DetailViewModel, BaseDomainLayerBridge.None, DetailState> {
 
-    override val viewModel: DetailActivityViewModel by viewModel()
+    override val viewModel: DetailViewModel by viewModel()
     private lateinit var viewBinding: ActivityDetailBinding
     private var jokeItem: JokeVo? = null
 
@@ -44,8 +48,8 @@ class DetailActivity : AppCompatActivity(),
 
     override fun processRenderState(renderState: DetailState) {
         when (renderState) {
-            is DetailState.ShowJokeInfo -> loadJokeItem(renderState.joke)
-            is DetailState.ShowError -> showError(renderState.failure)
+            is DetailState.ShowJokeInfo -> loadJokeItem(item = renderState.joke)
+            is DetailState.ShowError -> showError(failure = renderState.failure)
         }
     }
 

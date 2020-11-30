@@ -11,6 +11,11 @@ import kotlinx.android.synthetic.main.joke_item_one.view.*
 
 private const val EMPTY_STRING = ""
 
+/**
+ * Holds the widgets composing the view which depicts joke data (type 1)
+ *
+ * It extends parametrized [BaseViewHolder] which constraints the data types handled.
+ */
 class CnJokeOneViewHolder(itemView: View) : BaseViewHolder<CnJokeView, CnJokeActionView>(itemView) {
 
     private val container by lazy { itemView }

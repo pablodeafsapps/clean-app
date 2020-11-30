@@ -4,6 +4,8 @@ plugins {
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinAndroidExtensions)
     id(Plugins.kotlinKapt)
+    // add lint feature
+    id(Plugins.detekt)
     // add automatic documentation generator feature
     id(Plugins.dokka)
 }
@@ -16,7 +18,7 @@ android {
         multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = Libraries.testRunner
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         named("release").configure {
@@ -73,6 +75,8 @@ dependencies {
     // 3rd party libraries
     implementation(Libraries.koinAndroid)
     implementation(Libraries.koinViewmodel)
+    detekt(Libraries.detektFormatting)
+    detekt(Libraries.detektCli)
     // testing dependencies - Unit Test
     testImplementation(Libraries.junit)
     testImplementation(Libraries.mockitoKotlin)
@@ -81,8 +85,9 @@ dependencies {
     testImplementation(Libraries.koinTest)
     // testing dependencies - Instrumentation Test
     androidTestImplementation(Libraries.mockitoAndroid)
+    androidTestImplementation(Libraries.mockitoKotlin)
+    androidTestImplementation(Libraries.testCore)
     androidTestImplementation(Libraries.testRunner)
-    androidTestImplementation(Libraries.testRules)
     androidTestImplementation(Libraries.espresso)
     // koin testing tools
     androidTestImplementation(Libraries.koinTest) {
