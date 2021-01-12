@@ -8,7 +8,9 @@ import android.util.Log
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
+import es.plexus.android.plexuschuck.datalayer.datasource.SessionDataSource
 import es.plexus.android.plexuschuck.datalayer.domain.FailureDto
+import es.plexus.android.plexuschuck.datalayer.domain.UserSessionDto
 import es.plexus.android.plexuschuck.datalayer.domain.dtoToBoFailure
 import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
@@ -85,3 +87,9 @@ fun <T> Response<T>?.handleDataSourceError(): Either<FailureBo, Nothing> =
         in 500..599 -> FailureDto.RequestError(code = 500, msg = ErrorMessage.ERROR_SERVER)
         else -> FailureDto.Unknown
     }.dtoToBoFailure().left()
+
+/**
+ * Check is an [UserSessionDto] is valid
+ */
+fun UserSessionDto.isValid() =
+    uuid != SessionDataSource.DEFAULT_VALUE && email != SessionDataSource.DEFAULT_VALUE

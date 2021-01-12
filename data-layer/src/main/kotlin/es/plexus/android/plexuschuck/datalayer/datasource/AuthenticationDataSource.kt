@@ -12,7 +12,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import es.plexus.android.plexuschuck.datalayer.domain.FailureDto
 import es.plexus.android.plexuschuck.datalayer.domain.UserLoginDto
+import es.plexus.android.plexuschuck.datalayer.domain.UserSessionDto
+import es.plexus.android.plexuschuck.datalayer.domain.toUserSessionDto
 import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 
 /**
  * This interface represents the contract to be complied by an entity to fit in as the authentication
@@ -26,16 +29,27 @@ interface AuthenticationDataSource {
     }
 
     /**
-     * Requests a user login and returns whether it was successful or not. If something went wrong,
+     * Requests a user login and returns the user session dto. If something went wrong,
      * an error is returned.
+     * @param [userData] the user data transfer object to login
+     * @return An [UserSessionDto] if successful or an [FailureBo] otherwise
      */
-    fun requestLogin(userData: UserLoginDto): Either<FailureDto, Boolean>
+    fun requestLogin(userData: UserLoginDto): Either<FailureDto, UserSessionDto>
+
     /**
      * Requests a user register and returns whether it was successful or not. If something went wrong,
      * an error is returned.
+     * @param [userData] the user data transfer object to register
+     * @return A [Boolean] if successful or an [FailureBo] otherwise
      */
     fun requestRegister(userData: UserLoginDto): Either<FailureDto, Boolean>
 
+    /**
+     * Requests a user logout and returns whether it was successful or not. If something went wrong,
+     * an error is returned.
+     * @return An [Unit] if successful or an [FailureBo] otherwise
+     */
+    fun requestLogout(): Either<FailureDto, Unit>
 }
 
 /**
@@ -44,11 +58,19 @@ interface AuthenticationDataSource {
  */
 class FirebaseDataSource(private val fbAuth: FirebaseAuth) : AuthenticationDataSource {
 
-    override fun requestLogin(userData: UserLoginDto): Either<FailureDto, Boolean> =
+    override fun requestLogin(userData: UserLoginDto): Either<FailureDto, UserSessionDto> =
         try {
-            (Tasks.await<AuthResult>(
+            (Tasks.await(
                 fbAuth.signInWithEmailAndPassword(userData.email, userData.password)
-            ).user != null).right()
+            )).user?.let { firebaseUser ->
+                    if (firebaseUser.email == userData.email) {
+                        firebaseUser.toUserSessionDto().right()
+                    } else {
+                        FailureDto.FirebaseLoginCorruptError.left()
+                    }
+                } ?: run {
+                FailureDto.FirebaseLoginError.left()
+            }
         } catch (e: Exception) {
             when (e.cause) {
                 is FirebaseAuthInvalidCredentialsException -> {
@@ -85,6 +107,14 @@ class FirebaseDataSource(private val fbAuth: FirebaseAuth) : AuthenticationDataS
                         .left()
                 }
             }
+        }
+
+    override fun requestLogout(): Either<FailureDto, Unit> =
+        try {
+            fbAuth.signOut().right()
+        } catch (e: Exception) {
+            Log.e("requestLogout", "logout: ${e.message}")
+            FailureDto.Unknown.left()
         }
 
 }

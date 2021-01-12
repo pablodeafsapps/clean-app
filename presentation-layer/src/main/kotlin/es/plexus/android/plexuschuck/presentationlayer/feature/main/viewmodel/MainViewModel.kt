@@ -43,6 +43,20 @@ class MainViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
         _screenState.value = ScreenState.Render(MainState.ShowJokeDetail(joke = item))
     }
 
+    /**
+     * Method fot end the current session of the user
+     */
+    fun onLogoutSelected() {
+        bridge.logout(
+            scope = viewModelScope,
+            onResult = {
+                it.fold(::handleError) {
+                    _screenState.value = ScreenState.Render(MainState.QuitSession)
+                }
+            }
+        )
+    }
+
     private fun handleSuccess(wrapper: JokeBoWrapper) {
         _screenState.value = ScreenState.Render(MainState.ShowJokeList(jokeList = wrapper.value.boToVo()))
     }

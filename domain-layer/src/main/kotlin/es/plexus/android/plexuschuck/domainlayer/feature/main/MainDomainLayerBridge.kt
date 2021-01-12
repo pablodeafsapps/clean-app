@@ -22,10 +22,19 @@ interface MainDomainLayerBridge<out S> : BaseDomainLayerBridge {
      */
     fun fetchJokes(scope: CoroutineScope, onResult: (Either<FailureBo, S>) -> Unit = {})
 
+    /**
+     * A function which allows to logout an user
+     *
+     * @param [scope] The [CoroutineScope] associated, which can be used to handle an enclosing Kotlin Coroutine
+     * @param [onResult] A callback to send back any data of interest
+     */
+    fun logout(scope: CoroutineScope, onResult: (Either<FailureBo, Boolean>) -> Unit = {})
+
 }
 
 internal class MainDomainLayerBridgeImpl(
-    private val fetchJokesUc: DomainlayerContract.Presentationlayer.UseCase<Any, JokeBoWrapper>
+    private val fetchJokesUc: DomainlayerContract.Presentationlayer.UseCase<Any, JokeBoWrapper>,
+    private val logoutUserUc: DomainlayerContract.Presentationlayer.UseCase<Any, Boolean>
 ) : MainDomainLayerBridge<JokeBoWrapper> {
 
     override fun fetchJokes(
@@ -33,6 +42,13 @@ internal class MainDomainLayerBridgeImpl(
         onResult: (Either<FailureBo, JokeBoWrapper>) -> Unit
     ) {
         fetchJokesUc.invoke(scope = scope, onResult = onResult)
+    }
+
+    override fun logout(
+        scope: CoroutineScope,
+        onResult: (Either<FailureBo, Boolean>) -> Unit
+    ) {
+        logoutUserUc.invoke(scope = scope, onResult = onResult)
     }
 
 }

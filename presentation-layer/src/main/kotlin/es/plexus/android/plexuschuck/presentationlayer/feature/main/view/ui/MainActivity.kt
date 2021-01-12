@@ -1,6 +1,8 @@
 package es.plexus.android.plexuschuck.presentationlayer.feature.main.view.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -8,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import es.plexus.android.plexuschuck.domainlayer.feature.main.MainDomainLayerBridge
+import es.plexus.android.plexuschuck.presentationlayer.R
 import es.plexus.android.plexuschuck.presentationlayer.base.BaseMvvmView
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
 import es.plexus.android.plexuschuck.presentationlayer.databinding.ActivityMainBinding
@@ -51,11 +54,26 @@ class MainActivity :
         viewModel.onViewCreated()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            R.id.main_logout -> {
+                viewModel.onLogoutSelected()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
     override fun processRenderState(renderState: MainState) {
         when (renderState) {
             is MainState.ShowJokeList -> loadJokesData(data = renderState.jokeList)
             is MainState.ShowJokeDetail -> navigateToDetailActivity(item = renderState.joke)
             is MainState.ShowError -> showError(failure = renderState.failure)
+            is MainState.QuitSession -> onBackPressed()
         }
     }
 

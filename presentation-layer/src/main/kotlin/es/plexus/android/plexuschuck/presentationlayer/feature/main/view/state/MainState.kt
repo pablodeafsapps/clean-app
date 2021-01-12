@@ -11,4 +11,5 @@ sealed class MainState : BaseState() {
     class ShowJokeList(val jokeList: List<JokeVo>) : MainState()
     class ShowJokeDetail(val joke: JokeVo) : MainState()
     class ShowError(val failure: FailureVo?) : MainState()
+    object QuitSession : MainState()
 }

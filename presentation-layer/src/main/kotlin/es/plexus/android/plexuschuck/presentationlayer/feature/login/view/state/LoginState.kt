@@ -8,6 +8,7 @@ import es.plexus.android.plexuschuck.presentationlayer.domain.FailureVo
  */
 sealed class LoginState : BaseState() {
     object Login : LoginState()
+    object Logged : LoginState()
     object Register : LoginState()
     object AccessGranted : LoginState()
     class ShowError(val failure: FailureVo) : LoginState()

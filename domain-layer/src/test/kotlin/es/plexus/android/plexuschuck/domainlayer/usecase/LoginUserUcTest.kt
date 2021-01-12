@@ -11,6 +11,7 @@ import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.C
 import es.plexus.android.plexuschuck.domainlayer.di.domainLayerModule
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
+import es.plexus.android.plexuschuck.domainlayer.domain.UserSessionBo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest

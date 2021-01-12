@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath(Build.androidGradlePlugin)
         classpath(Build.kotlinGradlePlugin)
+        classpath(Build.kotlinSerializationPlugin)
         classpath(Build.detektPlugin)
         classpath(Build.dokkaGradlePlugin)
         classpath(Build.ribbonizerPlugin)
