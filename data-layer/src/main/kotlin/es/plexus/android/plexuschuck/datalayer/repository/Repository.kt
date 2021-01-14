@@ -69,18 +69,7 @@ object Repository : DomainlayerContract.Datalayer.AuthenticationRepository<UserL
      * if so queries the data-source.
      *
      * @return A [JokeBoWrapper] or an error otherwise
-     * @throws SocketTimeoutException
      */
     override suspend fun fetchJokes(): Either<FailureBo, JokeBoWrapper> =
-        try {
-            connectivityDataSource.checkNetworkConnectionAvailability().takeIf { it }?.let {
-                jokesDataSource.fetchJokesResponse()
-            } ?: run {
-                FailureDto.NoConnection.dtoToBoFailure().left()
-            }
-        } catch (e: IllegalStateException) {
-            Log.e("fetchJokesResponse()", "Error: ${e.message}")
-            FailureDto.Unknown.dtoToBoFailure().left()
-        }
-
+        jokesDataSource.fetchJokesResponse()
 }

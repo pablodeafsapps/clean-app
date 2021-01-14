@@ -16,8 +16,7 @@ interface ConnectivityDataSource {
     /**
      * Returns the current state of the connection availability
      */
-    suspend fun checkNetworkConnectionAvailability(): Boolean
-
+    fun checkNetworkConnectionAvailability(): Boolean
 }
 
 /**
@@ -26,7 +25,6 @@ interface ConnectivityDataSource {
  */
 class AndroidDataSource(private val context: Context) : ConnectivityDataSource {
 
-    override suspend fun checkNetworkConnectionAvailability(): Boolean =
+    override fun checkNetworkConnectionAvailability(): Boolean =
         context.isNetworkAvailable()
-
 }

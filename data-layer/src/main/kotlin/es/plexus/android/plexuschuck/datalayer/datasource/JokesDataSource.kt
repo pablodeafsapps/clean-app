@@ -23,17 +23,16 @@ interface JokesDataSource {
      * Fetches a joke list in a wrapper or an error otherwise
      */
     suspend fun fetchJokesResponse(): Either<FailureBo, JokeBoWrapper>
-
 }
 
 /**
  * This class complies with [JokesDataSource] so that it is in charge of providing any required
  * information regarding jokes
  */
-class IcndbDataSource(private val retrofitBuilder: Retrofit) : JokesDataSource {
+class IcndbDataSource(private val retrofit: Retrofit) : JokesDataSource {
 
     override suspend fun fetchJokesResponse(): Either<FailureBo, JokeBoWrapper> =
-        retrofitBuilder.create(IcndbApiService::class.java).getJokesAsync()
-            .safeCall(transform = { it.dtoToBo() })
-
+        safeCall(
+            retrofitRequest = retrofit.create(IcndbApiService::class.java)::getJokesAsync,
+            transform = { it.dtoToBo() })
 }

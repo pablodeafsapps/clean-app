@@ -13,6 +13,7 @@ import es.plexus.android.plexuschuck.datalayer.domain.dtoToBoFailure
 import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import retrofit2.Response
+import java.io.IOException
 
 /**
  * This extension function allows any entity hosting a [Context] to easily check whether there is a
@@ -43,32 +44,37 @@ fun Context.isNetworkAvailable(): Boolean {
 }
 
 /**
- * This extension function provides a proceeding to handle with 'Retrofit' [Response] objects, so that
- * a parametrized 'Either' type is returned. All credits to Félix Castillo Moya (Joséfelix.castillomoya@gmail.com).
+ * This function provides a proceeding to handle with 'Retrofit' request and [Response] objects, so that
+ * a parametrized 'Either' type is returned.
  *
- * @author Pablo L. Sordo Martínez
- * @since 1.0
+ * @param retrofitRequest the retrofit request from a service
+ * @param transform function to map response object into a domain object
+ * @param errorHandler function to handle errors
+ * @param exceptionHandler function to handle exceptions
+ *
+ * @author Pablo L. Sordo Martínez and Jose Félix Castillo Moya
+ * @since 2.0
  */
-fun <T, R> Response<T>.safeCall(
+internal suspend fun <S : Response<T>, T, R> safeCall(
+    retrofitRequest: suspend () -> S,
     transform: (T) -> R,
-    errorHandler: (Response<T>).() -> Either<FailureBo, Nothing> = { handleDataSourceError() }
+    errorHandler: (Response<T>).() -> Either<FailureBo, Nothing> = { handleDataSourceError() },
+    exceptionHandler: (Exception).() -> Either<FailureBo, Nothing> = { handleDataSourceException() }
 ): Either<FailureBo, R> =
     try {
-        run {
-            if (isSuccessful) {
-                val body = body()
-                if (body != null) {
-                    transform(body).right()
-                } else {
-                    errorHandler()
-                }
+        val response = retrofitRequest()
+        if (response.isSuccessful) {
+            val body = response.body()
+            if (body != null) {
+                transform(body).right()
             } else {
-                errorHandler()
+                errorHandler(response)
             }
+        } else {
+            errorHandler(response)
         }
     } catch (exception: Exception) {
-        Log.e("t", "Error: ${exception.message}")
-        errorHandler()
+        exceptionHandler(exception)
     }
 
 /**
@@ -85,3 +91,21 @@ fun <T> Response<T>?.handleDataSourceError(): Either<FailureBo, Nothing> =
         in 500..599 -> FailureDto.RequestError(code = 500, msg = ErrorMessage.ERROR_SERVER)
         else -> FailureDto.Unknown
     }.dtoToBoFailure().left()
+
+/**
+ * This extension function provides a mechanism to handle Exceptions coming from a Retrofit
+ * request or [Response]. It returns an [Either] which models the [FailureBo] to be transmitted beyond the
+ * domain layer.
+ *
+ * @author Jose Félix Castillo Moya
+ * @since 2.0
+ */
+fun Exception.handleDataSourceException(): Either<FailureBo, Nothing> =
+    when (this) {
+        is NoConnectivityException -> FailureBo.NoConnection.left()
+        is IOException -> FailureBo.ServerError(message ?: "").left()
+        else -> {
+            Log.e("t", "Error: $message")
+            FailureBo.Unknown.left()
+        }
+    }

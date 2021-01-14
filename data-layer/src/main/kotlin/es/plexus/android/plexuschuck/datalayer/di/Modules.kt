@@ -17,16 +17,24 @@ import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Compan
 import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.JOKES_API_SERVICE_TAG
 import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.JOKES_DATA_SOURCE_TAG
 import es.plexus.android.plexuschuck.datalayer.repository.Repository
+import es.plexus.android.plexuschuck.datalayer.utils.ConnectivityInterceptor
+import es.plexus.android.plexuschuck.datalayer.utils.ConnectivityInterceptor.Companion.CONNECTIVITY_INTERCEPTOR_TAG
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.AUTHENTICATION_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.DATA_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
+
+private const val CONNECTION_TIMEOUT = 20L
+private const val READ_TIMEOUT = 30L
 
 /**
  * This variable represents the 'data-layer' dependencies module to be used by Koin. It basically
@@ -61,12 +69,23 @@ val dataLayerModule = module(override = true) {
     factory<JokesDataSource>(named(name = JOKES_DATA_SOURCE_TAG)) {
         IcndbDataSource(get(named(name = JOKES_API_SERVICE_TAG)))
     }
+    factory<Interceptor>(named(name = CONNECTIVITY_INTERCEPTOR_TAG)) {
+        ConnectivityInterceptor(get(named(name = CONNECTIVITY_DATA_SOURCE_TAG)))
+    }
+    factory<OkHttpClient> {
+        OkHttpClient.Builder()
+            .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
+            .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            .addInterceptor(get(named(name = CONNECTIVITY_INTERCEPTOR_TAG)))
+            .build()
+    }
     // retrofit
     single<Retrofit>(named(name = JOKES_API_SERVICE_TAG)) {
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .client(get())
             .baseUrl(ICNDB_BASE_URL)
             .build()
     }
