@@ -8,6 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * integrated within the MVVM architecture pattern.
  *
  * @param T represents the ViewModel, and thus it must extend from @see{BaseMvvmViewModel}
+ * @param N represents the Navigator, and thus it must extend from @see{BaseNavigator}
  * @param S represents the bridge to the domain layer, and must extend from @see{BaseDomainLayerBridge}
  * @param U represents the state of the view, and must extend from @see{BaseState}
  * @property viewModel a reference to the [BaseMvvmViewModel] associated to this view
@@ -16,7 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * @since 1.0
  */
 @ExperimentalCoroutinesApi
-interface BaseMvvmView<T : BaseMvvmViewModel<S, U>, S : BaseDomainLayerBridge, U : BaseState> {
+interface BaseMvvmView<T : BaseMvvmViewModel<S, N, U>, S : BaseDomainLayerBridge, N : BaseNavigator, U : BaseState> {
 
     val viewModel: T
 

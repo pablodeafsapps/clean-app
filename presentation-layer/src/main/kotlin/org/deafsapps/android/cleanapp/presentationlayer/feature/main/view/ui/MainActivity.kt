@@ -16,7 +16,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.base.ScreenState
 import org.deafsapps.android.cleanapp.presentationlayer.databinding.ActivityMainBinding
 import org.deafsapps.android.cleanapp.presentationlayer.domain.FailureVo
 import org.deafsapps.android.cleanapp.presentationlayer.domain.JokeVo
-import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.view.ui.DetailActivity
+import org.deafsapps.android.cleanapp.presentationlayer.feature.main.navigator.MainNavigator
 import org.deafsapps.android.cleanapp.presentationlayer.feature.main.view.adapter.CnJokeActionView
 import org.deafsapps.android.cleanapp.presentationlayer.feature.main.view.adapter.CnJokeListAdapter
 import org.deafsapps.android.cleanapp.presentationlayer.feature.main.view.state.MainState
@@ -25,8 +25,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.jetbrains.anko.longToast
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import org.koin.android.scope.ScopeActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 const val INTENT_DATA_KEY = "jokeItem"
@@ -38,9 +38,8 @@ const val INTENT_DATA_KEY = "jokeItem"
  * The UI state is controlled thanks to the collection of a [viewModel] observable variable.
  */
 @ExperimentalCoroutinesApi
-class MainActivity :
-    AppCompatActivity(),
-    BaseMvvmView<MainViewModel, MainDomainLayerBridge<JokeBoWrapper>, MainState> {
+class MainActivity : ScopeActivity(),
+    BaseMvvmView<MainViewModel, MainDomainLayerBridge<JokeBoWrapper>, MainNavigator<JokeVo>, MainState> {
 
     override val viewModel: MainViewModel by viewModel()
     private lateinit var viewBinding: ActivityMainBinding
@@ -71,7 +70,7 @@ class MainActivity :
     override fun processRenderState(renderState: MainState) {
         when (renderState) {
             is MainState.ShowJokeList -> loadJokesData(data = renderState.jokeList)
-            is MainState.ShowJokeDetail -> navigateToDetailActivity(item = renderState.joke)
+            is MainState.ShowJokeDetail -> viewModel.navigateToDetailActivity(item = renderState.joke)
             is MainState.ShowError -> showError(failure = renderState.failure)
             is MainState.QuitSession -> onBackPressed()
         }
@@ -123,10 +122,6 @@ class MainActivity :
             pbLoading.visibility = View.GONE
             rvItems.isEnabled = true
         }
-    }
-
-    private fun navigateToDetailActivity(item: JokeVo) {
-        startActivity<DetailActivity>(INTENT_DATA_KEY to item)
     }
 
     private fun showError(failure: FailureVo?) {

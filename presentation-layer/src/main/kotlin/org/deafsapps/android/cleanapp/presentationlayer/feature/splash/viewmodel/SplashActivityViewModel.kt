@@ -14,14 +14,24 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * All results update an observable variable, [_screenState], with [SplashState] values.
  */
 @ExperimentalCoroutinesApi
-class SplashActivityViewModel(bridge: BaseDomainLayerBridge.None) :
-    BaseMvvmViewModel<BaseDomainLayerBridge.None, SplashState>(bridge = bridge) {
+class SplashActivityViewModel(bridge: BaseDomainLayerBridge.None, navigator: SplashNavigator) :
+    BaseMvvmViewModel<BaseDomainLayerBridge.None, SplashNavigator, SplashState>(
+        bridge = bridge,
+        navigator = navigator
+    ) {
 
     /**
      * Indicates that the associated view has been created
      */
     fun onViewCreated() {
         _screenState.value = ScreenState.Render(SplashState.LoadingFinished)
+    }
+
+    /**
+     * Navigate to login activity and close this
+     */
+    fun startLoginActivityAndCloseThis() {
+        navigator.startLoginAndCloseThis()
     }
 
 }

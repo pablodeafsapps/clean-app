@@ -20,8 +20,14 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * All results update an observable variable, [_screenState], with [MainState] values.
  */
 @ExperimentalCoroutinesApi
-class MainViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
-    BaseMvvmViewModel<MainDomainLayerBridge<JokeBoWrapper>, MainState>(bridge = bridge) {
+class MainViewModel(
+    bridge: MainDomainLayerBridge<JokeBoWrapper>,
+    navigator: MainNavigator<JokeVo>
+) :
+    BaseMvvmViewModel<MainDomainLayerBridge<JokeBoWrapper>, MainNavigator<JokeVo>, MainState>(
+        bridge = bridge,
+        navigator = navigator
+    ) {
 
     /**
      * Indicates that the associated view has been created
@@ -44,6 +50,14 @@ class MainViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
     }
 
     /**
+     * Navigate to detail activity
+     * @param [item] data necessary to show detail, in this case a JokeVo
+     */
+    fun navigateToDetailActivity(item: JokeVo) {
+        navigator.navigateToDetailActivity(item)
+    }
+
+    /**
      * Method fot end the current session of the user
      */
     fun onLogoutSelected() {
@@ -58,11 +72,13 @@ class MainViewModel(bridge: MainDomainLayerBridge<JokeBoWrapper>) :
     }
 
     private fun handleSuccess(wrapper: JokeBoWrapper) {
-        _screenState.value = ScreenState.Render(MainState.ShowJokeList(jokeList = wrapper.value.boToVo()))
+        _screenState.value =
+            ScreenState.Render(MainState.ShowJokeList(jokeList = wrapper.value.boToVo()))
     }
 
     private fun handleError(failureBo: FailureBo) {
-        _screenState.value = ScreenState.Render(MainState.ShowError(failure = failureBo.boToVoFailure()))
+        _screenState.value =
+            ScreenState.Render(MainState.ShowError(failure = failureBo.boToVoFailure()))
     }
 
 }

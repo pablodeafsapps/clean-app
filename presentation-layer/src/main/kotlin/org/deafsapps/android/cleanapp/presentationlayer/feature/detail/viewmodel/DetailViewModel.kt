@@ -15,8 +15,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * All results update an observable variable, [_screenState], with [DetailState] values.
  */
 @ExperimentalCoroutinesApi
-class DetailViewModel(bridge: BaseDomainLayerBridge.None) :
-    BaseMvvmViewModel<BaseDomainLayerBridge.None, DetailState>(bridge = bridge) {
+class DetailViewModel(bridge: BaseDomainLayerBridge.None, navigator: DetailNavigator) :
+    BaseMvvmViewModel<BaseDomainLayerBridge.None, DetailNavigator, DetailState>(
+        bridge = bridge,
+        navigator = navigator
+    ) {
 
     /**
      * Indicates that the associated view has been created

@@ -18,16 +18,17 @@ import org.deafsapps.android.cleanapp.presentationlayer.feature.main.view.ui.INT
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.navigator.DetailNavigator
 import org.jetbrains.anko.toast
+import org.koin.android.scope.ScopeActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * This [AppCompatActivity] displays the details of the selected [JokeVo]
  */
 @ExperimentalCoroutinesApi
-class DetailActivity :
-    AppCompatActivity(),
-    BaseMvvmView<DetailViewModel, BaseDomainLayerBridge.None, DetailState> {
+class DetailActivity : ScopeActivity(),
+    BaseMvvmView<DetailViewModel, BaseDomainLayerBridge.None, DetailNavigator, DetailState> {
 
     override val viewModel: DetailViewModel by viewModel()
     private lateinit var viewBinding: ActivityDetailBinding
