@@ -3,16 +3,32 @@ package org.deafsapps.android.cleanapp.application.base
 import android.app.Application
 import android.content.Context
 import androidx.multidex.MultiDex
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.deafsapps.android.cleanapp.datalayer.di.dataLayerModule
 import org.deafsapps.android.cleanapp.domainlayer.di.domainLayerModule
 import org.deafsapps.android.cleanapp.presentationlayer.di.presentationLayerModule
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
+/**
+ * This class implements an [Application] subclass instance which serves as entry point to the app.
+ * General tool configurations such as 'LeakCanary' for memory leaks, and 'Koin' for dependency
+ * inversion are initialized here.
+ *
+ * @author Pablo L. Sordo Martínez
+ * @since 1.0
+ */
+@ExperimentalCoroutinesApi
 class BaseApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, listOf(presentationLayerModule, domainLayerModule, dataLayerModule))
+        startKoin {
+            androidLogger()
+            androidContext(this@BaseApplication)
+            modules(listOf(presentationLayerModule, domainLayerModule, dataLayerModule))
+        }
     }
 
     override fun attachBaseContext(base: Context?) {
