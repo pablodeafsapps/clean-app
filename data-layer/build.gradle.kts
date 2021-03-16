@@ -59,6 +59,9 @@ dependencies {
     implementation(Libraries.kotlinCoroutinesCore)
     implementation(Libraries.kotlinxSerializationJson)
     implementation(Libraries.retrofitCoroutinesAdapter)
+    implementation(Libraries.androidxRoom)
+    implementation(Libraries.androidxRoomCoroutines)
+    kapt(Libraries.androidxRoomcompiler)
     // other modules
     implementation(project(":domain-layer"))
     // 3rd party libraries

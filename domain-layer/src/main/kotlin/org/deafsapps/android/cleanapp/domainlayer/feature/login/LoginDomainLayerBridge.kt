@@ -15,6 +15,10 @@ const val LOGIN_DOMAIN_BRIDGE_TAG = "loginDomainLayerBridge"
  */
 interface LoginDomainLayerBridge<in T> : BaseDomainLayerBridge {
 
+    fun saveUsers(scope: CoroutineScope, onResult: (Either<FailureBo, S>) -> Unit = {})
+
+    fun fetchUsers(scope: CoroutineScope, onResult: (Either<FailureBo, String>) -> Unit = {})
+
     /**
      * A function blueprint to log-in a user
      *
@@ -41,10 +45,26 @@ interface LoginDomainLayerBridge<in T> : BaseDomainLayerBridge {
 }
 
 internal class LoginDomainLayerBridgeImpl(
+    private val saveUsersUc: DomainlayerContract.Presentationlayer.UseCase<UserLoginBo, Boolean>,
+    private val fetchUsersUc: DomainlayerContract.Presentationlayer.UseCase<UserLoginBo, String>,
     private val loginUserUc: DomainlayerContract.Presentationlayer.UseCase<UserLoginBo, Boolean>,
     private val registerUserUc: DomainlayerContract.Presentationlayer.UseCase<UserLoginBo, Boolean>,
     private val fetchSessionUser: DomainlayerContract.Presentationlayer.UseCase<Any, UserSessionBo>
 ) : LoginDomainLayerBridge<UserLoginBo> {
+
+    override fun saveUsers(
+        scope: CoroutineScope,
+        onResult: (Either<FailureBo, Boolean>) -> Unit
+    ) {
+        saveUsersUc.invoke(scope = scope, onResult = onResult)
+    }
+
+    override fun fetchUsers(
+        scope: CoroutineScope,
+        onResult: (Either<FailureBo, String>) -> Unit
+    ) {
+        fetchUsersUc.invoke(scope = scope, onResult = onResult)
+    }
 
     override fun loginUser(
         scope: CoroutineScope,

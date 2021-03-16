@@ -42,6 +42,22 @@ class LoginViewModel(
                 })
     }
 
+    fun onRootSelected() {
+        bridge.saveUsers(
+            scope = viewModelScope
+        ) {
+            it.fold(::handleError) { println("done!") }
+        }
+    }
+
+    fun onRootLongSelected() {
+        bridge.fetchUsers(
+            scope = viewModelScope
+        ) {
+            it.fold(::handleError) { println(it) }
+        }
+    }
+
     /**
      * Represents a user interaction, particularly a button click or tap. According to the [Action]
      * input argument, an operation is invoked either for 'login' or 'register'.

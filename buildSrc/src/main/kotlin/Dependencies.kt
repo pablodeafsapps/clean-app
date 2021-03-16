@@ -65,6 +65,9 @@ object Libraries {
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val recyclerview = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val cardview = "androidx.cardview:cardview:${Versions.cardView}"
+    const val androidxRoom = "androidx.room:room-runtime:${Versions.room}"
+    const val androidxRoomCoroutines = "androidx.room:room-ktx:${Versions.room}"
+    const val androidxRoomcompiler = "androidx.room:room-compiler:${Versions.room}"
     // firebase
     const val fbAnalytics = "com.google.firebase:firebase-analytics:${Versions.fbAnalytics}"
     const val fbCrashlytics = "com.google.firebase:firebase-crashlytics:${Versions.fbCrashlytics}"
@@ -108,6 +111,7 @@ object Libraries {
         const val constraintLayout = "2.0.1"
         const val recyclerView = "1.1.0"
         const val cardView = "1.0.0"
+        const val room = "2.2.6"
         // 3rd party
         const val leakCanary = "2.2"
         const val fbAnalytics = "17.5.0"

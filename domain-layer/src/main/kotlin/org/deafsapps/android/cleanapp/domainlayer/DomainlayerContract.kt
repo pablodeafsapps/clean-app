@@ -184,6 +184,7 @@ interface DomainlayerContract {
             const val AUTHENTICATION_REPOSITORY_TAG = "authenticationRepository"
             const val SESSION_REPOSITORY_TAG = "sessionRepository"
             const val DATA_REPOSITORY_TAG = "dataRepository"
+            const val PERSISTENCE_REPOSITORY_TAG = "persistenceRepository"
         }
 
         /**
@@ -252,6 +253,17 @@ interface DomainlayerContract {
              * @return A [T] data if it is successful or a [FailureBo] otherwise
              */
             suspend fun fetchJokes(): Either<FailureBo, T>
+        }
+
+        interface PersistencyRepository<out T> {
+            /**
+             * Fetches joke-related data according to [T] data type
+             *
+             * @return A [T] data if it is successful or a [FailureBo] otherwise
+             */
+            suspend fun saveUsers(): Either<FailureBo, Boolean>
+
+            suspend fun fetchUsers(): Either<FailureBo, T>
         }
 
     }

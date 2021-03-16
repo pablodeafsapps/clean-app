@@ -73,6 +73,13 @@ class LoginActivity : ScopeActivity(),
 
     private fun initView() {
         with(viewBinding) {
+            root.setOnClickListener {
+                viewModel.onRootSelected()
+            }
+            root.setOnLongClickListener {
+                viewModel.onRootLongSelected()
+                true
+            }
             btnLogin.setOnClickListener {
                 // correct login: pablo@mytest.com, pablomytest
                 viewModel.onButtonSelected(
