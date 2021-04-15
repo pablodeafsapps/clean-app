@@ -16,12 +16,16 @@ import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource
 import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.ICNDB_BASE_URL
 import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.JOKES_API_SERVICE_TAG
 import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Companion.JOKES_DATA_SOURCE_TAG
+import es.plexus.android.plexuschuck.datalayer.datasource.SessionDataSource
+import es.plexus.android.plexuschuck.datalayer.datasource.SessionDataSource.Companion.SESSION_DATA_SOURCE_TAG
 import es.plexus.android.plexuschuck.datalayer.repository.Repository
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.AUTHENTICATION_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.DATA_REPOSITORY_TAG
+import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.SESSION_REPOSITORY_TAG
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
+import es.plexus.android.plexuschuck.domainlayer.domain.UserSessionBo
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -42,13 +46,20 @@ val dataLayerModule = module(override = true) {
             connectivityDataSource = get(named(name = CONNECTIVITY_DATA_SOURCE_TAG))
             authenticationDataSource = get(named(name = AUTHENTICATION_DATA_SOURCE_TAG))
             jokesDataSource = get(named(name = JOKES_DATA_SOURCE_TAG))
+            sessionDataSource = get(named(SESSION_DATA_SOURCE_TAG))
         }
     }
-    single<DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>
-            >(named(name = AUTHENTICATION_REPOSITORY_TAG)) {
+    single<DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>>(
+        named(name = AUTHENTICATION_REPOSITORY_TAG)
+    ) {
         get<Repository>()
     }
     single<DomainlayerContract.Datalayer.DataRepository<JokeBoWrapper>>(named(name = DATA_REPOSITORY_TAG)) {
+        get<Repository>()
+    }
+    single<DomainlayerContract.Datalayer.SessionRepository<UserSessionBo>>(
+        named(name = SESSION_REPOSITORY_TAG)
+    ) {
         get<Repository>()
     }
     // data-source
@@ -57,6 +68,9 @@ val dataLayerModule = module(override = true) {
     }
     factory<AuthenticationDataSource>(named(name = AUTHENTICATION_DATA_SOURCE_TAG)) {
         FirebaseDataSource(fbAuth = get(named(name = AUTHENTICATOR_TAG)))
+    }
+    factory<SessionDataSource>(named(name = SESSION_DATA_SOURCE_TAG)) {
+        AndroidDataSource(context = androidContext())
     }
     factory<JokesDataSource>(named(name = JOKES_DATA_SOURCE_TAG)) {
         IcndbDataSource(get(named(name = JOKES_API_SERVICE_TAG)))

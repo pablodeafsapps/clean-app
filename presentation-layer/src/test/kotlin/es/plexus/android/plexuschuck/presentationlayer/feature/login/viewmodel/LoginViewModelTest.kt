@@ -9,6 +9,7 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
+import es.plexus.android.plexuschuck.domainlayer.domain.UserSessionBo
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LOGIN_DOMAIN_BRIDGE_TAG
 import es.plexus.android.plexuschuck.domainlayer.feature.login.LoginDomainLayerBridge
 import es.plexus.android.plexuschuck.presentationlayer.base.ScreenState
@@ -33,7 +34,7 @@ import org.koin.test.inject
 class LoginViewModelTest : KoinTest {
 
     private val viewModel: LoginViewModel by inject()
-    private lateinit var mockBridge: LoginDomainLayerBridge<UserLoginBo, Boolean>
+    private lateinit var mockBridge: LoginDomainLayerBridge<UserLoginBo, UserSessionBo, Boolean>
 
     @Before
     fun setUp() {

@@ -12,6 +12,7 @@ object Build {
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.gradle}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    const val kotlinSerializationPlugin = "org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion"
     const val detektPlugin = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detekt}"
     const val dokkaGradlePlugin = "org.jetbrains.dokka:dokka-gradle-plugin:${Versions.dokka}"
     const val ribbonizerPlugin = "com.github.gfx.ribbonizer:ribbonizer-plugin:${Versions.ribbonizer}"
@@ -27,6 +28,7 @@ object Plugins {
     const val kotlin = "kotlin"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
+    const val kotlinxSerialization = "kotlinx-serialization"
     const val detekt = "io.gitlab.arturbosch.detekt"
     const val dokka = "org.jetbrains.dokka"
     const val fbCrashlytics = "com.google.firebase.crashlytics"
@@ -48,6 +50,7 @@ object Libraries {
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
     const val kotlinCoroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val kotlinCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val kotlinxSerializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.serialization}"
     const val arrowCore = "io.arrow-kt:arrow-core:${Versions.arrow}"
     const val arrowSyntax = "io.arrow-kt:arrow-syntax:${Versions.arrow}"
     const val arrowMeta = "io.arrow-kt:arrow-meta:${Versions.arrow}"
@@ -96,6 +99,7 @@ object Libraries {
     private object Versions {
         // core & kotlin
         const val coroutines = "1.3.9"
+        const val serialization = "1.0.1"
         const val coroutinesAdapter = "0.9.2"
         // androidx
         const val multidex = "2.0.1"

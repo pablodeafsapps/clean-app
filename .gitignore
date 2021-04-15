@@ -3,7 +3,9 @@
 /local.properties
 /keystore.properties
 /.idea/caches
+/.idea/gradle.xml
 /.idea/libraries
+/.idea/detekt.xml
 /.idea/markdown-exported-files.xml
 /.idea/misc.xml
 /.idea/modules.xml
@@ -14,6 +16,8 @@
 /.idea/encodings.xml
 /.idea/jarRepositories.xml
 /.idea/compiler.xml
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
 .DS_Store
 /build
 /captures

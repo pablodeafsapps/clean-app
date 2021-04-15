@@ -34,7 +34,8 @@ private const val EMPTY_STRING = ""
 @ExperimentalCoroutinesApi
 class LoginActivity :
     AppCompatActivity(),
-    BaseMvvmView<LoginViewModel, LoginDomainLayerBridge<UserLoginBo, Boolean>, LoginState> {
+    BaseMvvmView<LoginViewModel, LoginDomainLayerBridge<UserLoginBo>,
+            LoginState> {
 
     override val viewModel: LoginViewModel by viewModel()
     private lateinit var viewBinding: ActivityLoginBinding
@@ -45,6 +46,7 @@ class LoginActivity :
         initModel()
         initView()
         setContentView(viewBinding.root)
+        viewModel.onViewCreated()
     }
 
     override fun processRenderState(renderState: LoginState) {

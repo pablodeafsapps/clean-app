@@ -182,6 +182,7 @@ interface DomainlayerContract {
 
         companion object {
             const val AUTHENTICATION_REPOSITORY_TAG = "authenticationRepository"
+            const val SESSION_REPOSITORY_TAG = "sessionRepository"
             const val DATA_REPOSITORY_TAG = "dataRepository"
         }
 
@@ -204,6 +205,41 @@ interface DomainlayerContract {
              * @return A [S] data if it is successful or a [FailureBo] otherwise
              */
             suspend fun registerUser(params: T): Either<FailureBo, S>
+
+            /**
+             * Logs-out a user according to certain info parameters
+             *
+             * @param [params] user info for login
+             * @return A [S] data if it is successful or a [FailureBo] otherwise
+             */
+            suspend fun logoutUser(): Either<FailureBo, S>
+        }
+
+        /**
+         * Represents the requirements to comply for a session repository
+         */
+        interface SessionRepository<S> {
+
+            /**
+             * Save a session of an user
+             *
+             * @param [session] user session to save
+             * @return A [Boolean] if it is successful or a [FailureBo] otherwise
+             */
+            suspend fun saveSessionUser(session: S): Either<FailureBo, Boolean>
+
+            /**
+             * Obtain the current user session's
+             *
+             * @return A [S] object if it is successful or a [FailureBo] otherwise
+             */
+            suspend fun sessionUser(): Either<FailureBo, S>
+
+            /**
+             * Remove the current user session's
+             * @return A [Boolean] if it is successful or a [FailureBo] otherwise
+             */
+            suspend fun removeSessionUser(): Either<FailureBo, Boolean>
         }
 
         /**

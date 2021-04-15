@@ -1,9 +1,11 @@
 package es.plexus.android.plexuschuck.datalayer.domain
 
-import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
+import com.google.firebase.auth.FirebaseUser
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBo
 import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
 import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
+import es.plexus.android.plexuschuck.domainlayer.domain.UserSessionBo
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
 
 private const val DEFAULT_INTEGER_VALUE = 0
 private const val DEFAULT_STRING_VALUE = ""
@@ -14,6 +16,34 @@ private const val DEFAULT_STRING_VALUE = ""
 fun UserLoginBo.boToDto() = UserLoginDto(
     email = email,
     password = password
+)
+
+/**
+ * Maps a [UserSessionDto] into a [UserSessionBo]
+ */
+fun UserSessionDto.dtoToBo(lastAccess: Long) = UserSessionBo(
+    uuid = uuid,
+    email = email,
+    name = name,
+    lastAccess = lastAccess
+)
+
+/**
+ * Maps a [UserSessionBo] into a [UserSessionDto]
+ */
+fun UserSessionBo.boToDto() = UserSessionDto(
+    uuid = uuid,
+    email = email,
+    name = name
+)
+
+/**
+ * Maps a [FirebaseUser] into a [UserSessionDto]
+ */
+fun FirebaseUser.toUserSessionDto() = UserSessionDto(
+    uuid = uid,
+    name = displayName ?: DEFAULT_STRING_VALUE,
+    email = email ?: DEFAULT_STRING_VALUE
 )
 
 /**
@@ -41,6 +71,7 @@ fun FailureDto.dtoToBoFailure(): FailureBo = when (this) {
     FailureDto.FirebaseLoginError -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
     is FailureDto.FirebaseRegisterError -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
     is FailureDto.Error -> FailureBo.ServerError(msg = msg ?: DEFAULT_STRING_VALUE)
+    is FailureDto.FirebaseLoginCorruptError -> FailureBo.Error(msg = msg ?: DEFAULT_STRING_VALUE)
     FailureDto.NoData -> FailureBo.NoData
     FailureDto.Unknown -> FailureBo.Unknown
 }

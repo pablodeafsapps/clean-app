@@ -7,6 +7,7 @@
     <string name="et_password_hint">password</string>
     <string name="tv_login_text">Login</string>
     <string name="tv_register_text">Register</string>
+    <string name="tv_logout_text">Logout</string>
     <!-- activity_main -->
     <string name="tv_title_text">CHUCK NORRIS FACTS</string>
     <string name="tv_no_data_text">No Data</string>

@@ -1,6 +1,7 @@
 package es.plexus.android.plexuschuck.datalayer.repository
 
 import arrow.core.Either
+import arrow.core.left
 import arrow.core.right
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
@@ -14,12 +15,12 @@ import es.plexus.android.plexuschuck.datalayer.datasource.JokesDataSource.Compan
 import es.plexus.android.plexuschuck.datalayer.datasource.SessionDataSource
 import es.plexus.android.plexuschuck.datalayer.datasource.SessionDataSource.Companion.SESSION_DATA_SOURCE_TAG
 import es.plexus.android.plexuschuck.datalayer.di.dataLayerModule
-import es.plexus.android.plexuschuck.datalayer.domain.JokeDto
-import es.plexus.android.plexuschuck.datalayer.domain.JokeDtoWrapper
-import es.plexus.android.plexuschuck.datalayer.domain.dtoToBo
+import es.plexus.android.plexuschuck.datalayer.domain.*
 import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
-import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.DATA_REPOSITORY_TAG
-import es.plexus.android.plexuschuck.domainlayer.domain.JokeBoWrapper
+import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract.Datalayer.Companion.AUTHENTICATION_REPOSITORY_TAG
+import es.plexus.android.plexuschuck.domainlayer.domain.ErrorMessage
+import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
+import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -34,10 +35,10 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 
 @ExperimentalCoroutinesApi
-class RepositoryTest : KoinTest {
+class LoginTest : KoinTest {
 
-    private val dataRepository: DomainlayerContract.Datalayer.DataRepository<JokeBoWrapper>
-            by inject(named(name = DATA_REPOSITORY_TAG))
+    private val dataRepository: DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>
+            by inject(named(name = AUTHENTICATION_REPOSITORY_TAG))
     private lateinit var mockConnectivityDataSource: ConnectivityDataSource
     private lateinit var mockAuthenticationDataSource: AuthenticationDataSource
     private lateinit var mockJokesDataSource: JokesDataSource
@@ -69,20 +70,48 @@ class RepositoryTest : KoinTest {
     }
 
     @Test
-    fun `check that if data-source response is successful, a List of JokeBo objects is returned`() =
+    fun `check that if a login and try to save data in persistence fails`() =
         runBlockingTest {
             // given
             whenever(mockConnectivityDataSource.checkNetworkConnectionAvailability()).doReturn(true)
-            whenever(mockJokesDataSource.fetchJokesResponse()).doReturn(getDummyJokeBoWrapper().right())
+            whenever(mockAuthenticationDataSource.requestLogin(getDummyLoginUserDto())).doReturn(
+                getDummyUserSessionDto().right()
+            )
+            whenever(mockSessionDataSource.saveUserSession(getDummyUserSessionDto())).doReturn(
+                FailureDto.Error(ErrorMessage.ERROR_GET_SESSION_SHARED_PREFERENCES).left()
+            )
             // when
-            val actualResult = dataRepository.fetchJokes()
+            val result = dataRepository.loginUser(UserLoginBo("", ""))
             // then
-            Assert.assertTrue((actualResult as? Either.Right<JokeBoWrapper>) != null)
+            Assert.assertTrue((result as? Either.Left<FailureBo>) != null)
         }
 
-    private fun getDummyJokeBoWrapper() = JokeDtoWrapper(
-        type = "mock",
-        value = listOf(JokeDto(id = 1, joke = "not funny!", categories = listOf()))
-    ).dtoToBo()
+    @Test
+    fun `check that if a login and save data in persistence is successfully`() =
+        runBlockingTest {
+            // given
+            whenever(mockConnectivityDataSource.checkNetworkConnectionAvailability()).doReturn(true)
+            whenever(mockAuthenticationDataSource.requestLogin(getDummyLoginUserDto())).doReturn(
+                getDummyUserSessionDto().right()
+            )
+            whenever(mockSessionDataSource.saveUserSession(getDummyUserSessionDto())).doReturn(
+                true.right()
+            )
+            // when
+            val result = dataRepository.loginUser(UserLoginBo("", ""))
+            // then
+            Assert.assertTrue((result as? Either.Right<Boolean>) != null)
+        }
+
+    private fun getDummyLoginUserDto() = UserLoginDto(
+        email = "",
+        password = ""
+    )
+
+    private fun getDummyUserSessionDto() = UserSessionDto(
+        email = "",
+        uuid = "",
+        name = ""
+    )
 
 }

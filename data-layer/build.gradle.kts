@@ -4,6 +4,7 @@ plugins {
     id(Plugins.kotlinAndroid)
     id(Plugins.kotlinAndroidExtensions)
     id(Plugins.kotlinKapt)
+    id(Plugins.kotlinxSerialization)
     // add lint feature
     id(Plugins.detekt)
     // add automatic documentation generator feature
@@ -56,6 +57,7 @@ dependencies {
     implementation(fileTree("libs") { include(listOf("*.jar", "*.aar")) })
     implementation(Libraries.kotlinStdLib)
     implementation(Libraries.kotlinCoroutinesCore)
+    implementation(Libraries.kotlinxSerializationJson)
     implementation(Libraries.retrofitCoroutinesAdapter)
     // other modules
     implementation(project(":domain-layer"))

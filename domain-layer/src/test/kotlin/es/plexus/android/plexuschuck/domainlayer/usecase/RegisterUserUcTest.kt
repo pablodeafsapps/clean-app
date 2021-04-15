@@ -11,7 +11,7 @@ import es.plexus.android.plexuschuck.domainlayer.domain.UserLoginBo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.startKoin
