@@ -57,11 +57,7 @@ sealed class FailureDto(val msg: String?) {
     }
 
     object NoConnection : FailureDto(msg = ErrorMessage.ERROR_NO_CONNECTION)
-    class RequestError(
-        val code: Int = DEFAULT_ERROR_CODE,
-        msg: String?,
-        val errorBody: ResponseBody? = null
-    ) : FailureDto(msg = msg)
+    class RequestError(val code: Int = DEFAULT_ERROR_CODE, msg: String?, val errorBody: ResponseBody? = null) : FailureDto(msg = msg)
     object FirebaseLoginError : FailureDto(msg = ErrorMessage.ERROR_LOGIN_REQUEST)
     object FirebaseLoginCorruptError : FailureDto(msg = ErrorMessage.ERROR_LOGIN_CORRUPT_REQUEST)
     class FirebaseRegisterError(msg: String?) : FailureDto(msg = msg)

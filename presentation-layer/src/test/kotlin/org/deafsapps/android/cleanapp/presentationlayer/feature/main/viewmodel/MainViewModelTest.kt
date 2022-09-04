@@ -7,7 +7,6 @@ import com.nhaarman.mockitokotlin2.*
 import org.deafsapps.android.cleanapp.domainlayer.domain.FailureBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBoWrapper
-import org.deafsapps.android.cleanapp.domainlayer.feature.main.MAIN_DOMAIN_BRIDGE_TAG
 import org.deafsapps.android.cleanapp.domainlayer.feature.main.MainDomainLayerBridge
 import org.deafsapps.android.cleanapp.presentationlayer.base.ScreenState
 import org.deafsapps.android.cleanapp.presentationlayer.di.presentationLayerModule
@@ -19,7 +18,6 @@ import org.junit.Before
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject

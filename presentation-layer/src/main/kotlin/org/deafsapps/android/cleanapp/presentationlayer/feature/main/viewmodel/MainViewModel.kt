@@ -23,11 +23,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 class MainViewModel(
     bridge: MainDomainLayerBridge<JokeBoWrapper>,
     navigator: MainNavigator<JokeVo>
-) :
-    BaseMvvmViewModel<MainDomainLayerBridge<JokeBoWrapper>, MainNavigator<JokeVo>, MainState>(
-        bridge = bridge,
-        navigator = navigator
-    ) {
+) : BaseMvvmViewModel<MainDomainLayerBridge<JokeBoWrapper>, MainNavigator<JokeVo>, MainState>(
+    bridge = bridge, navigator = navigator
+) {
 
     /**
      * Indicates that the associated view has been created

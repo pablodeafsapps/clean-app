@@ -2,7 +2,7 @@ const val kotlinVersion = "1.4.10"
 
 object Build {
     object Versions {
-        const val gradle = "4.0.1"
+        const val gradle = "4.2.0"
         const val detekt = "1.15.0-RC1"
         const val dokka = "0.9.17"
         const val ribbonizer = "2.0.0"

@@ -26,8 +26,8 @@ class LoginViewModel(
     bridge: LoginDomainLayerBridge<UserLoginBo>,
     navigator: LoginNavigator
 ) : BaseMvvmViewModel<LoginDomainLayerBridge<UserLoginBo>, LoginNavigator, LoginState>(
-        bridge = bridge, navigator = navigator
-    ) {
+    bridge = bridge, navigator = navigator
+) {
 
     /**
      * Indicates that the associated view has been created

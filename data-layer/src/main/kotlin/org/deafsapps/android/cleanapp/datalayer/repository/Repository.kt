@@ -33,7 +33,7 @@ object Repository :
      * This method logs in a user using some personal-info parameters. It first checks whether a
      * connection is available, and if so queries the data-source and persists the data.
      *
-     * @param [UserLoginBo] containing the mandatory data for this request
+     * @param [params] containing the mandatory data for this request
      * @return A [Boolean] indicating if the data is successfully queried and stored, or an error otherwise
      * @throws SocketTimeoutException
      */
