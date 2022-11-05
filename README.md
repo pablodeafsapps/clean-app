@@ -1,8 +1,8 @@
-# Plexus Chuck
+# Clean App
 
 ![alt text](docs/images/cn-approved.png)
 
-**Plexus Chuck** is a sample baseline project which aims to show a standard state-of-the-art proposal for Android development in Plexus.
+**Clean App** is a sample baseline project based a *Clean Architecture* implementation using some of the latest Android features.
 
 
 ## Installation
@@ -10,12 +10,12 @@ Clone this repository and import into **Android Studio**
 
 ##### Clone with SSH
 ```bash
-> git clone git@repo.plexus.services:desarrollo/mobile-playground/plexus-chuck.git
+> git clone git@github.com:pablodeafsapps/clean-app.git
 ```
 
 ##### Clone with HTTPS
 ```bash
-> git clone https://repo.plexus.services/desarrollo/mobile-playground/plexus-chuck.git
+> git clone https://github.com/pablodeafsapps/clean-app.git
 ```
 
 #### Prerequisites
@@ -29,19 +29,12 @@ keyPassword = ""
 
 This file can contain random or fake data when building as _debug_, but a real keystore is required to generate a signed APK.
 
+
 ## Generating signed APK
 From Android Studio:
 1. ***Build*** menu
 2. ***Generate Signed APK...***
 3. Fill in the keystore information *(you only need to do this once manually and then let Android Studio remember it)*
-
-
-## Login
-After the initial splash, a login/register screen displays. To get access, use the following credentials:
-
-`User: pablo.sordomartinez@plexus.es`
-
-`Password: plexu5`
 
 
 ## Architecture and project organization
@@ -54,21 +47,21 @@ Among the different implementations for Android applications of the aforemention
 
 <img src="docs/images/clean-architecture-cejas-2.png" width="300">
 
-Therefore, the prior idea behind **Plexus Chuck** is concern-layers separation. Each of this entities is in charge of certain responsibilities, which are handled in isolation. These layers get interconnected thanks through interfaces, which allow to achieve the necessary abstraction between them.
+Therefore, the prior idea behind **Clean App** is concern-layers separation. Each of this entities is in charge of certain responsibilities, which are handled in isolation. These layers get interconnected thanks through interfaces, which allow to achieve the necessary abstraction between them.
 
 * **Presentation**
-This layer's duties consist of managing the events caused by the user interactions, and rendering the information coming from the _domain_ layer. In this particular case, the team has opted for using the Model-View-ViewModel ([MVVM](https://proandroiddev.com/mvvm-architecture-viewmodel-and-livedata-part-1-604f50cda1)) architecture pattern. This entity "sees" the _domain_ layer.
+  This layer's duties consist of managing the events caused by the user interactions, and rendering the information coming from the _domain_ layer. In this particular case, the team has opted for using the Model-View-ViewModel ([MVVM](https://proandroiddev.com/mvvm-architecture-viewmodel-and-livedata-part-1-604f50cda1)) architecture pattern. This entity "sees" the _domain_ layer.
 
 * **Domain**
-This layer is in charge of the application business logic. It is built upon _use-cases_ and repositories (_repository pattern_). The _domain_ layer obtains data from the _data_ module, use them to perform all the required operations, and format the outcomes to later deliver them to the _presentation_ layer. This entity only contains Kotlin code, and thus testing should only consist of **Unit Tests**. This layer represents the most inner entity, and thus it does not "see" anyone but itself.
+  This layer is in charge of the application business logic. It is built upon _use-cases_ and repositories (_repository pattern_). The _domain_ layer obtains data from the _data_ module, use them to perform all the required operations, and format the outcomes to later deliver them to the _presentation_ layer. This entity only contains Kotlin code, and thus testing should only consist of **Unit Tests**. This layer represents the most inner entity, and thus it does not "see" anyone but itself.
 
 * **Data**
-This layer simply contains libraries and frameworks which provide data to the application (data sources). Among them, stand out service-query frameworks (_Retrofit_), local databases (_Room_), events tracking (_Omniture_), etc. This layer "sees" the _domain_ layer.
+  This layer simply contains libraries and frameworks which provide data to the application (data sources). Among them, stand out service-query frameworks (_Retrofit_), local databases (_Room_), events tracking (_Omniture_), etc. This layer "sees" the _domain_ layer.
 
 The usage of this class hierarchy and package organization pursues grasping the **SOLID** principles, getting more flexible when implementing new functionality, and easing code testing.
- 
+
 ### Inversion of Control
-In order to facilitate the interaction between the above described layers, Plexus Chuck uses a service locator. **[Koin](https://www.raywenderlich.com/9457-dependency-injection-with-koin)** is a framework which allows to abstract type injection in a neat and clear manner. 
+In order to facilitate the interaction between the above described layers, Clean App uses a service locator. **[Koin](https://www.raywenderlich.com/9457-dependency-injection-with-koin)** is a framework which allows to abstract type injection in a neat and clear manner.
 
 ### Coroutines
 Since _multithreading_ has historically been a challenge in Android Development, the team has decided to include [coroutines](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0). This is one of the most interesting and appealing features recently introduced in Kotlin.
@@ -87,7 +80,7 @@ Functional Programming (FP) is a paradigm from the 1950s which is based upon the
 
 [<b>Arrow</b>](https://arrow-kt.io/) is a functional programming suite written in Kotlin which aims to bring functional programming into Kotlin applications, such as Android ones. According to the [official documentation](https://arrow-kt.io/docs/core/), <i>"Arrow is a modular set of libraries that build on top of each other to provide increasingly higher level features"</i>.
 
-The Plexus Android Team is continuously assessing this application so that more functional features are added. So far, only the `Either` data type is used, allowing to parametrize any data source query available.
+The aim when building this app is improve it adding more functional features. So far, only the `Either` data type is used, allowing to parametrize any data source query available.
 
 ### Static Code Analysis with Detekt
 
@@ -97,21 +90,21 @@ When integrated, it enables several Gradle tasks which allow to assess the code 
 
 ### Testing
 
-As one main aspect in the current state-of-the-art in software development, **Plexus Chuck** does include a good number of Unit Tests and a few Instrumentation Tests. The former cover the *domain* and *data* layers, whereas the latter are included in the *presentation* layer.
+As one main aspect in the current state-of-the-art in software development, **Clean App** does include **Unit Tests**, which cover the *domain*, *presentation*, and *data* layers. In a more complex project, some *Integration Tests** would have been necessary to ensure a robust app performance.
 
-The Plexus Android Team advocates for an extensive usage of Unit Tests and Integration Tests. On the other hand, Instrumentation Tests, such as UI tests, are restricted to only a few, due to their slow execution and emultor/device dependency.
+It is recommended to advocate for an extensive usage of Unit Tests and Integration Tests. Instrumentation Tests are worth mentioning, since they cover testing on platform-dependent features, such as UI. None of these have been included here due to their slow execution and emulator/device dependency.
 
 ### Continuous Integration
 
 Continuous Integration (CI) is the practice of automating the integration of code changes from multiple contributors into a single software project. The CI process is comprised of automatic tools that assert the new code's correctness before integration. A source code version control system is the crux of the CI process.
 
-<img src="docs/images/jenkins-logo.png" alt="Jenkins" width="300">
+<img src="docs/images/github-actions-logo.png" alt="GitHub Actions" width="300">
 
-Among the many options available when it comes to CI, **Plexus Chuck** uses [<b>Jenkins</b>](https://www.jenkins.io/), which is one of the most popular platforms in the mobile ecosystem. In this particular case, a Jenkins copy is sitting in a Plexus server (https://icontinua.plexus.services). Three different jobs are configured: *plexus-chuck_master*, *plexus-chuck_development*, and *plexus-chuck_feature*. Each of them is triggered on merge requests (MR) and pushes on *master*, *development*, and any *feature* or *hotfix* branch, respectively.
+Among the many options available when it comes to CI, **Clean App** uses [<b>GitHub Actions</b>](https://github.com/features/actions), which is a recent platform which is increasing popularity thanks to its straightforward integration when using GitHub. There are 2 different *workflows*, for *develop* and *feature* branches.
 
 
-## License 
-This project belongs to Tecnologias Plexus S.L.
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 
 ## Documentation
