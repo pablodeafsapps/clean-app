@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1060858310779:android:248de5bd31c6ccf5",
+        "mobilesdk_app_id": "1:1060858310779:android:87c6f6e3e6f05e82",
         "android_client_info": {
-          "package_name": "es.plexus.android.plexuschuck.application"
+          "package_name": "org.deafsapps.android.cleanapp.application"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1060858310779-6c6av9d9ao1qliagj9m5v5k6kf28den1.apps.googleusercontent.com",
+          "client_id": "1060858310779-b020m26kau3ruiaqou409otiik4rkb51.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "es.plexus.android.plexuschuck.application",
-            "certificate_hash": "415fb25f46b85f58f8d28d356486d1afca834df2"
+            "package_name": "org.deafsapps.android.cleanapp.application",
+            "certificate_hash": "5a413934c6a2c23428dff18a0202e76fac8b3339"
           }
         },
         {
