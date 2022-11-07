@@ -13,14 +13,14 @@ import org.deafsapps.android.cleanapp.presentationlayer.databinding.ActivityLogi
 import org.deafsapps.android.cleanapp.presentationlayer.domain.FailureVo
 import org.deafsapps.android.cleanapp.presentationlayer.domain.UserLoginVo
 import org.deafsapps.android.cleanapp.presentationlayer.feature.login.LoginContract.Action
+import org.deafsapps.android.cleanapp.presentationlayer.feature.login.navigator.LoginNavigator
 import org.deafsapps.android.cleanapp.presentationlayer.feature.login.view.state.LoginState
 import org.deafsapps.android.cleanapp.presentationlayer.feature.login.viewmodel.LoginViewModel
-import org.deafsapps.android.cleanapp.presentationlayer.feature.main.view.ui.MainActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import org.koin.android.scope.ScopeActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 private const val EMPTY_STRING = ""
@@ -32,10 +32,8 @@ private const val EMPTY_STRING = ""
  * The UI state is controlled thanks to the collection of a [viewModel] observable variable.
  */
 @ExperimentalCoroutinesApi
-class LoginActivity :
-    AppCompatActivity(),
-    BaseMvvmView<LoginViewModel, LoginDomainLayerBridge<UserLoginBo>,
-            LoginState> {
+class LoginActivity : ScopeActivity(),
+    BaseMvvmView<LoginViewModel, LoginDomainLayerBridge<UserLoginBo>, LoginNavigator, LoginState> {
 
     override val viewModel: LoginViewModel by viewModel()
     private lateinit var viewBinding: ActivityLoginBinding
@@ -53,7 +51,7 @@ class LoginActivity :
         when (renderState) {
             is LoginState.Login -> showLoginUi()
             is LoginState.Register -> showRegisterUi()
-            is LoginState.AccessGranted -> navigateToMainActivity()
+            is LoginState.AccessGranted -> viewModel.navigateToMainActivity()
             is LoginState.ShowError -> showError(failure = renderState.failure)
         }
     }
@@ -135,10 +133,6 @@ class LoginActivity :
             tbAccessMode.isEnabled = true
             btnRegister.isEnabled = true
         }
-    }
-
-    private fun navigateToMainActivity() {
-        startActivity<MainActivity>()
     }
 
     private fun showError(failure: FailureVo?) {

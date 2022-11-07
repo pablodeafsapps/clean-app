@@ -21,8 +21,32 @@ import org.koin.dsl.module
  */
 @ExperimentalCoroutinesApi
 val presentationLayerModule = module(override = true) {
-    viewModel { SplashActivityViewModel(bridge = BaseDomainLayerBridge.None) }
-    viewModel { LoginViewModel(bridge = get(named(name = LOGIN_DOMAIN_BRIDGE_TAG))) }
-    viewModel { MainViewModel(bridge = get(named(name = MAIN_DOMAIN_BRIDGE_TAG))) }
-    viewModel { DetailViewModel(bridge = BaseDomainLayerBridge.None) }
+
+    scope<SplashActivity> {
+        scoped<SplashNavigator> { SplashNavigatorImpl(get()) }
+        viewModel {
+            SplashActivityViewModel(bridge = BaseDomainLayerBridge.None, navigator = get())
+        }
+    }
+
+    scope<LoginActivity> {
+        scoped<LoginNavigator> { LoginNavigatorImpl(get()) }
+        viewModel {
+            LoginViewModel(bridge = get(named(name = LOGIN_DOMAIN_BRIDGE_TAG)), navigator = get())
+        }
+    }
+
+    scope<MainActivity> {
+        scoped<MainNavigator<JokeVo>> { MainNavigatorImpl(get()) }
+        viewModel {
+            MainViewModel(bridge = get(named(name = MAIN_DOMAIN_BRIDGE_TAG)), navigator = get())
+        }
+    }
+
+    scope<DetailActivity> {
+        scoped<DetailNavigator> { DetailNavigatorImpl() }
+        viewModel {
+            DetailViewModel(bridge = BaseDomainLayerBridge.None, get())
+        }
+    }
 }

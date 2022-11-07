@@ -49,17 +49,13 @@ val dataLayerModule = module(override = true) {
             sessionDataSource = get(named(SESSION_DATA_SOURCE_TAG))
         }
     }
-    single<DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>>(
-        named(name = AUTHENTICATION_REPOSITORY_TAG)
-    ) {
+    single<DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>>(named(name = AUTHENTICATION_REPOSITORY_TAG)) {
         get<Repository>()
     }
     single<DomainlayerContract.Datalayer.DataRepository<JokeBoWrapper>>(named(name = DATA_REPOSITORY_TAG)) {
         get<Repository>()
     }
-    single<DomainlayerContract.Datalayer.SessionRepository<UserSessionBo>>(
-        named(name = SESSION_REPOSITORY_TAG)
-    ) {
+    single<DomainlayerContract.Datalayer.SessionRepository<UserSessionBo>>(named(name = SESSION_REPOSITORY_TAG)) {
         get<Repository>()
     }
     // data-source

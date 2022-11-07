@@ -22,21 +22,24 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * All results update an observable variable, [_screenState], with [LoginState] values.
  */
 @ExperimentalCoroutinesApi
-class LoginViewModel(bridge: LoginDomainLayerBridge<UserLoginBo>) :
-    BaseMvvmViewModel<LoginDomainLayerBridge<UserLoginBo>, LoginState>(
-        bridge = bridge) {
+class LoginViewModel(
+    bridge: LoginDomainLayerBridge<UserLoginBo>,
+    navigator: LoginNavigator
+) : BaseMvvmViewModel<LoginDomainLayerBridge<UserLoginBo>, LoginNavigator, LoginState>(
+    bridge = bridge, navigator = navigator
+) {
 
     /**
      * Indicates that the associated view has been created
      */
     fun onViewCreated() {
         bridge.fetchSessionUser(
-            scope = viewModelScope,
-            onResult = {
-                it.fold({}) {
-                    handleSuccess(true)
-                }
-            })
+                scope = viewModelScope,
+                onResult = {
+                    it.fold({}) {
+                        handleSuccess(true)
+                    }
+                })
     }
 
     /**
@@ -63,6 +66,13 @@ class LoginViewModel(bridge: LoginDomainLayerBridge<UserLoginBo>) :
     fun onToggleModeTapped(isLoginMode: Boolean) {
         _screenState.value =
             ScreenState.Render(if (isLoginMode) LoginState.Register else LoginState.Login)
+    }
+
+    /**
+     * Navigate to Login activity and close the current
+     */
+    fun navigateToMainActivity() {
+        navigator.navigateToMainAndCloseThis()
     }
 
     private fun loginUserWithData(userData: UserLoginVo) {

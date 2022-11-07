@@ -6,22 +6,21 @@ import androidx.lifecycle.lifecycleScope
 import org.deafsapps.android.cleanapp.domainlayer.base.BaseDomainLayerBridge
 import org.deafsapps.android.cleanapp.presentationlayer.base.BaseMvvmView
 import org.deafsapps.android.cleanapp.presentationlayer.base.ScreenState
-import org.deafsapps.android.cleanapp.presentationlayer.feature.login.view.ui.LoginActivity
+import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.navigator.SplashNavigator
 import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.view.state.SplashState
 import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.viewmodel.SplashActivityViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.startActivity
+import org.koin.android.scope.ScopeActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * This [AppCompatActivity] represents the typical splash screen used to load the application
  */
 @ExperimentalCoroutinesApi
-class SplashActivity :
-    AppCompatActivity(),
-    BaseMvvmView<SplashActivityViewModel, BaseDomainLayerBridge.None, SplashState> {
+class SplashActivity : ScopeActivity(),
+    BaseMvvmView<SplashActivityViewModel, BaseDomainLayerBridge.None, SplashNavigator, SplashState> {
 
     override val viewModel: SplashActivityViewModel by viewModel()
 
@@ -37,7 +36,7 @@ class SplashActivity :
 
     override fun processRenderState(renderState: SplashState) {
         when (renderState) {
-            is SplashState.LoadingFinished -> startLoginActivity()
+            is SplashState.LoadingFinished -> viewModel.startLoginActivityAndCloseThis()
         }
     }
 
@@ -50,11 +49,6 @@ class SplashActivity :
                 }
             }
         }
-    }
-
-    private fun startLoginActivity() {
-        startActivity<LoginActivity>()
-        finish()
     }
 
 }
