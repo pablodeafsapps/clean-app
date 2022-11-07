@@ -100,7 +100,7 @@ Continuous Integration (CI) is the practice of automating the integration of cod
 
 <img src="docs/images/github-actions-logo.png" alt="GitHub Actions" width="300">
 
-Among the many options available when it comes to CI, **Clean App** uses [<b>GitHub Actions</b>](https://github.com/features/actions), which is a recent platform which is increasing popularity thanks to its straightforward integration when using GitHub. There are 2 different *workflows*, for *develop* and *feature* branches.
+Among the many options available when it comes to CI, **Clean App** uses [<b>GitHub Actions</b>](https://github.com/features/actions), which is a recent platform which is increasing popularity thanks to its straightforward integration when using GitHub. There are 2 different *workflows*, for *main*, *develop*, and *feature* branches.
 
 
 ## License
