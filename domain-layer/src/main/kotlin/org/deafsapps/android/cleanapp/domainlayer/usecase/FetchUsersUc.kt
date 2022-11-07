@@ -1,8 +1,8 @@
-package es.plexus.android.plexuschuck.domainlayer.usecase
+package org.deafsapps.android.cleanapp.domainlayer.usecase
 
 import arrow.core.Either
-import es.plexus.android.plexuschuck.domainlayer.DomainlayerContract
-import es.plexus.android.plexuschuck.domainlayer.domain.FailureBo
+import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
+import org.deafsapps.android.cleanapp.domainlayer.domain.FailureBo
 
 const val FETCH_USERS_UC_TAG = "fetchUsersUc"
 

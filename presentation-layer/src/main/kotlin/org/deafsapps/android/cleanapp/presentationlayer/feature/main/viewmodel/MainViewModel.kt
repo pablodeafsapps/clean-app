@@ -11,6 +11,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVo
 import org.deafsapps.android.cleanapp.presentationlayer.domain.boToVoFailure
 import org.deafsapps.android.cleanapp.presentationlayer.feature.main.view.state.MainState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.deafsapps.android.cleanapp.presentationlayer.feature.main.navigator.MainNavigator
 
 /**
  * This [BaseMvvmViewModel] handles the 'main' feature view-model. Therefore, it is in charge of

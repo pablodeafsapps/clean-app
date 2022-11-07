@@ -6,8 +6,21 @@ import org.deafsapps.android.cleanapp.domainlayer.feature.main.MAIN_DOMAIN_BRIDG
 import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.viewmodel.DetailViewModel
 import org.deafsapps.android.cleanapp.presentationlayer.feature.login.viewmodel.LoginViewModel
 import org.deafsapps.android.cleanapp.presentationlayer.feature.main.viewmodel.MainViewModel
-import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.viewmodel.SplashActivityViewModel
+import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.viewmodel.SplashViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.deafsapps.android.cleanapp.presentationlayer.domain.JokeVo
+import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.navigator.DetailNavigator
+import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.navigator.DetailNavigatorImpl
+import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.view.ui.DetailActivity
+import org.deafsapps.android.cleanapp.presentationlayer.feature.login.navigator.LoginNavigator
+import org.deafsapps.android.cleanapp.presentationlayer.feature.login.navigator.LoginNavigatorImpl
+import org.deafsapps.android.cleanapp.presentationlayer.feature.login.view.ui.LoginActivity
+import org.deafsapps.android.cleanapp.presentationlayer.feature.main.navigator.MainNavigator
+import org.deafsapps.android.cleanapp.presentationlayer.feature.main.navigator.MainNavigatorImpl
+import org.deafsapps.android.cleanapp.presentationlayer.feature.main.view.ui.MainActivity
+import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.navigator.SplashNavigator
+import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.navigator.SplashNavigatorImpl
+import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.view.ui.SplashActivity
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -25,7 +38,7 @@ val presentationLayerModule = module(override = true) {
     scope<SplashActivity> {
         scoped<SplashNavigator> { SplashNavigatorImpl(get()) }
         viewModel {
-            SplashActivityViewModel(bridge = BaseDomainLayerBridge.None, navigator = get())
+            SplashViewModel(bridge = BaseDomainLayerBridge.None, navigator = get())
         }
     }
 
@@ -49,4 +62,5 @@ val presentationLayerModule = module(override = true) {
             DetailViewModel(bridge = BaseDomainLayerBridge.None, get())
         }
     }
+
 }

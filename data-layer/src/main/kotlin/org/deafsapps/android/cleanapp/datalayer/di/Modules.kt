@@ -1,5 +1,6 @@
 package org.deafsapps.android.cleanapp.datalayer.di
 
+import androidx.room.Room
 import com.google.firebase.auth.FirebaseAuth
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -18,10 +19,13 @@ import org.deafsapps.android.cleanapp.datalayer.datasource.JokesDataSource.Compa
 import org.deafsapps.android.cleanapp.datalayer.datasource.JokesDataSource.Companion.JOKES_DATA_SOURCE_TAG
 import org.deafsapps.android.cleanapp.datalayer.datasource.SessionDataSource
 import org.deafsapps.android.cleanapp.datalayer.datasource.SessionDataSource.Companion.SESSION_DATA_SOURCE_TAG
+import org.deafsapps.android.cleanapp.datalayer.db.APP_DB_TAG
+import org.deafsapps.android.cleanapp.datalayer.db.AppDatabase
 import org.deafsapps.android.cleanapp.datalayer.repository.Repository
 import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract
 import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract.Datalayer.Companion.AUTHENTICATION_REPOSITORY_TAG
 import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract.Datalayer.Companion.DATA_REPOSITORY_TAG
+import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract.Datalayer.Companion.PERSISTENCE_REPOSITORY_TAG
 import org.deafsapps.android.cleanapp.domainlayer.DomainlayerContract.Datalayer.Companion.SESSION_REPOSITORY_TAG
 import org.deafsapps.android.cleanapp.domainlayer.domain.JokeBoWrapper
 import org.deafsapps.android.cleanapp.domainlayer.domain.UserLoginBo
@@ -58,15 +62,18 @@ val dataLayerModule = module(override = true) {
     single<DomainlayerContract.Datalayer.SessionRepository<UserSessionBo>>(named(name = SESSION_REPOSITORY_TAG)) {
         get<Repository>()
     }
+    single<DomainlayerContract.Datalayer.PersistencyRepository<String>>(named(name = PERSISTENCE_REPOSITORY_TAG)) {
+        get<Repository>()
+    }
     // data-source
     factory<ConnectivityDataSource>(named(name = CONNECTIVITY_DATA_SOURCE_TAG)) {
-        AndroidDataSource(context = androidContext())
+        AndroidDataSource(context = androidContext(), get(named(name = APP_DB_TAG)))
     }
     factory<AuthenticationDataSource>(named(name = AUTHENTICATION_DATA_SOURCE_TAG)) {
         FirebaseDataSource(fbAuth = get(named(name = AUTHENTICATOR_TAG)))
     }
     factory<SessionDataSource>(named(name = SESSION_DATA_SOURCE_TAG)) {
-        AndroidDataSource(context = androidContext())
+        AndroidDataSource(context = androidContext(), get(named(name = APP_DB_TAG)))
     }
     factory<JokesDataSource>(named(name = JOKES_DATA_SOURCE_TAG)) {
         IcndbDataSource(get(named(name = JOKES_API_SERVICE_TAG)))
@@ -83,5 +90,12 @@ val dataLayerModule = module(override = true) {
     // firebase
     single<FirebaseAuth>(named(name = AUTHENTICATOR_TAG)) {
         FirebaseAuth.getInstance()
+    }
+    // db
+    single<AppDatabase>(named(name = APP_DB_TAG)) {
+        Room.databaseBuilder(
+                androidContext(),
+                AppDatabase::class.java, "db-chuck"
+        ).build()
     }
 }

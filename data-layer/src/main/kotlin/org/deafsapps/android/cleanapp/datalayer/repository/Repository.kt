@@ -4,10 +4,7 @@ import android.util.Log
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import org.deafsapps.android.cleanapp.datalayer.datasource.AuthenticationDataSource
-import org.deafsapps.android.cleanapp.datalayer.datasource.ConnectivityDataSource
-import org.deafsapps.android.cleanapp.datalayer.datasource.JokesDataSource
-import org.deafsapps.android.cleanapp.datalayer.datasource.SessionDataSource
+import org.deafsapps.android.cleanapp.datalayer.datasource.*
 import org.deafsapps.android.cleanapp.datalayer.domain.FailureDto
 import org.deafsapps.android.cleanapp.datalayer.domain.boToDto
 import org.deafsapps.android.cleanapp.datalayer.domain.dtoToBo
@@ -19,15 +16,16 @@ import org.deafsapps.android.cleanapp.domainlayer.domain.UserLoginBo
 import org.deafsapps.android.cleanapp.domainlayer.domain.UserSessionBo
 import java.net.SocketTimeoutException
 
-object Repository :
-    DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>,
-    DomainlayerContract.Datalayer.SessionRepository<UserSessionBo>,
-    DomainlayerContract.Datalayer.DataRepository<JokeBoWrapper> {
+object Repository : DomainlayerContract.Datalayer.AuthenticationRepository<UserLoginBo, Boolean>,
+        DomainlayerContract.Datalayer.SessionRepository<UserSessionBo>,
+        DomainlayerContract.Datalayer.DataRepository<JokeBoWrapper>,
+        DomainlayerContract.Datalayer.PersistencyRepository<String> {
 
     lateinit var connectivityDataSource: ConnectivityDataSource
     lateinit var authenticationDataSource: AuthenticationDataSource
     lateinit var jokesDataSource: JokesDataSource
     lateinit var sessionDataSource: SessionDataSource
+    lateinit var persistenceDataSource: PersistenceDataSource
 
     /**
      * This method logs in a user using some personal-info parameters. It first checks whether a
@@ -151,5 +149,13 @@ object Repository :
             Log.e("fetchJokesResponse()", "Error: ${e.message}")
             FailureDto.Unknown.dtoToBoFailure().left()
         }
+
+    override suspend fun saveUsers(): Either<Nothing, Boolean> {
+        persistenceDataSource.saveUser()
+        return true.right()
+    }
+
+    override suspend fun fetchUsers(): Either<Nothing, String> =
+            persistenceDataSource.getUser().toString().right()
 
 }

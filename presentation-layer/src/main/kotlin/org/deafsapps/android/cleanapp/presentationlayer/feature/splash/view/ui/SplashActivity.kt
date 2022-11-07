@@ -8,7 +8,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.base.BaseMvvmView
 import org.deafsapps.android.cleanapp.presentationlayer.base.ScreenState
 import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.navigator.SplashNavigator
 import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.view.state.SplashState
-import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.viewmodel.SplashActivityViewModel
+import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.viewmodel.SplashViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -20,9 +20,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 @ExperimentalCoroutinesApi
 class SplashActivity : ScopeActivity(),
-    BaseMvvmView<SplashActivityViewModel, BaseDomainLayerBridge.None, SplashNavigator, SplashState> {
+    BaseMvvmView<SplashViewModel, BaseDomainLayerBridge.None, SplashNavigator, SplashState> {
 
-    override val viewModel: SplashActivityViewModel by viewModel()
+    override val viewModel: SplashViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

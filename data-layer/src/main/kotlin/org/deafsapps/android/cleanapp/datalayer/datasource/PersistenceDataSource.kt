@@ -1,6 +1,6 @@
-package es.plexus.android.plexuschuck.datalayer.datasource
+package org.deafsapps.android.cleanapp.datalayer.datasource
 
-import es.plexus.android.plexuschuck.datalayer.db.UserWithFinancialProductEntity
+import org.deafsapps.android.cleanapp.datalayer.db.UserWithFinancialProductEntity
 
 interface PersistenceDataSource {
 

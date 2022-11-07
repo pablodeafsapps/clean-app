@@ -14,14 +14,20 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.deafsapps.android.cleanapp.datalayer.db.AppDatabase
+import org.deafsapps.android.cleanapp.datalayer.db.FinancialProductEntity
+import org.deafsapps.android.cleanapp.datalayer.db.UserEntity
+import org.deafsapps.android.cleanapp.datalayer.db.UserWithFinancialProductEntity
 
 /**
- * This class complies with [ConnectivityDataSource] and [SessionDataSource] so that it is
- * in charge of providing any required information regarding connectivity and user session
+ * This class complies with [ConnectivityDataSource], [SessionDataSource], and [PersistenceDataSource]
+ * so that it is in charge of providing any required information regarding connectivity, user session,
+ * and data persistency.
  */
-class AndroidDataSource(private val context: Context) :
-    ConnectivityDataSource,
-    SessionDataSource {
+class AndroidDataSource(
+        private val context: Context,
+        private val database: AppDatabase
+) : ConnectivityDataSource, SessionDataSource, PersistenceDataSource {
 
     override suspend fun checkNetworkConnectionAvailability(): Boolean =
         context.isNetworkAvailable()
@@ -96,6 +102,22 @@ class AndroidDataSource(private val context: Context) :
             FailureDto.Unknown.left()
         }
 
+    override suspend fun saveUser() {
+        database.appDao().insertUserEntity(userEntity = UserEntity())
+        database.appDao().insertFinancialProductEntity(financialProductEntity = FinancialProductEntity(
+                ownerId = 1, pName = "product 0", pId = 0, pOrder = 0
+        ))
+        database.appDao().insertFinancialProductEntity(financialProductEntity = FinancialProductEntity(
+                ownerId = 1, pName = "product 1", pId = 1, pOrder = 1
+        ))
+        database.appDao().insertFinancialProductEntity(financialProductEntity = FinancialProductEntity(
+                ownerId = 1, pName = "product 2", pId = 2, pOrder = 2
+        ))
+    }
+
+    override suspend fun getUser(): List<UserWithFinancialProductEntity> =
+            database.appDao().getUsersAndProducts()
+
     private fun SharedPreferences.toUserSessionDto(): UserSessionDto? =
         try {
             Json.decodeFromString<UserSessionDto>(
@@ -107,4 +129,5 @@ class AndroidDataSource(private val context: Context) :
         } catch (e: SerializationException) {
             null
         }
+
 }

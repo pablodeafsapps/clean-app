@@ -7,6 +7,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.domain.FailureVo
 import org.deafsapps.android.cleanapp.presentationlayer.domain.JokeVo
 import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.view.state.DetailState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.deafsapps.android.cleanapp.presentationlayer.feature.detail.navigator.DetailNavigator
 
 /**
  * This [BaseMvvmViewModel] handles the 'detail' feature view-model. Therefore, it is in charge of

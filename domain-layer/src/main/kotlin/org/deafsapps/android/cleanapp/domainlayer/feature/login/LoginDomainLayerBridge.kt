@@ -15,7 +15,7 @@ const val LOGIN_DOMAIN_BRIDGE_TAG = "loginDomainLayerBridge"
  */
 interface LoginDomainLayerBridge<in T> : BaseDomainLayerBridge {
 
-    fun saveUsers(scope: CoroutineScope, onResult: (Either<FailureBo, S>) -> Unit = {})
+    fun saveUsers(scope: CoroutineScope, onResult: (Either<FailureBo, Boolean>) -> Unit = {})
 
     fun fetchUsers(scope: CoroutineScope, onResult: (Either<FailureBo, String>) -> Unit = {})
 
@@ -88,4 +88,5 @@ internal class LoginDomainLayerBridgeImpl(
     ) {
         fetchSessionUser.invoke(scope = scope, onResult = onResult)
     }
+
 }

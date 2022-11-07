@@ -5,6 +5,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.base.BaseMvvmViewModel
 import org.deafsapps.android.cleanapp.presentationlayer.base.ScreenState
 import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.view.state.SplashState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.deafsapps.android.cleanapp.presentationlayer.feature.splash.navigator.SplashNavigator
 
 /**
  * This [BaseMvvmViewModel] handles the 'splash' feature view-model. Therefore, it is in charge of
@@ -14,7 +15,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * All results update an observable variable, [_screenState], with [SplashState] values.
  */
 @ExperimentalCoroutinesApi
-class SplashActivityViewModel(
+class SplashViewModel(
     bridge: BaseDomainLayerBridge.None,
     navigator: SplashNavigator
 ) : BaseMvvmViewModel<BaseDomainLayerBridge.None, SplashNavigator, SplashState>(

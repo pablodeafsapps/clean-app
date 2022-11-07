@@ -13,6 +13,7 @@ import org.deafsapps.android.cleanapp.presentationlayer.domain.voToBo
 import org.deafsapps.android.cleanapp.presentationlayer.feature.login.LoginContract.Action
 import org.deafsapps.android.cleanapp.presentationlayer.feature.login.view.state.LoginState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.deafsapps.android.cleanapp.presentationlayer.feature.login.navigator.LoginNavigator
 
 /**
  * This [BaseMvvmViewModel] handles the 'login' feature view-model. Therefore, it is in charge of

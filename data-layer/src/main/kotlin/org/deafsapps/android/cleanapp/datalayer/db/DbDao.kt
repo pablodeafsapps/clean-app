@@ -1,4 +1,4 @@
-package es.plexus.android.plexuschuck.datalayer.db
+package org.deafsapps.android.cleanapp.datalayer.db
 
 import androidx.room.*
 
